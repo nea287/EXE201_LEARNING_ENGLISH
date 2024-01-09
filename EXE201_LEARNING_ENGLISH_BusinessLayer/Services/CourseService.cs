@@ -32,16 +32,6 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
         {
             try
             {
-                var existedCourse = _repository.GetByIdByInt(request.CourseId).Result;
-
-                if(existedCourse != null)
-                {
-                    return new ResponseResult<CourseReponse>()
-                    {
-                        Message = Constraints.EXISTED_INFO,
-                        result = false
-                    };
-                }
 
                 _repository.Insert(_mapper.Map<Course>(request));
                 _repository.Save();
