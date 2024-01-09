@@ -44,6 +44,7 @@ namespace EXE201_LEARNING_ENGLISH_API.AppStarts
             CreateMap<Certificate, UpdateCertificateRequest>().ReverseMap();
             CreateMap<CertificateReponse, CreateCertificateRequest>().ReverseMap();
             CreateMap<CertificateReponse, UpdateCertificateRequest>().ReverseMap();
+            CreateMap<CertificateReponse, CertificateFilter>().ReverseMap();
             #endregion
 
             #region Course
