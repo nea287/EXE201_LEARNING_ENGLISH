@@ -88,7 +88,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
             {
                 var existedAccount = _repository.GetByIdByString(email).Result;
 
-                if(existedAccount == null)
+                if(existedAccount == null || existedAccount.Status == 0)
                 {
                     return new ResponseResult<AccountReponse>()
                     {
@@ -128,7 +128,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
             {
                 result = _mapper.Map<AccountReponse>(_repository.GetByIdByString(email).Result);
 
-                if(result == null)
+                if(result == null || result.Status == 0)
                 {
                     return new ResponseResult<AccountReponse>()
                     {
@@ -159,7 +159,8 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
             (int, IQueryable<AccountReponse>) result;
             try
             {
-                result = _repository.GetAll().ProjectTo<AccountReponse>(_mapper.ConfigurationProvider)
+                result = _repository.GetAll().Where(x => x.Status != 0)
+                    .ProjectTo<AccountReponse>(_mapper.ConfigurationProvider)
                     .DynamicFilter(_mapper.Map<AccountReponse>(request))
                     .PagingIQueryable(paging.page, paging.pageSize, Constraints.LimitPaging, Constraints.DefaultPaging);
 
@@ -200,7 +201,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
             {
                 var existedAccount = _repository.GetByIdByString(email).Result;
 
-                if(existedAccount == null)
+                if(existedAccount == null || existedAccount.Status == 0 )
                 {
                     return new ResponseResult<AccountReponse>()
                     {
