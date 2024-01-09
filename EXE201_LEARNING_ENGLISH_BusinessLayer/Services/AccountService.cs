@@ -143,6 +143,10 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
                     Message = Constraints.LOAD_INFO_FAILED
                 };
             }
+            finally
+            {
+                lock (_repository) ;
+            }
 
             return new ResponseResult<AccountReponse>()
             {
@@ -173,6 +177,10 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
                 {
                     Message = Constraints.LOAD_INFO_FAILED,
                 };
+            }
+            finally
+            {
+                lock (_repository) ;
             }
 
             return new DynamicModelResponse.DynamicModelsResponse<AccountReponse>()
@@ -215,6 +223,10 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
                     Message = Constraints.UPDATE_INFO_FAILED,
                     result = false
                 };
+            }
+            finally
+            {
+                lock (_repository) ;
             }
 
             return new ResponseResult<AccountReponse>()
