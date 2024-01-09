@@ -175,9 +175,9 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
         {
             try
             {
-                var existedAccount = _repository.GetByIdByInt(id).Result;
+                var existedCourse = _repository.GetByIdByInt(id).Result;
 
-                if (existedAccount == null || existedAccount.Status == 0)
+                if (UpdateCourse == null || existedCourse.Status == 0)
                 {
                     return new ResponseResult<CourseReponse>()
                     {
@@ -186,12 +186,16 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
                     };
                 }
 
-                var db = _mapper.Map<Course>(request);
-                db.CategoryId = id;
+                existedCourse.NumberOfLesson = request.NumberOfLesson;
+                existedCourse.Status = request.Status;
+                existedCourse.Duration = request.Duration;
+                existedCourse.UnitPrice = request.UnitPrice;
+                existedCourse.Description = request.Description;
+                existedCourse.CategoryId = request.CategoryId;
+                existedCourse.CourseName = request.CourseName;
 
-                _repository.UpdateById(db, id);
+                _repository.UpdateById(existedCourse, id);
                 _repository.Save();
-
 
             }
             catch (Exception ex)
