@@ -35,7 +35,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
             try
             {
                 //Validate
-                if (!PhoneNumberValidate(request.PhoneNumber))
+                if (PhoneNumberValidate(request.PhoneNumber))
                 {
                     return new ResponseResult<AccountReponse>()
                     {
@@ -126,7 +126,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
             AccountReponse result;
             try
             {
-                result = _mapper.Map<AccountReponse>(_repository.GetByIdByString(email));
+                result = _mapper.Map<AccountReponse>(_repository.GetByIdByString(email).Result);
 
                 if(result == null)
                 {

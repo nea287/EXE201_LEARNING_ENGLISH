@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Nea\\Downloads\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_DataLayer\\EXE201_LEARNING_ENGLISH_DataLayer.csproj": {}
+    "C:\\Users\\Nea\\source\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_DataLayer\\EXE201_LEARNING_ENGLISH_DataLayer.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Nea\\Downloads\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_DataLayer\\EXE201_LEARNING_ENGLISH_DataLayer.csproj": {
+    "C:\\Users\\Nea\\source\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_DataLayer\\EXE201_LEARNING_ENGLISH_DataLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Nea\\Downloads\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_DataLayer\\EXE201_LEARNING_ENGLISH_DataLayer.csproj",
+        "projectUniqueName": "C:\\Users\\Nea\\source\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_DataLayer\\EXE201_LEARNING_ENGLISH_DataLayer.csproj",
         "projectName": "EXE201_LEARNING_ENGLISH_DataLayer",
-        "projectPath": "C:\\Users\\Nea\\Downloads\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_DataLayer\\EXE201_LEARNING_ENGLISH_DataLayer.csproj",
+        "projectPath": "C:\\Users\\Nea\\source\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_DataLayer\\EXE201_LEARNING_ENGLISH_DataLayer.csproj",
         "packagesPath": "C:\\Users\\Nea\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Nea\\Downloads\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_DataLayer\\obj\\",
+        "outputPath": "C:\\Users\\Nea\\source\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_DataLayer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

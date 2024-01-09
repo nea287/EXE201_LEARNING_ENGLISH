@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Nea\\Downloads\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_API\\EXE201_LEARNING_ENGLISH_API.csproj": {}
+    "C:\\Users\\Nea\\source\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_API\\EXE201_LEARNING_ENGLISH_API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Nea\\Downloads\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_API\\EXE201_LEARNING_ENGLISH_API.csproj": {
+    "C:\\Users\\Nea\\source\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_API\\EXE201_LEARNING_ENGLISH_API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Nea\\Downloads\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_API\\EXE201_LEARNING_ENGLISH_API.csproj",
+        "projectUniqueName": "C:\\Users\\Nea\\source\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_API\\EXE201_LEARNING_ENGLISH_API.csproj",
         "projectName": "EXE201_LEARNING_ENGLISH_API",
-        "projectPath": "C:\\Users\\Nea\\Downloads\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_API\\EXE201_LEARNING_ENGLISH_API.csproj",
+        "projectPath": "C:\\Users\\Nea\\source\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_API\\EXE201_LEARNING_ENGLISH_API.csproj",
         "packagesPath": "C:\\Users\\Nea\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Nea\\Downloads\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_API\\obj\\",
+        "outputPath": "C:\\Users\\Nea\\source\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -33,8 +33,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\Nea\\Downloads\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_BusinessLayer\\EXE201_LEARNING_ENGLISH_BusinessLayer.csproj": {
-                "projectPath": "C:\\Users\\Nea\\Downloads\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_BusinessLayer\\EXE201_LEARNING_ENGLISH_BusinessLayer.csproj"
+              "C:\\Users\\Nea\\source\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_BusinessLayer\\EXE201_LEARNING_ENGLISH_BusinessLayer.csproj": {
+                "projectPath": "C:\\Users\\Nea\\source\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_BusinessLayer\\EXE201_LEARNING_ENGLISH_BusinessLayer.csproj"
               }
             }
           }
@@ -77,14 +77,14 @@
         }
       }
     },
-    "C:\\Users\\Nea\\Downloads\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_BusinessLayer\\EXE201_LEARNING_ENGLISH_BusinessLayer.csproj": {
+    "C:\\Users\\Nea\\source\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_BusinessLayer\\EXE201_LEARNING_ENGLISH_BusinessLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Nea\\Downloads\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_BusinessLayer\\EXE201_LEARNING_ENGLISH_BusinessLayer.csproj",
+        "projectUniqueName": "C:\\Users\\Nea\\source\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_BusinessLayer\\EXE201_LEARNING_ENGLISH_BusinessLayer.csproj",
         "projectName": "EXE201_LEARNING_ENGLISH_BusinessLayer",
-        "projectPath": "C:\\Users\\Nea\\Downloads\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_BusinessLayer\\EXE201_LEARNING_ENGLISH_BusinessLayer.csproj",
+        "projectPath": "C:\\Users\\Nea\\source\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_BusinessLayer\\EXE201_LEARNING_ENGLISH_BusinessLayer.csproj",
         "packagesPath": "C:\\Users\\Nea\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Nea\\Downloads\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_BusinessLayer\\obj\\",
+        "outputPath": "C:\\Users\\Nea\\source\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_BusinessLayer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -106,8 +106,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\Nea\\Downloads\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_Repository\\EXE201_LEARNING_ENGLISH_Repository.csproj": {
-                "projectPath": "C:\\Users\\Nea\\Downloads\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_Repository\\EXE201_LEARNING_ENGLISH_Repository.csproj"
+              "C:\\Users\\Nea\\source\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_Repository\\EXE201_LEARNING_ENGLISH_Repository.csproj": {
+                "projectPath": "C:\\Users\\Nea\\source\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_Repository\\EXE201_LEARNING_ENGLISH_Repository.csproj"
               }
             }
           }
@@ -155,14 +155,14 @@
         }
       }
     },
-    "C:\\Users\\Nea\\Downloads\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_DAO\\EXE201_LEARNING_ENGLISH_DAO.csproj": {
+    "C:\\Users\\Nea\\source\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_DAO\\EXE201_LEARNING_ENGLISH_DAO.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Nea\\Downloads\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_DAO\\EXE201_LEARNING_ENGLISH_DAO.csproj",
+        "projectUniqueName": "C:\\Users\\Nea\\source\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_DAO\\EXE201_LEARNING_ENGLISH_DAO.csproj",
         "projectName": "EXE201_LEARNING_ENGLISH_DAO",
-        "projectPath": "C:\\Users\\Nea\\Downloads\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_DAO\\EXE201_LEARNING_ENGLISH_DAO.csproj",
+        "projectPath": "C:\\Users\\Nea\\source\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_DAO\\EXE201_LEARNING_ENGLISH_DAO.csproj",
         "packagesPath": "C:\\Users\\Nea\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Nea\\Downloads\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_DAO\\obj\\",
+        "outputPath": "C:\\Users\\Nea\\source\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_DAO\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -184,8 +184,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\Nea\\Downloads\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_DataLayer\\EXE201_LEARNING_ENGLISH_DataLayer.csproj": {
-                "projectPath": "C:\\Users\\Nea\\Downloads\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_DataLayer\\EXE201_LEARNING_ENGLISH_DataLayer.csproj"
+              "C:\\Users\\Nea\\source\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_DataLayer\\EXE201_LEARNING_ENGLISH_DataLayer.csproj": {
+                "projectPath": "C:\\Users\\Nea\\source\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_DataLayer\\EXE201_LEARNING_ENGLISH_DataLayer.csproj"
               }
             }
           }
@@ -225,14 +225,14 @@
         }
       }
     },
-    "C:\\Users\\Nea\\Downloads\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_DataLayer\\EXE201_LEARNING_ENGLISH_DataLayer.csproj": {
+    "C:\\Users\\Nea\\source\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_DataLayer\\EXE201_LEARNING_ENGLISH_DataLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Nea\\Downloads\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_DataLayer\\EXE201_LEARNING_ENGLISH_DataLayer.csproj",
+        "projectUniqueName": "C:\\Users\\Nea\\source\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_DataLayer\\EXE201_LEARNING_ENGLISH_DataLayer.csproj",
         "projectName": "EXE201_LEARNING_ENGLISH_DataLayer",
-        "projectPath": "C:\\Users\\Nea\\Downloads\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_DataLayer\\EXE201_LEARNING_ENGLISH_DataLayer.csproj",
+        "projectPath": "C:\\Users\\Nea\\source\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_DataLayer\\EXE201_LEARNING_ENGLISH_DataLayer.csproj",
         "packagesPath": "C:\\Users\\Nea\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Nea\\Downloads\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_DataLayer\\obj\\",
+        "outputPath": "C:\\Users\\Nea\\source\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_DataLayer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -307,14 +307,14 @@
         }
       }
     },
-    "C:\\Users\\Nea\\Downloads\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_Repository\\EXE201_LEARNING_ENGLISH_Repository.csproj": {
+    "C:\\Users\\Nea\\source\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_Repository\\EXE201_LEARNING_ENGLISH_Repository.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Nea\\Downloads\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_Repository\\EXE201_LEARNING_ENGLISH_Repository.csproj",
+        "projectUniqueName": "C:\\Users\\Nea\\source\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_Repository\\EXE201_LEARNING_ENGLISH_Repository.csproj",
         "projectName": "EXE201_LEARNING_ENGLISH_Repository",
-        "projectPath": "C:\\Users\\Nea\\Downloads\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_Repository\\EXE201_LEARNING_ENGLISH_Repository.csproj",
+        "projectPath": "C:\\Users\\Nea\\source\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_Repository\\EXE201_LEARNING_ENGLISH_Repository.csproj",
         "packagesPath": "C:\\Users\\Nea\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Nea\\Downloads\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_Repository\\obj\\",
+        "outputPath": "C:\\Users\\Nea\\source\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_Repository\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -336,8 +336,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\Nea\\Downloads\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_DAO\\EXE201_LEARNING_ENGLISH_DAO.csproj": {
-                "projectPath": "C:\\Users\\Nea\\Downloads\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_DAO\\EXE201_LEARNING_ENGLISH_DAO.csproj"
+              "C:\\Users\\Nea\\source\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_DAO\\EXE201_LEARNING_ENGLISH_DAO.csproj": {
+                "projectPath": "C:\\Users\\Nea\\source\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_DAO\\EXE201_LEARNING_ENGLISH_DAO.csproj"
               }
             }
           }
