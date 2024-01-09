@@ -10,5 +10,6 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.ReponseModels.Heplers
     {
         public string? Message { get; set; }
         public T? Value { get; set; }
+        public bool? result { get; set; }
     }
 }
