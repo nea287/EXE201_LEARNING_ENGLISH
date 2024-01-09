@@ -86,5 +86,27 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Helpers
             }
             return source;
         }
+
+        public static (int, IQueryable<TResult>) PagingIQueryable<TResult>(this IQueryable<TResult> source, int page, int size,
+            int limitPaging, int defaultPaging)
+        {
+            if (size > limitPaging)
+            {
+                size = limitPaging;
+            }
+            if (size < 1)
+            {
+                size = defaultPaging;
+            }
+            if (page < 1)
+            {
+                page = 1;
+            }
+            int total = source.Count();
+            IQueryable<TResult> results = source
+                .Skip((page - 1) * size)
+                .Take(size);
+            return (total, results);
+        }
     }
 }
