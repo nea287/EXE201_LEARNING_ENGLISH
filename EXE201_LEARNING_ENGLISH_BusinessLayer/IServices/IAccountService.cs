@@ -15,7 +15,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.IServices
     public interface IAccountService
     {
         public ResponseResult<AccountReponse> GetAccount(string email);
-        public ResponseResult<AccountReponse> UpdateAccount(UpdateAccountRequest request);
+        public ResponseResult<AccountReponse> UpdateAccount(UpdateAccountRequest request, string email);
         public ResponseResult<AccountReponse> DeleteAccount(string email);
         public ResponseResult<AccountReponse> CreateAccount(CreateAccountRequest request);
         public DynamicModelsResponse<AccountReponse> GetAccounts(AccountFilter request, PagingRequest paging);
