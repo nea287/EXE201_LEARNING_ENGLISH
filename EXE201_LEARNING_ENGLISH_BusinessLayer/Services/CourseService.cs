@@ -1,5 +1,8 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using EXE201_LEARNING_ENGLISH_BusinessLayer.Common;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.FilterModels;
+using EXE201_LEARNING_ENGLISH_BusinessLayer.Helpers;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.IServices;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.ReponseModels;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.ReponseModels.Heplers;
@@ -27,27 +30,198 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
         }
         public ResponseResult<CourseReponse> CreateCourse(CreateCourseRequest request)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var existedCourse = _repository.GetByIdByInt(request.CourseId).Result;
+
+                if(existedCourse != null)
+                {
+                    return new ResponseResult<CourseReponse>()
+                    {
+                        Message = Constraints.EXISTED_INFO,
+                        result = false
+                    };
+                }
+
+                _repository.Insert(_mapper.Map<Course>(request));
+                _repository.Save();
+
+            }catch(Exception ex)
+            {
+                return new ResponseResult<CourseReponse>()
+                {
+                    Message = Constraints.CREATE_INFO_FAILED,
+                    result = false
+                };
+            }
+            finally
+            {
+                lock (_repository) ;
+            }
+
+            return new ResponseResult<CourseReponse>()
+            {
+                Message = Constraints.CREATE_INFO_SUCCESS,
+                result = true
+            };
         }
 
         public ResponseResult<CourseReponse> DeleteCourse(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var existedCourse = _repository.GetByIdByInt(id).Result;
+
+                if(existedCourse == null || existedCourse.Status == 0)
+                {
+                    return new ResponseResult<CourseReponse>()
+                    {
+                        Message = Constraints.NOT_FOUND_INFO,
+                        result = false
+                    };
+                }
+
+                existedCourse.Status = 0;
+
+                _repository.UpdateById(existedCourse, id);
+                _repository.Save();
+
+            } catch (Exception ex)
+            {
+                return new ResponseResult<CourseReponse>()
+                {
+                    Message = Constraints.DELELTE_INFO_FAILED,
+                    result = false
+                };
+            }
+            finally
+            {
+                lock (_repository) ;
+            }
+
+            return new ResponseResult<CourseReponse>()
+            {
+                Message = Constraints.DELETE_INFO_SUCCESS,
+                result = true
+            };
         }
 
         public ResponseResult<CourseReponse> GetCourse(int id)
         {
-            throw new NotImplementedException();
+            CourseReponse result;
+
+            try
+            {
+                result = _mapper.Map<CourseReponse>(_repository.GetByIdByInt(id).Result);
+
+                if(result == null || result.Status == 0)
+                {
+                    return new ResponseResult<CourseReponse>()
+                    {
+                        Message = Constraints.NOT_FOUND_INFO,
+                    };
+                }
+            }catch(Exception ex)
+            {
+                return new ResponseResult<CourseReponse>()
+                {
+                    Message = Constraints.LOAD_INFO_FAILED,
+                };
+            }
+            finally
+            {
+                lock (_repository) ;
+            }
+
+            return new ResponseResult<CourseReponse>()
+            {
+                Value = result,
+            };
         }
 
         public DynamicModelResponse.DynamicModelsResponse<CourseReponse> GetCourses(CourseFilter request, PagingRequest paging)
         {
-            throw new NotImplementedException();
+            (int, IQueryable<CourseReponse>) result;
+            try
+            {
+                result = _repository.GetAll().Where(x => x.Status != 0)
+                    .ProjectTo<CourseReponse>(_mapper.ConfigurationProvider)
+                    .DynamicFilter(_mapper.Map<CourseReponse>(request))
+                    .PagingIQueryable(paging.page, paging.pageSize, Constraints.LimitPaging, Constraints.DefaultPaging);
+
+                if (result.Item2.Count() == 0)
+                {
+                    return new DynamicModelResponse.DynamicModelsResponse<CourseReponse>()
+                    {
+                        Message = Constraints.EMPTY_INFO,
+                    };
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return new DynamicModelResponse.DynamicModelsResponse<CourseReponse>()
+                {
+                    Message = Constraints.LOAD_INFO_FAILED,
+                };
+            }
+            finally
+            {
+                lock (_repository) ;
+            }
+
+            return new DynamicModelResponse.DynamicModelsResponse<CourseReponse>()
+            {
+                Metadata = new DynamicModelResponse.PagingMetadata()
+                {
+                    Page = paging.page,
+                    Size = paging.pageSize
+                },
+                Results = result.Item2.ToList()
+            };
         }
 
         public ResponseResult<CourseReponse> UpdateCourse(UpdateCourseRequest request, int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var existedAccount = _repository.GetByIdByInt(id).Result;
+
+                if (existedAccount == null || existedAccount.Status == 0)
+                {
+                    return new ResponseResult<CourseReponse>()
+                    {
+                        Message = Constraints.NOT_FOUND_INFO,
+                        result = false
+                    };
+                }
+
+                var db = _mapper.Map<Course>(request);
+                db.CategoryId = id;
+
+                _repository.UpdateById(db, id);
+                _repository.Save();
+
+
+            }
+            catch (Exception ex)
+            {
+                return new ResponseResult<CourseReponse>()
+                {
+                    Message = Constraints.UPDATE_INFO_FAILED,
+                    result = false
+                };
+            }
+            finally
+            {
+                lock (_repository) ;
+            }
+
+            return new ResponseResult<CourseReponse>()
+            {
+                Message = Constraints.UPDATE_INFO_SUCCESS,
+                result = true
+            };
         }
     }
 }

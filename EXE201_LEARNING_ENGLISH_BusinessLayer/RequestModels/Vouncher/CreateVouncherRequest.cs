@@ -9,8 +9,6 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Vouncher
 {
     public class CreateVouncherRequest
     {
-        [Required]
-        public int VouncherId { get; set; }
         public int? CategoryId { get; set; }
         public decimal? Amount { get; set; }
         public DateTime? ExpiredDate { get; set; }

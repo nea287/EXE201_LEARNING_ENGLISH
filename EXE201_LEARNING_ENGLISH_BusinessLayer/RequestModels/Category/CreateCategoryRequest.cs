@@ -9,8 +9,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Category
 {
     public class CreateCategoryRequest
     {
-        [Required]
-        public int CategoryId { get; set; }
+
         [Required]
         public string CategoryName { get; set; }
     }
