@@ -52,6 +52,7 @@ namespace EXE201_LEARNING_ENGLISH_API.AppStarts
             CreateMap<Course, UpdateCourseRequest>().ReverseMap();
             CreateMap<CourseReponse, CreateCourseRequest>().ReverseMap();
             CreateMap<CourseReponse, UpdateCourseRequest>().ReverseMap();
+            CreateMap<CourseReponse, CourseFilter>().ReverseMap();
             #endregion
 
             #region Feedback
