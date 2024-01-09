@@ -35,7 +35,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
             try
             {
                 //Validate
-                if (!PhoneNumberValidate(request.PhoneNumber))
+                if (PhoneNumberValidate(request.PhoneNumber))
                 {
                     return new ResponseResult<AccountReponse>()
                     {
@@ -88,7 +88,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
             {
                 var existedAccount = _repository.GetByIdByString(email).Result;
 
-                if(existedAccount == null)
+                if(existedAccount == null || existedAccount.Status == 0)
                 {
                     return new ResponseResult<AccountReponse>()
                     {
@@ -123,7 +123,35 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
 
         public ResponseResult<AccountReponse> GetAccount(string email)
         {
-            throw new NotImplementedException();
+            AccountReponse result;
+            try
+            {
+                result = _mapper.Map<AccountReponse>(_repository.GetByIdByString(email).Result);
+
+                if(result == null || result.Status == 0)
+                {
+                    return new ResponseResult<AccountReponse>()
+                    {
+                        Message = Constraints.NOT_FOUND_INFO
+                    };
+                }
+
+            }catch(Exception ex)
+            {
+                return new ResponseResult<AccountReponse>()
+                {
+                    Message = Constraints.LOAD_INFO_FAILED
+                };
+            }
+            finally
+            {
+                lock (_repository) ;
+            }
+
+            return new ResponseResult<AccountReponse>()
+            {
+                Value = result,
+            };
         }
 
         public DynamicModelResponse.DynamicModelsResponse<AccountReponse> GetAccounts(AccountFilter request, PagingRequest paging)
@@ -131,18 +159,82 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
             (int, IQueryable<AccountReponse>) result;
             try
             {
-                //result = _repository.GetAll().ProjectTo<AccountReponse>(_mapper.ConfigurationProvider)
-                //    .DynamicFilter(_mapper.Map<AccountReponse>(request))
-                //    .Pa
+                result = _repository.GetAll().Where(x => x.Status != 0)
+                    .ProjectTo<AccountReponse>(_mapper.ConfigurationProvider)
+                    .DynamicFilter(_mapper.Map<AccountReponse>(request))
+                    .PagingIQueryable(paging.page, paging.pageSize, Constraints.LimitPaging, Constraints.DefaultPaging);
+
+                if(result.Item2.Count() == 0)
+                {
+                    return new DynamicModelResponse.DynamicModelsResponse<AccountReponse>()
+                    {
+                        Message = Constraints.EMPTY_INFO,
+                    };
+                }
+
             }catch(Exception ex)
             {
-
+                return new DynamicModelResponse.DynamicModelsResponse<AccountReponse>()
+                {
+                    Message = Constraints.LOAD_INFO_FAILED,
+                };
             }
+            finally
+            {
+                lock (_repository) ;
+            }
+
+            return new DynamicModelResponse.DynamicModelsResponse<AccountReponse>()
+            {
+                Metadata = new DynamicModelResponse.PagingMetadata()
+                {
+                    Page = paging.page,
+                    Size = paging.pageSize
+                },
+                Results = result.Item2.ToList()
+            };
         }
 
-        public ResponseResult<AccountReponse> UpdateAccount(UpdateAccountRequest request)
+        public ResponseResult<AccountReponse> UpdateAccount(UpdateAccountRequest request, string email)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var existedAccount = _repository.GetByIdByString(email).Result;
+
+                if(existedAccount == null || existedAccount.Status == 0 )
+                {
+                    return new ResponseResult<AccountReponse>()
+                    {
+                        Message = Constraints.NOT_FOUND_INFO,
+                        result = false
+                    };
+                }
+
+                var db = _mapper.Map<Account>(request);
+                db.Email = email;
+
+                _repository.UpdateByIdByString(db, email);
+                _repository.Save();
+
+
+            }catch(Exception ex)
+            {
+                return new ResponseResult<AccountReponse>()
+                {
+                    Message = Constraints.UPDATE_INFO_FAILED,
+                    result = false
+                };
+            }
+            finally
+            {
+                lock (_repository) ;
+            }
+
+            return new ResponseResult<AccountReponse>()
+            {
+                Message = Constraints.UPDATE_INFO_SUCCESS,
+                result = true
+            };
         }
 
         //Validate 

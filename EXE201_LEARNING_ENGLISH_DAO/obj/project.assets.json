@@ -1936,11 +1936,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Nea\\Downloads\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_DAO\\EXE201_LEARNING_ENGLISH_DAO.csproj",
+      "projectUniqueName": "C:\\Users\\Nea\\source\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_DAO\\EXE201_LEARNING_ENGLISH_DAO.csproj",
       "projectName": "EXE201_LEARNING_ENGLISH_DAO",
-      "projectPath": "C:\\Users\\Nea\\Downloads\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_DAO\\EXE201_LEARNING_ENGLISH_DAO.csproj",
+      "projectPath": "C:\\Users\\Nea\\source\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_DAO\\EXE201_LEARNING_ENGLISH_DAO.csproj",
       "packagesPath": "C:\\Users\\Nea\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Nea\\Downloads\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_DAO\\obj\\",
+      "outputPath": "C:\\Users\\Nea\\source\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_DAO\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -1962,8 +1962,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\Nea\\Downloads\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_DataLayer\\EXE201_LEARNING_ENGLISH_DataLayer.csproj": {
-              "projectPath": "C:\\Users\\Nea\\Downloads\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_DataLayer\\EXE201_LEARNING_ENGLISH_DataLayer.csproj"
+            "C:\\Users\\Nea\\source\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_DataLayer\\EXE201_LEARNING_ENGLISH_DataLayer.csproj": {
+              "projectPath": "C:\\Users\\Nea\\source\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_DataLayer\\EXE201_LEARNING_ENGLISH_DataLayer.csproj"
             }
           }
         }

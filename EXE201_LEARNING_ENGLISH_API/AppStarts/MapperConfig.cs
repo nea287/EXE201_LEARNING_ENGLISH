@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using EXE201_LEARNING_ENGLISH_BusinessLayer.FilterModels;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.ReponseModels;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Account;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Category;
@@ -25,6 +26,7 @@ namespace EXE201_LEARNING_ENGLISH_API.AppStarts
             CreateMap<Account, UpdateAccountRequest>().ReverseMap();
             CreateMap<AccountReponse, UpdateAccountRequest>().ReverseMap();
             CreateMap<AccountReponse, CreateAccountRequest>().ReverseMap();
+            CreateMap<AccountReponse, AccountFilter>().ReverseMap();
             #endregion
 
             #region Category
@@ -33,6 +35,7 @@ namespace EXE201_LEARNING_ENGLISH_API.AppStarts
             CreateMap<Category, UpdateCategoryRequest>().ReverseMap();
             CreateMap<CategoryReponse, UpdateCategoryRequest>().ReverseMap();
             CreateMap<Category, CreateCategoryRequest>().ReverseMap();
+            CreateMap<CategoryReponse, CategoryFilter>().ReverseMap();
             #endregion
 
             #region Certificate

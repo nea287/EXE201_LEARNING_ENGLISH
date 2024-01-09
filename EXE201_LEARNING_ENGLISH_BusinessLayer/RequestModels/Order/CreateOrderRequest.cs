@@ -10,8 +10,6 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Order
     public class CreateOrderRequest
     {
         [Required]
-        public int OrderId { get; set; }
-        [Required]
         public int Quantity { get; set; }
         public decimal? TotalAmount { get; set; }
         public int? StudentId { get; set; }

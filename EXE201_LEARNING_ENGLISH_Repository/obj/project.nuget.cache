@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "7u7k2cqHrSCBM03zo25eP2TBqrzYjWJ9fz2TUT0yJHt9OtgrAsu/sSA/wkI52rhXMrB0TOSLA59MvRbaWgSljQ==",
+  "dgSpecHash": "UvlKl5YNKHxv34Cp+jfijfF36LVDtaw4XWAO8V2aUzYZKb+iQ7o6OOG13TbyrTLmOvMRZke8Fkgi4dtJiQ7How==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Nea\\Downloads\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_Repository\\EXE201_LEARNING_ENGLISH_Repository.csproj",
+  "projectFilePath": "C:\\Users\\Nea\\source\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_Repository\\EXE201_LEARNING_ENGLISH_Repository.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Nea\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\Nea\\.nuget\\packages\\microsoft.data.sqlclient\\2.1.4\\microsoft.data.sqlclient.2.1.4.nupkg.sha512",
