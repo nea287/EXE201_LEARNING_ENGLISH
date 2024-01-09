@@ -9,8 +9,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Course
 {
     public class CreateCourseRequest
     {
-        [Required]
-        public int CourseId { get; set; }
+
         [Required]
         public string CourseName { get; set; }
         public string? Description { get; set; }
