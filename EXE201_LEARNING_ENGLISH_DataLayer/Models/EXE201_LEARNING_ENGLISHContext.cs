@@ -148,9 +148,9 @@ namespace EXE201_LEARNING_ENGLISH_DataLayer.Models
 
                 entity.Property(e => e.TotalAmount).HasColumnType("money");
 
-                entity.HasOne(d => d.QuantityNavigation)
+                entity.HasOne(d => d.Student)
                     .WithMany(p => p.Orders)
-                    .HasForeignKey(d => d.Quantity)
+                    .HasForeignKey(d => d.StudentId)
                     .HasConstraintName("FK_Order_Student");
 
                 entity.HasOne(d => d.Vouncher)

@@ -242,6 +242,42 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
         public bool PhoneNumberValidate(string phoneNumber)
             => Regex.IsMatch(phoneNumber, @"[^0-9]") 
             && Regex.IsMatch(phoneNumber, @"^\d{10}$");
-        
+
+        public ResponseResult<AccountReponse> login(string email, string password)
+        {
+            AccountReponse result;
+            try
+            {
+                result = _mapper.Map<AccountReponse>(
+                    _repository.Find(x => x.Email.Equals(email) 
+                    && x.Password.Equals(password)));
+
+                if(result == null)
+                {
+                    return new ResponseResult<AccountReponse>()
+                    {
+                        result = false,
+                        Message = Constraints.NOT_FOUND_INFO
+                    };
+                }
+
+            }catch(Exception ex)
+            {
+                return new ResponseResult<AccountReponse>()
+                {
+                    result = false,
+                    Message = Constraints.LOGIN_FAILED,
+                };
+            }
+            finally
+            {
+                lock (_repository) ;
+            }
+            return new ResponseResult<AccountReponse>()
+            {
+                result = true,
+                Value = result
+            };
+        }
     }
 }

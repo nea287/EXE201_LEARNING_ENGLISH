@@ -15,6 +15,8 @@ namespace EXE201_LEARNING_ENGLISH_API.AppStarts
             services.AddScoped<ICourseService, CourseService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<ICertificateService, CertificateService>();
+            services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IOrderDetailService, IOrderDetailService>();
         }
     }
 }

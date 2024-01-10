@@ -19,5 +19,6 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.IServices
         public ResponseResult<AccountReponse> DeleteAccount(string email);
         public ResponseResult<AccountReponse> CreateAccount(CreateAccountRequest request);
         public DynamicModelsResponse<AccountReponse> GetAccounts(AccountFilter request, PagingRequest paging);
+        public ResponseResult<AccountReponse> login(string email, string password);
     }
 }

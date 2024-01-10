@@ -70,6 +70,8 @@ namespace EXE201_LEARNING_ENGLISH_API.AppStarts
             CreateMap<Order, UpdateOrderRequest>().ReverseMap();
             CreateMap<OrderReponse, UpdateOrderRequest>().ReverseMap();
             CreateMap<OrderReponse, CreateOrderRequest>().ReverseMap();
+            CreateMap<OrderReponse, OrderFilter>().ReverseMap();
+            CreateMap<OrderDetail, CreateOrderDetailOrderRequest>().ReverseMap();
             #endregion
 
             #region OrderDetail

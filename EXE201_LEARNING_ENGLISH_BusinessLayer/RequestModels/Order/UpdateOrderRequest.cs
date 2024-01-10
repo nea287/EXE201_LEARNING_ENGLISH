@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.OrderDetail;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -18,5 +19,6 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Order
         public DateTime? CheckInDate { get; set; }
         public DateTime? ApproveDate { get; set; }
         public int? VouncherId { get; set; }
+        public ICollection<UpdateOrderDetailRequest>? OrderDetails { get; set; }
     }
 }
