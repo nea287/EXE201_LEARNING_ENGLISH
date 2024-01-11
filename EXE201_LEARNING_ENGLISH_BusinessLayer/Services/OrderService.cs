@@ -26,11 +26,11 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
         private readonly IMapper _mapper;
         private readonly IOrderDetailService _orderDetailService;
 
-        public OrderService(IGenericRepository<Order> repository, IMapper mapper, IOrderDetailService orderDetailService)
+        public OrderService(IGenericRepository<Order> repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
-            _orderDetailService = orderDetailService;
+            //_orderDetailService = orderDetailService;
         }
         public ResponseResult<OrderReponse> CreateOrder(CreateOrderRequest request)
         {

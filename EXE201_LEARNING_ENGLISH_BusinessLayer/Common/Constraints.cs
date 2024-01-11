@@ -33,6 +33,8 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Common
 
         #region Account 
         public const string LOGIN_FAILED = "Đăng nhập thất bại!";
+        public const string REGISTER_FAILED = "Đăng ký thất bại!";
+        public const string REGISTER_SUCCESS = "Đăng nhập thất bại!";
         #endregion 
     }
 }

@@ -20,5 +20,8 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.IServices
         public ResponseResult<AccountReponse> CreateAccount(CreateAccountRequest request);
         public DynamicModelsResponse<AccountReponse> GetAccounts(AccountFilter request, PagingRequest paging);
         public ResponseResult<AccountReponse> login(string email, string password);
+        public ResponseResult<AccountReponse> Register(CreateAccount1Request request, string code, string codeVerify);
+        public bool SendQRCodeEmail(string receiveEmail, string qrCodeData);
+        public void Verify(string mail);
     }
 }

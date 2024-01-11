@@ -16,6 +16,13 @@ builder.Services.ConfigDI();
 builder.Services.AddDbContext<EXE201_LEARNING_ENGLISHContext>(options =>
                 options.UseSqlServer("name=ConnectionStrings:database"));
 
+//add redis
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = builder.Configuration["RedisCacheUrl"];
+});
+//end redis
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

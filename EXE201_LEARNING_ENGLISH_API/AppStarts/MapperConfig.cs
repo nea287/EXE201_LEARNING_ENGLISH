@@ -27,6 +27,7 @@ namespace EXE201_LEARNING_ENGLISH_API.AppStarts
             CreateMap<AccountReponse, UpdateAccountRequest>().ReverseMap();
             CreateMap<AccountReponse, CreateAccountRequest>().ReverseMap();
             CreateMap<AccountReponse, AccountFilter>().ReverseMap();
+            CreateMap<Account, CreateAccount1Request>().ReverseMap();
             #endregion
 
             #region Category
