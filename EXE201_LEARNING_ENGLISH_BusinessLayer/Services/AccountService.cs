@@ -334,7 +334,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
                 result = true,
             };
         }
-        public bool SendQRCodeEmail(string receiveEmail, string qrCodeData)
+        public bool SendQRCodeEmail(string receiveEmail, string? qrCodeData)
         {
 
             try

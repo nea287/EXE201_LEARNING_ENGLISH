@@ -28,5 +28,11 @@ namespace EXE201_LEARNING_ENGLISH_API.Controllers
         {
             _service.Verify(email);
         }
+
+        [HttpGet("SendQrCode/{email}")]
+        public bool SendQrCode(string email,[FromQuery] string? qrCode)
+        {
+            return _service.SendQRCodeEmail(email, qrCode);    
+        }
     }
 }
