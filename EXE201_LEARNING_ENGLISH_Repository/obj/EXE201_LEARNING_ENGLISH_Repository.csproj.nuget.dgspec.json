@@ -187,6 +187,9 @@
             "projectReferences": {
               "C:\\Users\\Nea\\source\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_DAO\\EXE201_LEARNING_ENGLISH_DAO.csproj": {
                 "projectPath": "C:\\Users\\Nea\\source\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_DAO\\EXE201_LEARNING_ENGLISH_DAO.csproj"
+              },
+              "C:\\Users\\Nea\\source\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_DataLayer\\EXE201_LEARNING_ENGLISH_DataLayer.csproj": {
+                "projectPath": "C:\\Users\\Nea\\source\\EXE201_LEARNING_ENGLISH\\EXE201_LEARNING_ENGLISH_DataLayer\\EXE201_LEARNING_ENGLISH_DataLayer.csproj"
               }
             }
           }

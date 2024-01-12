@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EXE201_LEARNING_ENGLISH_DAO\EXE201_LEARNING_ENGLISH_DAO.csproj" />
+    <ProjectReference Include="..\EXE201_LEARNING_ENGLISH_DataLayer\EXE201_LEARNING_ENGLISH_DataLayer.csproj" />
   </ItemGroup>
 
 </Project>

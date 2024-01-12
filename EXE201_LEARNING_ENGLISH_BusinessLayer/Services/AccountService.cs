@@ -21,6 +21,11 @@ using MailKit.Net.Smtp;
 using System.Text.RegularExpressions;
 using System;
 using System.Text;
+using FaceRecognitionDotNet;
+using ImageFormat = System.Drawing.Imaging.ImageFormat;
+using XAct.Users;
+using DlibDotNet.Dnn;
+using XAct.Resources;
 
 namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
 {
@@ -253,7 +258,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
             => Regex.IsMatch(phoneNumber, @"[^0-9]")
             && Regex.IsMatch(phoneNumber, @"^\d{10}$");
 
-        public ResponseResult<AccountReponse> login(string email, string password)
+        public ResponseResult<AccountReponse> Login(string email, string password)
         {
             AccountReponse result;
             try
@@ -284,6 +289,18 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
             {
                 lock (_repository) ;
             }
+
+            DistributedCacheEntryOptions options = new DistributedCacheEntryOptions()
+                .SetAbsoluteExpiration(TimeSpan.FromDays(1))
+                .SetSlidingExpiration(TimeSpan.FromSeconds(30));
+
+            string dataAsync = JsonConvert.SerializeObject(result);
+            var dataToCache = Encoding.UTF8.GetBytes(dataAsync);
+            _cache.Set(result.Email.ToLower() + "-account", dataToCache, options);
+
+            var emailToCache = Encoding.UTF8.GetBytes(email);
+            _cache.Set("-email", emailToCache, options);
+
             return new ResponseResult<AccountReponse>()
             {
                 result = true,
@@ -341,7 +358,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
             {
                 QRCodeGenerator qrGenerator = new QRCodeGenerator();
 
-                QRCodeData qrCodeDataString = qrGenerator.CreateQrCode("Your QR Code Data", QRCodeGenerator.ECCLevel.Q);
+                QRCodeData qrCodeDataString = qrGenerator.CreateQrCode("https://www.youtube.com/watch?v=OrRf3tO8r3U", QRCodeGenerator.ECCLevel.Q);
                 QRCode qrCode = new QRCode(qrCodeDataString);
                 Bitmap qrCodeImage = qrCode.GetGraphic(20);
 
@@ -406,39 +423,175 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
             return true;
         }
 
-        public void Verify(string mail)
+        public bool Verify(string mail)
         {
             string code = Convert.ToString(new Random().Next(10000, 99999));
+            try
+            {
+                MimeMessage message = new MimeMessage(); // tạo đối tượng mimemessage
 
-            MimeMessage message = new MimeMessage(); // tạo đối tượng mimemessage
+                message.From.Add(new MailboxAddress("Thơ nè!", "tho.kieu@reso.vn"));
+                message.To.Add(new MailboxAddress("Khách hàng thân thương!", mail));
 
-            message.From.Add(new MailboxAddress("Kiều Thơ Nguyễn Ngọc", "tho.kieu@reso.vn"));
-            message.To.Add(new MailboxAddress("Anh Anh", mail));
+                message.Subject = "Mã xác thực";
 
-            message.Subject = "Mã xác thực";
+                BodyBuilder bodyBuilder = new BodyBuilder();
+                bodyBuilder.TextBody = "Mã xác thực: " + code;
 
-            BodyBuilder bodyBuilder = new BodyBuilder();
-            bodyBuilder.TextBody = code;
+                message.Body = bodyBuilder.ToMessageBody();
 
-            message.Body = bodyBuilder.ToMessageBody();
-
-            SmtpClient client = new SmtpClient();
-            client.Connect("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
-
-            client.Authenticate("tho.kieu@reso.vn", "1phanngocnga");
-
-            client.Send(message);
-
-            client.Disconnect(true);
-
-            DistributedCacheEntryOptions options = new DistributedCacheEntryOptions()
-                .SetAbsoluteExpiration(DateTime.Now.AddMinutes(2))
-                .SetSlidingExpiration(TimeSpan.FromMinutes(2));
-
-            var dataToCache = Encoding.UTF8.GetBytes(code);
-            _cache.Set("verify", dataToCache, options);
+                SmtpClient client = new SmtpClient();
+                client.Connect("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
 
 
+
+                client.Authenticate("tho.kieu@reso.vn", "1phanngocnga");
+
+                client.Send(message);
+
+                client.Disconnect(true);
+
+                DistributedCacheEntryOptions options = new DistributedCacheEntryOptions()
+                    .SetAbsoluteExpiration(DateTime.Now.AddMinutes(2))
+                    .SetSlidingExpiration(TimeSpan.FromMinutes(2));
+
+                var dataToCache = Encoding.UTF8.GetBytes(code);
+                _cache.Set("verify", dataToCache, options);
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception();
+            }
+
+            return true;
+
+        }
+
+        public bool RecognitionFaceId(string? unknowImage)
+        {
+            //start compare two Image
+            string currentDirectory = Directory.GetCurrentDirectory();
+            string parentDirectory = Directory.GetParent(currentDirectory).FullName;
+
+
+            string imageName = Encoding.UTF8.GetString(_cache.Get("-email"));
+            imageName = imageName.Substring(0, imageName.Length - 4) + ".jpg";
+
+            string imagePath = Path.Combine(parentDirectory, 
+                "EXE201_LEARNING_ENGLISH_BusinessLayer", "Image", "RegisterAvatar", imageName);
+            var registeredImage = FaceRecognition.LoadImageFile(imagePath);
+
+            string UnknowImagePath = "";
+            if (unknowImage == null || unknowImage.Equals(""))
+            {
+                UnknowImagePath = Path.Combine(parentDirectory, "EXE201_LEARNING_ENGLISH_BusinessLayer", "Image", "UnknowAttendance", "avatar2.jpg");
+            }
+            else
+            {
+                UnknowImagePath = Path.Combine(parentDirectory, "EXE201_LEARNING_ENGLISH_BusinessLayer", "Image", "UnknowAttendance", unknowImage);
+            }
+            
+            var unknownImage = FaceRecognition.LoadImageFile(UnknowImagePath);
+
+            imagePath = Path.Combine(parentDirectory, "EXE201_LEARNING_ENGLISH_BusinessLayer", "dlib-models");
+
+            // Tạo một phiên bản của lớp FaceRecognition
+            using (var faceRecognition = FaceRecognition.Create(imagePath + "\\"))
+            {
+                // Tạo một danh sách các ảnh đã đăng ký
+                var registeredImages = new[]
+            {
+                registeredImage
+            };
+
+                // Tạo một danh sách nhãn tương ứng với các ảnh đã đăng ký
+                var labels = new[]
+                {
+                "Người 1"
+            };
+
+                foreach (var image in registeredImages)
+                {
+                    // Train the face recognition model with the registered images
+                    var encodings = faceRecognition.FaceEncodings(image);
+
+                    // Detect faces in the unknown image
+                    var unknownEncodings = faceRecognition.FaceEncodings(unknownImage);
+                    var faceLocations = faceRecognition.FaceLocations(unknownImage);
+
+                    foreach (var unknownEncoding in unknownEncodings)
+                    {
+                        // Compare the registered faces with the detected face in the unknown image
+                        var matchesDistances = FaceRecognition.FaceDistances(encodings, unknownEncoding);
+
+                        foreach (var match in matchesDistances)
+                        {
+                            // Determine the corresponding person for the recognized face
+
+
+                            if (match < 0.6) // Threshold for comparison
+                            {
+                                var label = labels;
+                                
+                            }
+                            else
+                            {
+                                try
+                                {
+                                    if (File.Exists(UnknowImagePath))
+                                    {
+                                        File.Delete(UnknowImagePath);
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    throw new Exception();
+
+                                }
+                                return false;
+
+                            }
+                        }
+                    }
+                }
+                try
+                {
+                    if (File.Exists(UnknowImagePath))
+                    {
+                        File.Delete(UnknowImagePath);
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                }
+
+                return true;
+            }
+            //End compare two Image
+        }
+        public bool Logout()
+        {
+            try
+            {
+                string email = Encoding.UTF8.GetString(_cache.Get("-email"));
+                _cache.Remove("-email");
+
+                _cache.Remove(email + "-account");
+                
+
+            }catch(Exception ex)
+            {
+                return false;
+            }
+            finally
+            {
+                lock (_repository) ;
+            }
+
+            return true;
         }
     }
 }
+

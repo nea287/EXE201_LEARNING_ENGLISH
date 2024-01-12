@@ -20,19 +20,25 @@ namespace EXE201_LEARNING_ENGLISH_API.Controllers
         [HttpGet("Login/{email}/{password}")]
         public ResponseResult<AccountReponse> Login(string email, string password)
         {
-            return _service.login(email, password);
+            return _service.Login(email, password);
         }
 
         [HttpGet("Verify/{email}")]
-        public void VerifyByCode(string email)
+        public bool VerifyByCode(string email)
         {
-            _service.Verify(email);
+            return _service.Verify(email);
         }
 
         [HttpGet("SendQrCode/{email}")]
         public bool SendQrCode(string email,[FromQuery] string? qrCode)
         {
             return _service.SendQRCodeEmail(email, qrCode);    
+        }
+
+        [HttpGet("RecognitionFaceId")]
+        public bool RecognitionFaceId([FromQuery] string? unknowImage)
+        {
+            return _service.RecognitionFaceId(unknowImage);
         }
     }
 }
