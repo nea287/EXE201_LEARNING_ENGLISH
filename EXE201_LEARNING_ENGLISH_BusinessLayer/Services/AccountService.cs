@@ -252,11 +252,11 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
             };
         }
 
-        //Validate 
-        //Validate Phone Number
+        #region Validate
         public bool PhoneNumberValidate(string phoneNumber)
             => Regex.IsMatch(phoneNumber, @"[^0-9]")
             && Regex.IsMatch(phoneNumber, @"^\d{10}$");
+        #endregion
 
         public ResponseResult<AccountReponse> Login(string email, string password)
         {
