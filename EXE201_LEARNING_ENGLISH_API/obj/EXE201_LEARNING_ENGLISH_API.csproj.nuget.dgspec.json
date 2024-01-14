@@ -150,6 +150,10 @@
               "target": "Package",
               "version": "[4.3.0, )"
             },
+            "MongoDB.Driver": {
+              "target": "Package",
+              "version": "[2.23.1, )"
+            },
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.3, )"
@@ -341,6 +345,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[6.0.14, )"
+            },
+            "MongoDB.Driver": {
+              "target": "Package",
+              "version": "[2.23.1, )"
             }
           },
           "imports": [

@@ -1,4 +1,5 @@
 using EXE201_LEARNING_ENGLISH_API.AppStarts;
+using EXE201_LEARNING_ENGLISH_BusinessLayer.Services.LiveChat;
 using EXE201_LEARNING_ENGLISH_DataLayer.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,15 +14,25 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddAutoMapper(typeof(MapperConfig).Assembly);
 builder.Services.ConfigDI();
+builder.Services.AddCustomRouting();
+builder.Services.AddHttpClient();
+
+#region database
 builder.Services.AddDbContext<EXE201_LEARNING_ENGLISHContext>(options =>
                 options.UseSqlServer("name=ConnectionStrings:database"));
+#endregion 
 
-//add redis
+#region Redis
 builder.Services.AddStackExchangeRedisCache(options =>
 {
     options.Configuration = builder.Configuration["RedisCacheUrl"];
 });
-//end redis
+#endregion 
+
+#region SignalR
+builder.Services.AddSignalR();
+
+#endregion
 
 var app = builder.Build();
 
@@ -37,5 +48,12 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseRouting();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapHub<ChatHub>("/chatHub");
+});
 
 app.Run();

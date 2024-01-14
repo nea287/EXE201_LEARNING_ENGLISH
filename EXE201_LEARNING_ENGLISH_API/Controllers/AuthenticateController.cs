@@ -40,5 +40,11 @@ namespace EXE201_LEARNING_ENGLISH_API.Controllers
         {
             return _service.RecognitionFaceId(unknowImage);
         }
+
+        [HttpGet("Logout")]
+        public bool Logout()
+        {
+            return _service.Logout();
+        }
     }
 }

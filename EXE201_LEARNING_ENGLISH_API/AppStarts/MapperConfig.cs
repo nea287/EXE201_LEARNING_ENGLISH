@@ -6,6 +6,7 @@ using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Category;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Certificate;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Course;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Feedback;
+using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.LiveChat;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Order;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.OrderDetail;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Slot;
@@ -121,6 +122,12 @@ namespace EXE201_LEARNING_ENGLISH_API.AppStarts
             CreateMap<Vouncher, UpdateVouncherRequest>().ReverseMap();
             CreateMap<VouncherReponse, UpdateVouncherRequest>().ReverseMap();
             CreateMap<VouncherReponse, CreateVouncherRequest>().ReverseMap();
+            #endregion
+
+            #region LiveChat
+            CreateMap<LiveChatReponse, User>().ReverseMap();
+            CreateMap<LiveChatRequest, User>().ReverseMap();
+            CreateMap<LiveChatRequest, ChatMessageModel>().ReverseMap();
             #endregion
         }
     }
