@@ -47,13 +47,13 @@ namespace EXE201_LEARNING_ENGLISH_API.Controllers
         public async Task<Task<bool>> LiveChat([FromBody] ChatMessageModel message)
         {
             // Gửi tin nhắn đến API thông qua HttpClient
-            using (var client = _httpClientFactory.CreateClient())
-            {
+            //using (var client = _httpClientFactory.CreateClient())
+            //{
                 //string apiUrl = _configuration.GetValue<string>("ApiSettings:LocalApiUrl") + "LiveChat";
                 //var response = await client.PostAsJsonAsync(apiUrl, message);
 
                 return _service.SendMessage(message);
-            }
+            //}
 
         }
 
