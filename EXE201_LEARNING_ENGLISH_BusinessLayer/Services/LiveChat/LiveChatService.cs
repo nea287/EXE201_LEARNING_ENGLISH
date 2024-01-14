@@ -156,7 +156,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services.LiveChat
         public async Task<bool> SendMessage(ChatMessageModel message)
         {
             
-            await _hubContext.Clients.User(message.Receiver).SendAsync("ReceiveMessage", message.Sender, message.Message);
+            await _hubContext.Clients.User(message.Receiver).SendAsync("ReceivePrivateMessage", message.Sender, message.Message);
 
             LiveChatRequest data = _mapper.Map<LiveChatRequest>(message);
             data.Timestamp = DateTime.UtcNow;

@@ -10,9 +10,9 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services.LiveChat
 {
     public class ChatHub : Hub
     {
-        public async Task SendMessage (string user, string message)
+        public async Task SendMessage (string receiver, string user, string message)
         {
-            await Clients.All.SendAsync ("ReceiveMessage", user, message);    
+            await Clients.User(receiver).SendAsync ("ReceivePrivateMessage", user, message);    
         }
     }
 }
