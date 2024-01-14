@@ -158,7 +158,9 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services.LiveChat
             
             await _hubContext.Clients.User(message.Receiver).SendAsync("ReceiveMessage", message.Sender, message.Message);
 
-            return InsertMessage(_mapper.Map < LiveChatRequest > (message));
+            LiveChatRequest data = _mapper.Map<LiveChatRequest>(message);
+            data.Timestamp = DateTime.Now;
+            return InsertMessage(data);
         }
     }
 }
