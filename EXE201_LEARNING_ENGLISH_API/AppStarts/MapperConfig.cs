@@ -127,7 +127,17 @@ namespace EXE201_LEARNING_ENGLISH_API.AppStarts
             #region LiveChat
             CreateMap<LiveChatReponse, User>().ReverseMap();
             CreateMap<LiveChatRequest, User>().ReverseMap();
-            CreateMap<LiveChatRequest, ChatMessageModel>().ReverseMap();
+
+            CreateMap<LiveChatRequest, ChatMessageModel>()
+                .ForMember(x => x.Message, opt => opt.MapFrom(dest => dest.Content))
+                .ForMember(x => x.Receiver, opt => opt.MapFrom(dest => dest.ReceiverId))
+                .ForMember(x => x.Sender, opt => opt.MapFrom(dest => dest.SenderId));
+
+            CreateMap<ChatMessageModel, LiveChatRequest>()
+                .ForMember(x => x.Content, opt => opt.MapFrom(dest => dest.Message))
+                .ForMember(x => x.SenderId, opt => opt.MapFrom(dest => dest.Sender))
+                .ForMember(x => x.ReceiverId, opt => opt.MapFrom(dest => dest.Receiver));
+
             #endregion
         }
     }

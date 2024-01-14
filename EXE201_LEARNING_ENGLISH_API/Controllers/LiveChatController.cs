@@ -44,7 +44,7 @@ namespace EXE201_LEARNING_ENGLISH_API.Controllers
         }
 
         [HttpPost("LiveChat")]
-        public async Task<bool> LiveChat([FromBody] ChatMessageModel message)
+        public Task<bool> LiveChat([FromBody] ChatMessageModel message)
         {
             // Gửi tin nhắn đến API thông qua HttpClient
             //using (var client = _httpClientFactory.CreateClient())
@@ -52,7 +52,7 @@ namespace EXE201_LEARNING_ENGLISH_API.Controllers
                 //string apiUrl = _configuration.GetValue<string>("ApiSettings:LocalApiUrl") + "LiveChat";
                 //var response = await client.PostAsJsonAsync(apiUrl, message);
 
-                return await _service.SendMessage(message);
+                return _service.SendMessage(message);
             //}
 
         }
