@@ -23,6 +23,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Common
 
         #region Validate
         public const string NUMBER_PHONE_VALIDATE = "Số điện thoại không hợp lệ!";
+        public const string BIRTHDATE_VALIDATE = "Ngày sinh không hợp lệ";
         #endregion
 
         #region Page
