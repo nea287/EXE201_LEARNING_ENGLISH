@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MongoDB.Driver.Core.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,6 +28,11 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Common
         public const string EMAIL_INVALIDATE = "Email không hợp lệ!";
         public const string PASSWORD_INVALIDATE = "Mật khẩu có ít nhất 6 ký tự, 1 chữ cái hoa, 1 ký tự đặc biệt!";
         public const string VALIDATE = "HỢP LỆ!";
+        public const string NUMBER_INVALIDATE = "Vui lòng nhập số lớn hơn 0";
+        #endregion
+
+        #region CourseValidate
+        
         #endregion
 
         #region Page

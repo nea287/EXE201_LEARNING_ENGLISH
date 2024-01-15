@@ -3,6 +3,7 @@ using AutoMapper.QueryableExtensions;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.Common;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.FilterModels;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.Helpers;
+using EXE201_LEARNING_ENGLISH_BusinessLayer.Helpers.Validate;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.IServices;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.ReponseModels;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.ReponseModels.Heplers;
@@ -32,6 +33,23 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
         {
             try
             {
+                #region Validate 
+                CourseValidate courseValidate = new CourseValidate();
+
+                bool resultValidate = courseValidate
+                    .CheckListNumberValidate((decimal)request.Duration, 
+                        (decimal)request.UnitPrice, (decimal)request.NumberOfLesson);
+
+                if (resultValidate)
+                {
+                    return new ResponseResult<CourseReponse>()
+                    {
+                        Message = Constraints.NUMBER_INVALIDATE,
+                        result = false
+                    };
+                }
+                
+                #endregion
 
                 _repository.Insert(_mapper.Map<Course>(request));
                 _repository.Save();
