@@ -26,6 +26,7 @@ using ImageFormat = System.Drawing.Imaging.ImageFormat;
 using XAct.Users;
 using DlibDotNet.Dnn;
 using XAct.Resources;
+using EXE201_LEARNING_ENGLISH_BusinessLayer.Helpers.Validate;
 
 namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
 {
@@ -41,20 +42,26 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
             _mapper = mapper;
             _cache = cache;
         }
+
+        #region Create
         public ResponseResult<AccountReponse> CreateAccount(CreateAccountRequest request)
         {
             try
             {
-                //Validate
-                if (PhoneNumberValidate(request.PhoneNumber))
+                #region Validate
+                AccountValidate accountValidate = new AccountValidate();
+                string validate = accountValidate.CheckValidate<CreateAccountRequest>(request);
+
+                if (!validate.Equals(Constraints.VALIDATE))
                 {
                     return new ResponseResult<AccountReponse>()
                     {
-                        Message = Constraints.NUMBER_PHONE_VALIDATE,
+                        Message = validate,
                         result = false
 
                     };
                 }
+                #endregion
 
                 var existedAccount = _repository.GetByIdByString(request.Email).Result;
                 if (existedAccount != null)
@@ -92,7 +99,9 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
 
 
         }
+        #endregion
 
+        #region Delete
         public ResponseResult<AccountReponse> DeleteAccount(string email)
         {
             try
@@ -132,7 +141,9 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
                 result = true,
             };
         }
+        #endregion
 
+        #region Get
         public ResponseResult<AccountReponse> GetAccount(string email)
         {
             AccountReponse result;
@@ -209,7 +220,9 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
                 Results = result.Item2.ToList()
             };
         }
+        #endregion
 
+        #region Update
         public ResponseResult<AccountReponse> UpdateAccount(UpdateAccountRequest request, string email)
         {
             try
@@ -252,13 +265,9 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
                 result = true
             };
         }
-
-        #region Validate
-        public bool PhoneNumberValidate(string phoneNumber)
-            => Regex.IsMatch(phoneNumber, @"[^0-9]")
-            && Regex.IsMatch(phoneNumber, @"^\d{10}$");
         #endregion
 
+        #region Authenticate
         public ResponseResult<AccountReponse> Login(string email, string password)
         {
             AccountReponse result;
@@ -352,6 +361,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
                 result = true,
             };
         }
+
         public bool SendQRCodeEmail(string receiveEmail, string? qrCodeData)
         {
 
@@ -572,6 +582,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
             }
             //End compare two Image
         }
+
         public bool Logout()
         {
             try
@@ -593,6 +604,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
 
             return true;
         }
+        #endregion
     }
 }
 

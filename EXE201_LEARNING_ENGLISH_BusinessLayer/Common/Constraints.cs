@@ -22,8 +22,11 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Common
         #endregion
 
         #region Validate
-        public const string NUMBER_PHONE_VALIDATE = "Số điện thoại không hợp lệ!";
-        public const string BIRTHDATE_VALIDATE = "Ngày sinh không hợp lệ";
+        public const string NUMBER_PHONE_INVALIDATE = "Số điện thoại không hợp lệ!";
+        public const string BIRTHDATE_INVALIDATE = "Ngày sinh không hợp lệ";
+        public const string EMAIL_INVALIDATE = "Email không hợp lệ!";
+        public const string PASSWORD_INVALIDATE = "Mật khẩu có ít nhất 6 ký tự, 1 chữ cái hoa, 1 ký tự đặc biệt!";
+        public const string VALIDATE = "HỢP LỆ!";
         #endregion
 
         #region Page
