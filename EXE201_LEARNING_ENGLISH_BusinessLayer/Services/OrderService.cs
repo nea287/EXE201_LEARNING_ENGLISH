@@ -17,6 +17,7 @@ using AutoMapper.QueryableExtensions;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.Helpers;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.OrderDetail;
 using System.Collections;
+using EXE201_LEARNING_ENGLISH_BusinessLayer.Helpers.Validate;
 
 namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
 {
@@ -36,6 +37,21 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
         {
             try
             {
+                #region Validate
+                OrderValidate orderValidate = new OrderValidate();
+                bool resultValidate = orderValidate.CheckListNumberValidate(request.Quantity, 
+                    request.TotalAmount.Value, (decimal)request.Discount, request.FinalAmount.Value);
+
+                if (resultValidate)
+                {
+                    return new ResponseResult<OrderReponse>()
+                    {
+                        Message = Constraints.NUMBER_INVALIDATE,
+                        result = false
+                    };
+                }
+                #endregion
+
                 var orderReponse = _mapper.Map<Order>(request);
                 _repository.Insert(orderReponse);
 
