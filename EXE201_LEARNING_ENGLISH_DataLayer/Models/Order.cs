@@ -20,7 +20,7 @@ namespace EXE201_LEARNING_ENGLISH_DataLayer.Models
         public DateTime? ApproveDate { get; set; }
         public int? VouncherId { get; set; }
 
-        public virtual Student? QuantityNavigation { get; set; }
+        public virtual Student? Student { get; set; }
         public virtual Vouncher? Vouncher { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }

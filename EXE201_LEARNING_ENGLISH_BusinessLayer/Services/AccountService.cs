@@ -10,13 +10,22 @@ using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Account;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Helpers;
 using EXE201_LEARNING_ENGLISH_DataLayer.Models;
 using EXE201_LEARNING_ENGLISH_Repository.IRepository;
-using System;
-using System.Collections.Generic;
+using Microsoft.Extensions.Caching.Distributed;
+using MimeKit;
+using QRCoder;
 using System.Data;
-using System.Linq;
-using System.Text;
+using System.Drawing;
+using System.Drawing.Imaging;
+using Newtonsoft.Json;
+using MailKit.Net.Smtp;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+using System;
+using System.Text;
+using FaceRecognitionDotNet;
+using ImageFormat = System.Drawing.Imaging.ImageFormat;
+using XAct.Users;
+using DlibDotNet.Dnn;
+using XAct.Resources;
 
 namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
 {
@@ -24,19 +33,19 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
     {
         private readonly IGenericRepository<Account> _repository;
         private readonly IMapper _mapper;
+        private readonly IDistributedCache _cache;
 
-        public AccountService(IGenericRepository<Account> repository, IMapper mapper)
+        public AccountService(IGenericRepository<Account> repository, IMapper mapper, IDistributedCache cache)
         {
             _repository = repository;
             _mapper = mapper;
+            _cache = cache;
         }
-        #region Create
         public ResponseResult<AccountReponse> CreateAccount(CreateAccountRequest request)
         {
             try
             {
-                #region Validate
-                //Phone
+                //Validate
                 if (PhoneNumberValidate(request.PhoneNumber))
                 {
                     return new ResponseResult<AccountReponse>()
@@ -46,31 +55,15 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
 
                     };
                 }
-                //Birthdate
-                if(request.Birthdate != null)
-                {
-                    if (!BirthDateValidate(request.Birthdate.Value))
-                    {
-                        return new ResponseResult<AccountReponse>()
-                        {
-                            Message = Constraints.BIRTHDATE_VALIDATE,
-                            result = false
-
-                        };
-                    }
-                }
-                //Password
-                
-                #endregion
 
                 var existedAccount = _repository.GetByIdByString(request.Email).Result;
-                if(existedAccount != null)
+                if (existedAccount != null)
                 {
                     return new ResponseResult<AccountReponse>()
                     {
                         Message = Constraints.EXISTED_INFO,
                         result = false
-                        
+
                     };
                 }
 
@@ -96,19 +89,17 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
                 Message = Constraints.CREATE_INFO_SUCCESS,
                 result = true
             };
-            
+
 
         }
-        #endregion
 
-        #region Delete
         public ResponseResult<AccountReponse> DeleteAccount(string email)
         {
             try
             {
                 var existedAccount = _repository.GetByIdByString(email).Result;
 
-                if(existedAccount == null || existedAccount.Status == 0)
+                if (existedAccount == null || existedAccount.Status == 0)
                 {
                     return new ResponseResult<AccountReponse>()
                     {
@@ -121,7 +112,8 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
                 _repository.UpdateByIdByString(existedAccount, email);
                 _repository.Save();
 
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 return new ResponseResult<AccountReponse>()
                 {
@@ -140,9 +132,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
                 result = true,
             };
         }
-        #endregion
 
-        #region Get
         public ResponseResult<AccountReponse> GetAccount(string email)
         {
             AccountReponse result;
@@ -150,7 +140,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
             {
                 result = _mapper.Map<AccountReponse>(_repository.GetByIdByString(email).Result);
 
-                if(result == null || result.Status == 0)
+                if (result == null || result.Status == 0)
                 {
                     return new ResponseResult<AccountReponse>()
                     {
@@ -158,7 +148,8 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
                     };
                 }
 
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 return new ResponseResult<AccountReponse>()
                 {
@@ -186,7 +177,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
                     .DynamicFilter(_mapper.Map<AccountReponse>(request))
                     .PagingIQueryable(paging.page, paging.pageSize, Constraints.LimitPaging, Constraints.DefaultPaging);
 
-                if(result.Item2.Count() == 0)
+                if (result.Item2.Count() == 0)
                 {
                     return new DynamicModelResponse.DynamicModelsResponse<AccountReponse>()
                     {
@@ -194,7 +185,8 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
                     };
                 }
 
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 return new DynamicModelResponse.DynamicModelsResponse<AccountReponse>()
                 {
@@ -211,21 +203,20 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
                 Metadata = new DynamicModelResponse.PagingMetadata()
                 {
                     Page = paging.page,
-                    Size = paging.pageSize
+                    Size = paging.pageSize,
+                    Total = result.Item1
                 },
                 Results = result.Item2.ToList()
             };
         }
-        #endregion
 
-        #region Update
         public ResponseResult<AccountReponse> UpdateAccount(UpdateAccountRequest request, string email)
         {
             try
             {
                 var existedAccount = _repository.GetByIdByString(email).Result;
 
-                if(existedAccount == null || existedAccount.Status == 0 )
+                if (existedAccount == null || existedAccount.Status == 0)
                 {
                     return new ResponseResult<AccountReponse>()
                     {
@@ -241,7 +232,8 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
                 _repository.Save();
 
 
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 return new ResponseResult<AccountReponse>()
                 {
@@ -260,28 +252,13 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
                 result = true
             };
         }
-        #endregion
 
-        //Validate 
-        //Validate Phone Number
+        #region Validate
         public bool PhoneNumberValidate(string phoneNumber)
-            => Regex.IsMatch(phoneNumber, @"[^0-9]") 
+            => Regex.IsMatch(phoneNumber, @"[^0-9]")
             && Regex.IsMatch(phoneNumber, @"^\d{10}$");
-<<<<<<< Updated upstream
-        
-=======
-
-        //Validate Birthdate
-        public bool BirthDateValidate(DateTime date) 
-            => DateTime.Today.Year - date.Year >= 18;
-
-        //Validate Password
-        public bool PasswordValidate(string password)
-           => Regex.IsMatch(password, @"^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[0-9]).{6,}$");
-
         #endregion
 
-        #region Authenticate
         public ResponseResult<AccountReponse> Login(string email, string password)
         {
             AccountReponse result;
@@ -382,7 +359,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
             {
                 QRCodeGenerator qrGenerator = new QRCodeGenerator();
 
-                QRCodeData qrCodeDataString = qrGenerator.CreateQrCode("https://www.youtube.com/watch?v=qw_U8Hb_aK4&list=PLPNAu0pGRwlLwLk3GSMsX8lYdnGN2pqLe", QRCodeGenerator.ECCLevel.Q);
+                QRCodeData qrCodeDataString = qrGenerator.CreateQrCode("https://www.youtube.com/watch?v=OrRf3tO8r3U", QRCodeGenerator.ECCLevel.Q);
                 QRCode qrCode = new QRCode(qrCodeDataString);
                 Bitmap qrCodeImage = qrCode.GetGraphic(20);
 
@@ -616,7 +593,6 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
 
             return true;
         }
-        #endregion
->>>>>>> Stashed changes
     }
 }
+

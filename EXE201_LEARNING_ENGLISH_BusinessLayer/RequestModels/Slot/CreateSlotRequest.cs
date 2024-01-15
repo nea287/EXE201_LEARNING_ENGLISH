@@ -9,8 +9,6 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Slot
 {
     public class CreateSlotRequest
     {
-        [Required]
-        public int SlotId { get; set; }
         public double? Duration { get; set; }
         public DateTime? StartTime { get; set; }
         public DateTime? EndTime { get; set; }

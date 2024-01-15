@@ -79,16 +79,12 @@ namespace EXE201_LEARNING_ENGLISH_DataLayer.Models
             {
                 entity.ToTable("Category");
 
-                entity.Property(e => e.CategoryId).ValueGeneratedNever();
-
                 entity.Property(e => e.CategoryName).HasMaxLength(150);
             });
 
             modelBuilder.Entity<Certificate>(entity =>
             {
                 entity.ToTable("Certificate");
-
-                entity.Property(e => e.CertificateId).ValueGeneratedNever();
 
                 entity.Property(e => e.CertificateName).HasMaxLength(150);
 
@@ -103,8 +99,6 @@ namespace EXE201_LEARNING_ENGLISH_DataLayer.Models
             modelBuilder.Entity<Course>(entity =>
             {
                 entity.ToTable("Course");
-
-                entity.Property(e => e.CourseId).ValueGeneratedNever();
 
                 entity.Property(e => e.CourseName).HasMaxLength(150);
 
@@ -132,8 +126,6 @@ namespace EXE201_LEARNING_ENGLISH_DataLayer.Models
             {
                 entity.ToTable("Feedback");
 
-                entity.Property(e => e.FeedbackId).ValueGeneratedNever();
-
                 entity.Property(e => e.Content).HasMaxLength(1500);
 
                 entity.Property(e => e.Title).HasMaxLength(150);
@@ -148,8 +140,6 @@ namespace EXE201_LEARNING_ENGLISH_DataLayer.Models
             {
                 entity.ToTable("Order");
 
-                entity.Property(e => e.OrderId).ValueGeneratedNever();
-
                 entity.Property(e => e.ApproveDate).HasColumnType("datetime");
 
                 entity.Property(e => e.CheckInDate).HasColumnType("datetime");
@@ -158,9 +148,9 @@ namespace EXE201_LEARNING_ENGLISH_DataLayer.Models
 
                 entity.Property(e => e.TotalAmount).HasColumnType("money");
 
-                entity.HasOne(d => d.QuantityNavigation)
+                entity.HasOne(d => d.Student)
                     .WithMany(p => p.Orders)
-                    .HasForeignKey(d => d.Quantity)
+                    .HasForeignKey(d => d.StudentId)
                     .HasConstraintName("FK_Order_Student");
 
                 entity.HasOne(d => d.Vouncher)
@@ -198,8 +188,6 @@ namespace EXE201_LEARNING_ENGLISH_DataLayer.Models
             {
                 entity.ToTable("Slot");
 
-                entity.Property(e => e.SlotId).ValueGeneratedNever();
-
                 entity.Property(e => e.EndTime).HasColumnType("datetime");
 
                 entity.Property(e => e.StartTime).HasColumnType("datetime");
@@ -213,8 +201,6 @@ namespace EXE201_LEARNING_ENGLISH_DataLayer.Models
             modelBuilder.Entity<Student>(entity =>
             {
                 entity.ToTable("Student");
-
-                entity.Property(e => e.StudentId).ValueGeneratedNever();
 
                 entity.Property(e => e.Email)
                     .HasMaxLength(150)
@@ -231,8 +217,6 @@ namespace EXE201_LEARNING_ENGLISH_DataLayer.Models
             modelBuilder.Entity<StudentCourse>(entity =>
             {
                 entity.ToTable("StudentCourse");
-
-                entity.Property(e => e.StudentCourseId).ValueGeneratedNever();
 
                 entity.Property(e => e.EndDate).HasColumnType("datetime");
 
@@ -255,8 +239,6 @@ namespace EXE201_LEARNING_ENGLISH_DataLayer.Models
             {
                 entity.ToTable("Teacher");
 
-                entity.Property(e => e.TeacherId).ValueGeneratedNever();
-
                 entity.Property(e => e.Email)
                     .HasMaxLength(150)
                     .IsUnicode(false);
@@ -274,8 +256,6 @@ namespace EXE201_LEARNING_ENGLISH_DataLayer.Models
             modelBuilder.Entity<Vouncher>(entity =>
             {
                 entity.ToTable("Vouncher");
-
-                entity.Property(e => e.VouncherId).ValueGeneratedNever();
 
                 entity.Property(e => e.Amount).HasColumnType("money");
 

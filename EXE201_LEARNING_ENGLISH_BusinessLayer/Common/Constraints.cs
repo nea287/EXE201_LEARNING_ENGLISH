@@ -31,5 +31,11 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Common
         public const int LimitPaging = 500;
         public const int DefaultPage = 1;
         #endregion
+
+        #region Account 
+        public const string LOGIN_FAILED = "Đăng nhập thất bại!";
+        public const string REGISTER_FAILED = "Đăng ký thất bại!";
+        public const string REGISTER_SUCCESS = "Đăng nhập thất bại!";
+        #endregion 
     }
 }

@@ -10,8 +10,6 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Feedback
     public class CreateFeedbackRequest
     {
         [Required]
-        public int FeedbackId { get; set; }
-        [Required]
         public string Title { get; set; }
         public string? Content { get; set; }
         public double? Grade { get; set; }
