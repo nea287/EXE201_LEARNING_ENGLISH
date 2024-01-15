@@ -203,7 +203,8 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
                 Metadata = new DynamicModelResponse.PagingMetadata()
                 {
                     Page = paging.page,
-                    Size = paging.pageSize
+                    Size = paging.pageSize,
+                    Total = result.Item1
                 },
                 Results = result.Item2.ToList()
             };

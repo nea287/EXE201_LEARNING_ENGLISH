@@ -1,5 +1,8 @@
-﻿using EXE201_LEARNING_ENGLISH_BusinessLayer.IServices;
+﻿using EXE201_LEARNING_ENGLISH_BusinessLayer.FilterModels;
+using EXE201_LEARNING_ENGLISH_BusinessLayer.IServices;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.ReponseModels;
+using EXE201_LEARNING_ENGLISH_BusinessLayer.ReponseModels.Heplers;
+using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Helpers;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.LiveChat;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,9 +23,9 @@ namespace EXE201_LEARNING_ENGLISH_API.Controllers
             //_configuration = configuration;
         }
         [HttpGet("GetContents")]
-        public ICollection<LiveChatReponse> GetContents()
+        public DynamicModelResponse.DynamicModelsResponse<LiveChatReponse> GetContents([FromQuery] LiveChatFilter filter, [FromQuery] PagingRequest paging)
         {
-            return _service.GetContents();
+            return _service.GetContents(filter, paging);
         }
 
         [HttpGet("GetContent")]

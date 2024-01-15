@@ -1,19 +1,19 @@
 ﻿using AutoMapper;
-using DlibDotNet;
+using AutoMapper.QueryableExtensions;
+using EXE201_LEARNING_ENGLISH_BusinessLayer.Common;
+using EXE201_LEARNING_ENGLISH_BusinessLayer.FilterModels;
+using EXE201_LEARNING_ENGLISH_BusinessLayer.Helpers;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.IServices;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.ReponseModels;
+using EXE201_LEARNING_ENGLISH_BusinessLayer.ReponseModels.Heplers;
+using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Helpers;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.LiveChat;
 using EXE201_LEARNING_ENGLISH_DataLayer.Models;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Caching.Distributed;
-using MongoDB.Bson;
 using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-
+using XAct;
 namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services.LiveChat
 {
     public class LiveChatService : ILiveChatService
@@ -84,13 +84,24 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services.LiveChat
             return result;
         }
 
-        public ICollection<LiveChatReponse> GetContents()
+        public DynamicModelResponse.DynamicModelsResponse<LiveChatReponse> GetContents(LiveChatFilter filter, PagingRequest paging)
         {
-            ICollection<LiveChatReponse> result = new List<LiveChatReponse>();
+            (int, IQueryable<LiveChatReponse>) result;
+
+            #region unassigned
+            result.Item1 = 0;
+            result.Item2 = new List<LiveChatReponse>().AsQueryable();
+            #endregion
+
             try
             {
-                result = _mapper.Map<ICollection<LiveChatReponse>>(
-                   _context.Users.Find(_ => true).ToList());
+                   
+                IQueryable<User> data = _context.Users.Find(_ => true).ToList().AsQueryable();
+
+                result = data.ProjectTo<LiveChatReponse>(_mapper.ConfigurationProvider)
+                    .DynamicFilter(_mapper.Map<LiveChatReponse>(filter))
+                    .PagingIQueryable(paging.page, paging.pageSize, Constraints.LimitPaging, Constraints.DefaultPaging);
+
                 //_mapper.Map<ICollection<LiveChatReponse>>(_context.Users.Find(new BsonDocument()).ToList());
 
 
@@ -104,7 +115,17 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services.LiveChat
                 lock (_context) ;
             }
 
-            return result;
+            return new DynamicModelResponse.DynamicModelsResponse<LiveChatReponse>()
+            {
+                Metadata = new DynamicModelResponse.PagingMetadata()
+                {
+                    Page = paging.page,
+                    Size = paging.pageSize,
+                    Total = result.Item1
+                },
+                Results = result.Item2.ToList()
+
+            };
         }
 
         public bool InsertMessage(LiveChatRequest request)
