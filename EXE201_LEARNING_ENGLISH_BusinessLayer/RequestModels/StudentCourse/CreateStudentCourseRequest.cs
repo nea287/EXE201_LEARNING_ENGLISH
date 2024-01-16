@@ -10,8 +10,6 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.StudentCourse
     public class CreateStudentCourseRequest
     {
         [Required]
-        public int StudentCourseId { get; set; }
-        [Required]
         public int CourseId { get; set; }
         [Required]
         public int StudentId { get; set; }

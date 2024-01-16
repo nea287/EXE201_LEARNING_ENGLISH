@@ -9,6 +9,7 @@ using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Feedback;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Order;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.OrderDetail;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Slot;
+using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Student;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.StudentCourse;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Teacher;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Vouncher;
@@ -61,6 +62,7 @@ namespace EXE201_LEARNING_ENGLISH_API.AppStarts
             CreateMap<Feedback, UpdateFeedbackRequest>().ReverseMap();
             CreateMap<FeedbackReponse, UpdateFeedbackRequest>().ReverseMap();
             CreateMap<FeedbackReponse, CreateFeedbackRequest>().ReverseMap();
+            CreateMap<FeedbackReponse, FeedbackFilter>().ReverseMap();
             #endregion
 
             #region Order
@@ -85,14 +87,17 @@ namespace EXE201_LEARNING_ENGLISH_API.AppStarts
             CreateMap<Slot, UpdateSlotRequest>().ReverseMap();
             CreateMap<SlotReponse, UpdateSlotRequest>().ReverseMap();
             CreateMap<SlotReponse, CreateSlotRequest>().ReverseMap();
+            CreateMap<SlotReponse, SlotFilter>().ReverseMap();
             #endregion
 
             #region Student
             CreateMap<Student, StudentReponse>().ReverseMap();
             CreateMap<Student, CreateStudentCourseRequest>().ReverseMap();
             CreateMap<Student, UpdateStudentCourseRequest>().ReverseMap();
+            CreateMap<Student, CreateStudentRequest>().ReverseMap();
             CreateMap<StudentReponse, UpdateStudentCourseRequest>().ReverseMap();
             CreateMap<StudentReponse, CreateStudentCourseRequest>().ReverseMap();
+            CreateMap<StudentReponse, StudentFilter>().ReverseMap();
             #endregion
 
             #region StudentCourse
@@ -109,6 +114,7 @@ namespace EXE201_LEARNING_ENGLISH_API.AppStarts
             CreateMap<Teacher, UpdateTeacherRequest>().ReverseMap();
             CreateMap<TeacherReponse, UpdateTeacherRequest>().ReverseMap();
             CreateMap<TeacherReponse, CreateTeacherRequest>().ReverseMap();
+            CreateMap<TeacherReponse, TeacherFilter>().ReverseMap();
             #endregion
 
             #region Vouncher
@@ -117,6 +123,7 @@ namespace EXE201_LEARNING_ENGLISH_API.AppStarts
             CreateMap<Vouncher, UpdateVouncherRequest>().ReverseMap();
             CreateMap<VouncherReponse, UpdateVouncherRequest>().ReverseMap();
             CreateMap<VouncherReponse, CreateVouncherRequest>().ReverseMap();
+            CreateMap<VouncherReponse, VouncherFilter>().ReverseMap();
             #endregion
         }
     }
