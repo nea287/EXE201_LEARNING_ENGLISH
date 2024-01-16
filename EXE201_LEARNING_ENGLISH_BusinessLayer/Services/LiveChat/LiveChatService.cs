@@ -13,7 +13,11 @@ using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Caching.Distributed;
 using MongoDB.Driver;
 using System.Text;
+using System.Text.RegularExpressions;
 using XAct;
+using XAct.Users;
+using User = EXE201_LEARNING_ENGLISH_DataLayer.Models.User;
+
 namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services.LiveChat
 {
     public class LiveChatService : ILiveChatService
@@ -183,5 +187,16 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services.LiveChat
             data.Timestamp = DateTime.UtcNow;
             return InsertMessage(data);
         }
+
+        //public async Task LoginConfirmed(string userId)
+        //{
+        //    await _hubContext.Clients.Group(userId).SendAsync("LoginConfirmed", userId);
+        //}
+
+        //public async Task LoginAnnounce(string mail)
+        //{
+        //    // Gửi xác nhận đăng nhập cho người gửi
+        //    await _hubContext.Clients.User(mail).SendAsync("LoginConfirmed", mail);
+        //}
     }
 }

@@ -14,5 +14,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.IServices
         public bool DeleteMessage(LiveChatRequest request);
         public Task<bool> SendMessage(ChatMessageModel message);
         public ICollection<LiveChatReponse> GetMessages();
+        //public Task LoginConfirmed(string userId);
+        //public Task LoginAnnounce(string userId);
     }
 }
