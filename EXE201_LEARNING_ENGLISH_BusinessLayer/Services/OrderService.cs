@@ -18,6 +18,7 @@ using EXE201_LEARNING_ENGLISH_BusinessLayer.Helpers;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.OrderDetail;
 using System.Collections;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.Helpers.Validate;
+using ZstdSharp.Unsafe;
 
 namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
 {
@@ -25,22 +26,22 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
     {
         private readonly IGenericRepository<Order> _repository;
         private readonly IMapper _mapper;
-        private readonly IOrderDetailService _orderDetailService;
+
 
         public OrderService(IGenericRepository<Order> repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
-            //_orderDetailService = orderDetailService;
         }
         public ResponseResult<OrderReponse> CreateOrder(CreateOrderRequest request)
         {
+            Order orderReponse;
             try
             {
                 #region Validate
                 OrderValidate orderValidate = new OrderValidate();
                 bool resultValidate = orderValidate.CheckListNumberValidate(request.Quantity, 
-                    request.TotalAmount.Value, (decimal)request.Discount, request.FinalAmount.Value);
+                    request.TotalAmount.Value, request.FinalAmount.Value);
 
                 if (resultValidate)
                 {
@@ -52,21 +53,9 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
                 }
                 #endregion
 
-                var orderReponse = _mapper.Map<Order>(request);
+                orderReponse = _mapper.Map<Order>(request);
+
                 _repository.Insert(orderReponse);
-
-                bool resultCreateOD = true;
-                foreach(var order in request.OrderDetails)
-                {
-                    OrderDetail orderDetail = _mapper.Map<OrderDetail>(order);
-                    resultCreateOD = _orderDetailService.CreateOrderDetailInOrder(orderDetail);
-                }
-
-                if (!resultCreateOD)
-                {
-                    throw new Exception();
-                }
-
                 _repository.Save();
 
             }
@@ -86,7 +75,8 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
             return new ResponseResult<OrderReponse>()
             {
                 Message = Constraints.CREATE_INFO_SUCCESS,
-                result = true
+                result = true,
+                Value = _mapper.Map<OrderReponse>(orderReponse)
             };
         }
 

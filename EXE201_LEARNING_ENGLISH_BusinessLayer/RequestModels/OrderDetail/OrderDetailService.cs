@@ -5,11 +5,6 @@ using EXE201_LEARNING_ENGLISH_BusinessLayer.ReponseModels;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.ReponseModels.Heplers;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Helpers;
 using EXE201_LEARNING_ENGLISH_Repository.IRepository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.OrderDetail
 {
@@ -33,6 +28,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.OrderDetail
             try
             {
                 _repository.Insert(request);
+                _repository.Save();
             }
             catch (Exception ex)
             {
