@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -136,6 +137,11 @@ namespace EXE201_LEARNING_ENGLISH_DAO.DAO
         public virtual async Task Update(T entity)
         {
             Table.Update(entity);
+        }
+
+        public  virtual bool Any(Expression<Func<T, bool>> predicate)
+        {
+            return Table.Any(predicate);
         }
 
         public virtual void Save()

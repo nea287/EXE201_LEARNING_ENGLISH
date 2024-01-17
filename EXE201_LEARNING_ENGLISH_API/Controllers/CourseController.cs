@@ -6,6 +6,7 @@ using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Course;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Helpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EXE201_LEARNING_ENGLISH_API.Controllers
 {
@@ -21,12 +22,14 @@ namespace EXE201_LEARNING_ENGLISH_API.Controllers
         }
 
         [HttpGet("GetCourse/{id}")]
+        [AllowAnonymous]
         public ResponseResult<CourseReponse> GetCourse(int id)
         {
             return _service.GetCourse(id);
         }
 
         [HttpGet("GetListCourse")]
+        [AllowAnonymous]
         public DynamicModelResponse.DynamicModelsResponse<CourseReponse> GetListCourse([FromQuery] CourseFilter filter, [FromQuery] PagingRequest paging)
         {
             return _service.GetCourses(filter, paging);

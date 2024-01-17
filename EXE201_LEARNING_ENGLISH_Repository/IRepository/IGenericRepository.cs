@@ -32,6 +32,7 @@ namespace EXE201_LEARNING_ENGLISH_Repository.IRepository
         public void DeleteRange(IQueryable<TEntity> entities);
         public void InsertRange(IQueryable<TEntity> entities);
         public Task Update(TEntity entity);
+        public bool Any(Expression<Func<TEntity, bool>> predicate);
         public void Save();
     }
 }

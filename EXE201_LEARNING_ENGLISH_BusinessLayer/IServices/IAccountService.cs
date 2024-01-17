@@ -25,5 +25,6 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.IServices
         public bool Verify(string mail);
         public bool RecognitionFaceId(string? unknowImage);
         public bool Logout();
+        public (string accessToken, string refreshToken) GenerateTokens(string email);
     }
 }

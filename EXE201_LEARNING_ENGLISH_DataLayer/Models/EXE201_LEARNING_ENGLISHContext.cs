@@ -20,6 +20,7 @@ namespace EXE201_LEARNING_ENGLISH_DataLayer.Models
         public virtual DbSet<Category> Categories { get; set; } = null!;
         public virtual DbSet<Certificate> Certificates { get; set; } = null!;
         public virtual DbSet<Course> Courses { get; set; } = null!;
+        public virtual DbSet<FcmToken> FcmTokens { get; set; } = null!;
         public virtual DbSet<Feedback> Feedbacks { get; set; } = null!;
         public virtual DbSet<Order> Orders { get; set; } = null!;
         public virtual DbSet<OrderDetail> OrderDetails { get; set; } = null!;
@@ -120,6 +121,37 @@ namespace EXE201_LEARNING_ENGLISH_DataLayer.Models
                     .WithMany(p => p.Courses)
                     .HasForeignKey(d => d.VouncherId)
                     .HasConstraintName("FK_Course_Vouncher");
+            });
+
+            modelBuilder.Entity<FcmToken>(entity =>
+            {
+                entity.ToTable("FcmToken");
+
+                entity.HasIndex(e => e.Email, "UQ_Email")
+                    .IsUnique();
+
+                entity.Property(e => e.CreatedBy).HasMaxLength(50);
+
+                entity.Property(e => e.Email)
+                    .HasMaxLength(150)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Fcmtoken1)
+                    .HasMaxLength(512)
+                    .IsUnicode(false)
+                    .HasColumnName("FCMToken");
+
+                entity.Property(e => e.RefeshToken)
+                    .HasMaxLength(512)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.UpdatedBy).HasMaxLength(50);
+
+                entity.HasOne(d => d.EmailNavigation)
+                    .WithOne(p => p.FcmToken)
+                    .HasForeignKey<FcmToken>(d => d.Email)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__CustomerF__Custo__6B24EA82");
             });
 
             modelBuilder.Entity<Feedback>(entity =>

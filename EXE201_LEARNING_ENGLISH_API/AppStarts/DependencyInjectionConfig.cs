@@ -34,6 +34,10 @@ namespace EXE201_LEARNING_ENGLISH_API.AppStarts
             #region LiveChat
             services.AddScoped<ILiveChatService, LiveChatService>();
             #endregion
+
+            #region Token
+            services.AddScoped<IRefreshTokenService, RefreshTokenService>();
+            #endregion
         }
     }
 }

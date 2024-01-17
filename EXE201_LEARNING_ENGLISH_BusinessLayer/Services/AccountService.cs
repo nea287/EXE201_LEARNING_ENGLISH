@@ -27,6 +27,11 @@ using XAct.Users;
 using DlibDotNet.Dnn;
 using XAct.Resources;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.Helpers.Validate;
+using Microsoft.Extensions.Configuration;
+using Org.BouncyCastle.Pqc.Crypto.Crystals.Dilithium;
+using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
 {
@@ -35,12 +40,22 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
         private readonly IGenericRepository<Account> _repository;
         private readonly IMapper _mapper;
         private readonly IDistributedCache _cache;
+        private readonly IRefreshTokenService _refreshTokenService;
+        private readonly IConfiguration _configuration;
+        private readonly IGenericRepository<FcmToken> _tokenRepository;
+        private static List<string> _blackListedToken = new List<string>();
 
-        public AccountService(IGenericRepository<Account> repository, IMapper mapper, IDistributedCache cache)
+        public AccountService(IGenericRepository<Account> repository,
+            IMapper mapper, IDistributedCache cache, IConfiguration configuration,
+            IRefreshTokenService refreshTokenService, IGenericRepository<FcmToken> tokenRepository
+            )
         {
             _repository = repository;
             _mapper = mapper;
             _cache = cache;
+            _refreshTokenService = refreshTokenService;
+            _configuration = configuration;
+            _tokenRepository = tokenRepository;
         }
 
         #region Create
@@ -277,6 +292,44 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
                     _repository.Find(x => x.Email.Equals(email)
                     && x.Password.Equals(password)));
 
+                var checkExistedToken = CheckExistedToken(email);
+
+                var dataToken = GenerateTokens(email);
+
+
+                if (checkExistedToken != null)
+                {
+                    checkExistedToken.Active = true;
+                    checkExistedToken.CreatedAt = DateTime.Now;
+                    checkExistedToken.CreatedBy = email;
+                    checkExistedToken.Email = email;
+                    checkExistedToken.Fcmtoken1 = dataToken.accessToken;
+                    checkExistedToken.RefeshToken = dataToken.refreshToken;
+                    checkExistedToken.UpdatedBy = email;
+                    checkExistedToken.UpdatedAt = DateTime.Now;
+
+                    _tokenRepository.UpdateById(checkExistedToken, checkExistedToken.Id);
+                }
+
+                else
+                {
+                    FcmToken tokenToDB = new FcmToken()
+                    {
+                        Active = true,
+                        CreatedAt = DateTime.Now,
+                        CreatedBy = email,
+                        Email = email,
+                        Fcmtoken1 = dataToken.accessToken,
+                        RefeshToken = dataToken.refreshToken,
+                        UpdatedAt = DateTime.Now,
+                        UpdatedBy = email,
+                    };
+                    _tokenRepository.Insert(tokenToDB);
+                }
+                    
+                
+                _tokenRepository.Save();
+
                 if (result == null)
                 {
                     return new ResponseResult<AccountReponse>()
@@ -489,7 +542,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
             string imageName = Encoding.UTF8.GetString(_cache.Get("-email"));
             imageName = imageName.Substring(0, imageName.Length - 4) + ".jpg";
 
-            string imagePath = Path.Combine(parentDirectory, 
+            string imagePath = Path.Combine(parentDirectory,
                 "EXE201_LEARNING_ENGLISH_BusinessLayer", "Image", "RegisterAvatar", imageName);
             var registeredImage = FaceRecognition.LoadImageFile(imagePath);
 
@@ -502,7 +555,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
             {
                 UnknowImagePath = Path.Combine(parentDirectory, "EXE201_LEARNING_ENGLISH_BusinessLayer", "Image", "UnknowAttendance", unknowImage);
             }
-            
+
             var unknownImage = FaceRecognition.LoadImageFile(UnknowImagePath);
 
             imagePath = Path.Combine(parentDirectory, "EXE201_LEARNING_ENGLISH_BusinessLayer", "dlib-models");
@@ -544,7 +597,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
                             if (match < 0.6) // Threshold for comparison
                             {
                                 var label = labels;
-                                
+
                             }
                             else
                             {
@@ -591,9 +644,14 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
                 _cache.Remove("-email");
 
                 _cache.Remove(email + "-account");
-                
 
-            }catch(Exception ex)
+                var data = _tokenRepository.Find(x => x.Email.Equals(email));
+                data.Active = false;
+                _tokenRepository.UpdateByIdByString(data, email);
+                _tokenRepository.Save();
+
+            }
+            catch (Exception ex)
             {
                 return false;
             }
@@ -603,6 +661,42 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
             }
 
             return true;
+        }
+        #endregion
+
+        #region Token
+        public (string accessToken, string refreshToken) GenerateTokens(string email)
+        {
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Token:SecretKey"]));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            var claims = new[]
+            {
+                new Claim(ClaimTypes.Name, email)
+            };
+
+            var accessToken = new JwtSecurityToken(
+                _configuration["Token:Issuer"],
+                _configuration["Token:Audience"],
+                claims,
+                expires: DateTime.Now.AddMinutes(Convert.ToDouble(_configuration["Token:ExpirationInMinutes"])),
+                signingCredentials: creds
+                );
+
+            var refreshToken = _refreshTokenService.GenerateRefreshToken(email);
+
+            var accessTokenString = new JwtSecurityTokenHandler().WriteToken(accessToken);
+
+            return (accessTokenString, refreshToken);
+        }
+
+        public FcmToken CheckExistedToken(string email)
+            => _tokenRepository.Find(x => x.Email.Equals(email) && x.Active == true);
+
+        public void AddBlacklistedToken(string accessToken, string refreshToken)
+        {
+            _blackListedToken.Add(accessToken);
+            _blackListedToken.Add(refreshToken);
         }
         #endregion
     }
