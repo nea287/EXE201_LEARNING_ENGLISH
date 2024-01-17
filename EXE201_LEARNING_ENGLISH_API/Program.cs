@@ -63,7 +63,12 @@ builder.Services.AddHttpClient();
 
 #region database
 builder.Services.AddDbContext<EXE201_LEARNING_ENGLISHContext>(options =>
-                options.UseSqlServer("name=ConnectionStrings:database"));
+{
+    #region lazyLoad
+    options.UseLazyLoadingProxies(); //sử dụng package Microsoft.EntityFrameworkCore.Proxies
+    #endregion
+    options.UseSqlServer("name=ConnectionStrings:database");
+});
 #endregion 
 
 #region Redis
