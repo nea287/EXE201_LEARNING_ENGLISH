@@ -7,11 +7,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.IdentityModel.Tokens.Jwt;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,12 +17,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
+    #region JWT
     //Khai bao bearer token trong swagger
     var securityScheme = new OpenApiSecurityScheme
     {
         Name = "Authorization",
         BearerFormat = "JWT",
-        Description = "Enter Bearer [space] and your token",
+        Description = "Enter your token",
         Type = SecuritySchemeType.Http,
         In = ParameterLocation.Header,
         Scheme = "Bearer",
@@ -57,6 +53,7 @@ builder.Services.AddSwaggerGen(c =>
                 new string[] {"Bearer"} //new string[] {} Như nhau
             }
         });
+    #endregion
 });
 
 builder.Services.AddAutoMapper(typeof(MapperConfig).Assembly);

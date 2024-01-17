@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using XAct.Security;
 using static EXE201_LEARNING_ENGLISH_BusinessLayer.ReponseModels.Heplers.DynamicModelResponse;
+using AllowAnonymousAttribute = Microsoft.AspNetCore.Authorization.AllowAnonymousAttribute;
 
 namespace EXE201_LEARNING_ENGLISH_API.Controllers
 {
@@ -25,6 +26,7 @@ namespace EXE201_LEARNING_ENGLISH_API.Controllers
         }
 
         [HttpGet("GetAccount/{email}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public ResponseResult<AccountReponse> GetAccount(string email)
         {
             return _service.GetAccount(email);
@@ -39,18 +41,21 @@ namespace EXE201_LEARNING_ENGLISH_API.Controllers
         }
 
         [HttpPut("CreateAccount")]
+        [AllowAnonymous]
         public ResponseResult<AccountReponse> CreateAccount([FromBody] CreateAccountRequest request)
         {
             return _service.CreateAccount(request);
         }
 
         [HttpPost("UpdateAccount/{email}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public ResponseResult<AccountReponse> UpdateAccount([FromBody] UpdateAccountRequest request, string email)
         {
             return _service.UpdateAccount(request, email);  
         }
 
         [HttpDelete("DeleteAccount/{email}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public ResponseResult<AccountReponse> DeleteAccount(string email)
         {
             return _service.DeleteAccount(email);

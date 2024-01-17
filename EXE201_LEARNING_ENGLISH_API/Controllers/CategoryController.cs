@@ -4,8 +4,9 @@ using EXE201_LEARNING_ENGLISH_BusinessLayer.ReponseModels.Heplers;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.ReponseModels;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Category;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Helpers;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace EXE201_LEARNING_ENGLISH_API.Controllers
 {
@@ -33,18 +34,21 @@ namespace EXE201_LEARNING_ENGLISH_API.Controllers
         }
 
         [HttpPut("CreateCategory")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public ResponseResult<CategoryReponse> CreateCategory([FromBody] CreateCategoryRequest request)
         {
             return _service.CreateCategory(request);
         }
 
         [HttpPost("UpdateCategory/{id}")]
+        [Authorize(AuthenticationSchemes =JwtBearerDefaults.AuthenticationScheme)]
         public ResponseResult<CategoryReponse> UpdateCategory([FromBody] UpdateCategoryRequest request, int id)
         {
             return _service.UpdateCategory(request, id);
         }
 
         [HttpDelete("DeleteCategory/{id}")]
+        [Authorize(AuthenticationSchemes =JwtBearerDefaults.AuthenticationScheme)]
         public ResponseResult<CategoryReponse> DeleteCategory(int id)
         {
             return _service.DeleteCategory(id);

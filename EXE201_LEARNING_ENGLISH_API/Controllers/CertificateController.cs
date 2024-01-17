@@ -6,9 +6,12 @@ using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Certificate;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Helpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace EXE201_LEARNING_ENGLISH_API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CertificateController : ControllerBase
