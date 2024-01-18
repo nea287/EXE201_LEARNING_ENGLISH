@@ -16,7 +16,6 @@ namespace EXE201_LEARNING_ENGLISH_API.Controllers
     public class OrderController : ControllerBase
     {
         private readonly IOrderService _service;
-
         public OrderController(IOrderService service)
         {
             _service = service;
@@ -38,6 +37,7 @@ namespace EXE201_LEARNING_ENGLISH_API.Controllers
         public ResponseResult<OrderReponse> CreateOrder([FromBody] CreateOrderRequest request)
         {
             return _service.CreateOrder(request);
+
         }
 
         [HttpPost("UpdateOrder/{id}/{courseId}")]
