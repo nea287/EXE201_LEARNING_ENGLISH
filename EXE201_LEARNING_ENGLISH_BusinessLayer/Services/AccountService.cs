@@ -15,20 +15,13 @@ using MimeKit;
 using QRCoder;
 using System.Data;
 using System.Drawing;
-using System.Drawing.Imaging;
 using Newtonsoft.Json;
 using MailKit.Net.Smtp;
-using System.Text.RegularExpressions;
-using System;
 using System.Text;
 using FaceRecognitionDotNet;
 using ImageFormat = System.Drawing.Imaging.ImageFormat;
-using XAct.Users;
-using DlibDotNet.Dnn;
-using XAct.Resources;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.Helpers.Validate;
 using Microsoft.Extensions.Configuration;
-using Org.BouncyCastle.Pqc.Crypto.Crystals.Dilithium;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
@@ -699,6 +692,15 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
             _blackListedToken.Add(refreshToken);
         }
         #endregion
+
+        public bool CreateListAccountExcelFile(string filePath)
+        {
+            var listData = _repository.GetAll().AsQueryable();
+
+            return ExcelFileCreator.Instance.CreateExcelFile(listData, filePath);
+
+
+        }
     }
 }
 

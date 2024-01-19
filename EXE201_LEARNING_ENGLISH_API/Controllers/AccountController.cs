@@ -60,5 +60,11 @@ namespace EXE201_LEARNING_ENGLISH_API.Controllers
         {
             return _service.DeleteAccount(email);
         }
+
+        [HttpPost("CreateListAccountExcelFile/{filePath}")]
+        public bool CreateListAccountExcelFile(string filePath)
+        {
+            return _service.CreateListAccountExcelFile(filePath);
+        }
     }
 }

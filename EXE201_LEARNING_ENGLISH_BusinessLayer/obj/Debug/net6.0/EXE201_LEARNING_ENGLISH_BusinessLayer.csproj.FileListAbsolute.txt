@@ -1,0 +1,5 @@
+C:\Users\Nea\source\EXE201_LEARNING_ENGLISH\EXE201_LEARNING_ENGLISH_BusinessLayer\obj\Debug\net6.0\EXE201_LEARNING_ENGLISH_BusinessLayer.csproj.AssemblyReference.cache
+C:\Users\Nea\source\EXE201_LEARNING_ENGLISH\EXE201_LEARNING_ENGLISH_BusinessLayer\obj\Debug\net6.0\EXE201_LEARNING_ENGLISH_BusinessLayer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Nea\source\EXE201_LEARNING_ENGLISH\EXE201_LEARNING_ENGLISH_BusinessLayer\obj\Debug\net6.0\EXE201_LEARNING_ENGLISH_BusinessLayer.AssemblyInfoInputs.cache
+C:\Users\Nea\source\EXE201_LEARNING_ENGLISH\EXE201_LEARNING_ENGLISH_BusinessLayer\obj\Debug\net6.0\EXE201_LEARNING_ENGLISH_BusinessLayer.AssemblyInfo.cs
+C:\Users\Nea\source\EXE201_LEARNING_ENGLISH\EXE201_LEARNING_ENGLISH_BusinessLayer\obj\Debug\net6.0\EXE201_LEARNING_ENGLISH_BusinessLayer.csproj.CoreCompileInputs.cache

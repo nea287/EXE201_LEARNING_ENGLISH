@@ -57,6 +57,10 @@
               "target": "Package",
               "version": "[12.0.1, )"
             },
+            "EPPlus": {
+              "target": "Package",
+              "version": "[6.2.14, )"
+            },
             "FaceRecognitionDotNet": {
               "target": "Package",
               "version": "[1.3.0.7, )"
