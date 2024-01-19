@@ -3,6 +3,7 @@ using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,13 +17,14 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Helpers
             get { return instance ?? (instance = new ExcelFileCreator()); }
         }
 
-        public bool CreateExcelFile<TEntity>(IQueryable<TEntity> entities, string filePath)
+        public bool CreateExcelFile<TEntity>(ICollection<TEntity> entities, string filePath)
         {
             try
             {
                 int row = 1;
                 int col = 1;
                 int start = 0;
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial; // hoặc LicenseContext.Commercial
 
                 using (var package = new ExcelPackage())
                 {
@@ -31,19 +33,32 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Helpers
                     foreach (var entity in entities)
                     {
                         var properties = entity.GetType().GetProperties();
-
+                        
                         foreach (var property in properties)
                         {
-                            row = 1;
+
+                            int grow = row;
                             if (start < 1)
                             {
 
-                                worksheet.Cells[row++, col].Value = property.Name;
+                                worksheet.Cells[grow++, col].Value = property.Name;
                             }
-                            worksheet.Cells[row, col++].Value = property.GetValue(property);
+                            var getValue = property.GetValue(entity);
+
+                            if (getValue is (DateTime))
+                            {
+                                worksheet.Cells[grow, col++].Value = Convert.ToString(property.GetValue(entity));
+                            }
+                            else
+                            {
+                                worksheet.Cells[grow, col++].Value = property.GetValue(entity);
+                            }
+
+                            
                         }
                         start++;
                         col = 1;
+                        row += 2;
                     }
 
                     var exelFile = new System.IO.FileInfo(filePath);

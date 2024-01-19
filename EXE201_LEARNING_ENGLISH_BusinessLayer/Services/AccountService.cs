@@ -695,9 +695,11 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
 
         public bool CreateListAccountExcelFile(string filePath)
         {
-            var listData = _repository.GetAll().AsQueryable();
+            var listData = _mapper.Map<ICollection<CreateAccountRequest>>
+                                                  (_repository.GetAll().AsQueryable());
 
-            return ExcelFileCreator.Instance.CreateExcelFile(listData, filePath);
+            return ExcelFileCreator.Instance
+                .CreateExcelFile(listData, filePath) ;
 
 
         }
