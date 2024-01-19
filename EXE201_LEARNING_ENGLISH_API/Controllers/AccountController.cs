@@ -62,6 +62,7 @@ namespace EXE201_LEARNING_ENGLISH_API.Controllers
         }
 
         [HttpPost("CreateListAccountExcelFile/{filePath}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public bool CreateListAccountExcelFile(string filePath)
         {
             return _service.CreateListAccountExcelFile(filePath);

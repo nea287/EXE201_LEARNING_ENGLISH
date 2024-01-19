@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using XAct;
 
 namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Helpers
 {
@@ -36,6 +37,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Helpers
                         
                         foreach (var property in properties)
                         {
+                            var getValue = property.GetValue(entity);
 
                             int grow = row;
                             if (start < 1)
@@ -43,11 +45,12 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Helpers
 
                                 worksheet.Cells[grow++, col].Value = property.Name;
                             }
-                            var getValue = property.GetValue(entity);
+                            
 
                             if (getValue is (DateTime))
                             {
                                 worksheet.Cells[grow, col++].Value = Convert.ToString(property.GetValue(entity));
+
                             }
                             else
                             {
