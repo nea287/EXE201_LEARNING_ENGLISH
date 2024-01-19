@@ -24,7 +24,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Helpers
                 int col = 1;
                 int start = 0;
 
-                using (var package = new ExcelPackage)
+                using (var package = new ExcelPackage())
                 {
                     var worksheet = package.Workbook.Worksheets.Add("Sheet1");
 
