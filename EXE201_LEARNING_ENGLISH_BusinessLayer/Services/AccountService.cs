@@ -39,7 +39,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
                 {
                     return new ResponseResult<AccountReponse>()
                     {
-                        Message = Constraints.NUMBER_PHONE_VALIDATE,
+                        Message = Constraints.INVALID_PHONE_NUMBER,
                         result = false
 
                     };
@@ -105,7 +105,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
             {
                 return new ResponseResult<AccountReponse>()
                 {
-                    Message = Constraints.DELELTE_INFO_FAILED,
+                    Message = Constraints.DELETE_INFO_FAILED,
                     result = false,
                 };
             }

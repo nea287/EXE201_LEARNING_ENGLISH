@@ -13,6 +13,11 @@ namespace EXE201_LEARNING_ENGLISH_Repository.IRepository
         public Task InsertAsync(TEntity entity);
         public Task InsertRangeAsync(IQueryable<TEntity> entities);
         public DbSet<TEntity> GetAll();
+        public IEnumerable<TEntity> GetAll(Expression<Func<TEntity, bool>>? filter = null,
+                                            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
+                                            string? includeProperties = null);
+        public TEntity GetFirstOrDefault(Expression<Func<TEntity, bool>>? filter = null
+                                    , string? includeProperties = null);
         public IQueryable<TEntity> GetAllApart();
         public Task<IEnumerable<TEntity>> GetWhere(Expression<Func<TEntity, bool>> predicate);
         public IQueryable<TEntity> FindAll(Func<TEntity, bool> predicate);

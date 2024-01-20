@@ -35,27 +35,6 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
         {
             try
             {
-                // Validate
-                // Make sure account have email 
-                //if (_accountRepository.GetByIdByString(request.Email) == null)
-                //{
-                //    return new ResponseResult<TeacherReponse>()
-                //    {
-                //        Message = "This email is not existed",
-                //        result = false
-                //    };
-                //}
-
-                // Make sure Teacher have unique email
-                //if (_repository.GetByIdByString(request.Email) != null)
-                //{
-                //    return new ResponseResult<TeacherReponse>()
-                //    {
-                //        Message = "This email is in used",
-                //        result = false
-                //    };
-                //}
-
                 _teacherRepository.Insert(_mapper.Map<Teacher>(request));
                 _teacherRepository.Save();
             }
@@ -103,7 +82,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
             {
                 return new ResponseResult<TeacherReponse>()
                 {
-                    Message = Constraints.DELELTE_INFO_FAILED,
+                    Message = Constraints.DELETE_INFO_FAILED,
                     result = false,
                 };
             }

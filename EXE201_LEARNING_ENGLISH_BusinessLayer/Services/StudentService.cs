@@ -14,6 +14,7 @@ using EXE201_LEARNING_ENGLISH_Repository.IRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,24 +22,21 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
 {
     public class StudentService : IStudentService
     {
-
+        private readonly IGenericRepository<Account> _accountRepository;
         private readonly IGenericRepository<Student> _studentRepository;
         private readonly IGenericRepository<StudentCourse> _studentCourseRepository;
+        private readonly IGenericRepository<Course> _courseRepository;
         private readonly IMapper _mapper;
-
-        private readonly IAccountService _accountService;
-        private readonly ICourseService _courseService;
+        
 
         public StudentService(IGenericRepository<Student> studentRepository
                                 , IGenericRepository<StudentCourse> studentCourseRepository
-                                , IAccountService accountService
-                                , ICourseService courseService
+                                , IGenericRepository<Account> accountRepository
                                 , IMapper mapper)
         {
             _studentRepository = studentRepository;
-            _studentRepository = studentRepository;
-            _courseService = courseService;
-            _accountService = accountService;
+            _studentCourseRepository = studentCourseRepository;
+            _accountRepository = accountRepository;
             _mapper = mapper;
         }
 
@@ -47,26 +45,37 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
             try
             {
                 // Validate
-                // Make sure account have email 
-                //if (_accountService.GetAccount(request.Email) == null)
-                //{
-                //    return new ResponseResult<StudentReponse>()
-                //    {
-                //        Message = "This email is not existed",
-                //        result = false
-                //    };
-                //}
+                AccountReponse existedAccount = _mapper.Map<AccountReponse>(_accountRepository.GetFirstOrDefault(x => x.Email == request.Email
+                                                                                , includeProperties: "Students,Teachers"));
 
-                // Make sure student have unique email
-                //if (_studentRepository.GetByIdByString(request.Email) != null)
-                //{
-                //    return new ResponseResult<StudentReponse>()
-                //    {
-                //        Message = "This email is in used",
-                //        result = false
-                //    };
-                //}
+                // Check existedAccount
+                if (existedAccount == null)
+                {
+                    return new ResponseResult<StudentReponse>()
+                    {
+                        Message = Constraints.NOT_FOUND_INFO,
+                        result = false
+                    };
+                }
+                // Check this email have existed
+                else if (existedAccount.Students.Count() != 0)
+                {
+                    return new ResponseResult<StudentReponse>()
+                    {
+                        Message = "This email have existed",
+                        result = false
+                    };
+                }
+                else if (existedAccount.Teachers.Count() != 0)
+                {
+                    return new ResponseResult<StudentReponse>()
+                    {
+                        Message = "This email have existed",
+                        result = false
+                    };
+                }
 
+                request.Status = 1;
                 _studentRepository.Insert(_mapper.Map<Student>(request));
                 _studentRepository.Save();
             }
@@ -94,27 +103,6 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
         {
             try
             {
-                // validate
-                // make sure student exist
-                if (_studentRepository.GetByIdByInt(request.StudentId) == null)
-                {
-                    return new ResponseResult<StudentCourseReponse>()
-                    {
-                        Message = "This student don't exist",
-                        result = false
-                    };
-                }
-
-                // make sure course exist
-                //if (_courseService.GetCourse(request.CourseId) == null)
-                //{
-                //    return new ResponseResult<StudentCourseReponse>()
-                //    {
-                //        Message = "This course don't exist",
-                //        result = false
-                //    };
-                //}
-
                 _studentCourseRepository.Insert(_mapper.Map<StudentCourse>(request));
                 _studentCourseRepository.Save();
             }
@@ -162,7 +150,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
             {
                 return new ResponseResult<StudentReponse>()
                 {
-                    Message = Constraints.DELELTE_INFO_FAILED,
+                    Message = Constraints.DELETE_INFO_FAILED,
                     result = false,
                 };
             }
@@ -263,14 +251,17 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
         {
             try
             {
-                var existedAccount = _studentRepository.GetByIdByInt(id).Result;
+                // To-do: check email exist in account
+                //          check email unique in student and teacher
+                // Validate
+                var existedStudent = _studentRepository.GetByIdByInt(id).Result;
 
-                if (existedAccount == null || existedAccount.Status == 0)
+                if (existedStudent == null || existedStudent.Status == 0)
                 {
                     return new ResponseResult<StudentReponse>()
                     {
                         Message = Constraints.NOT_FOUND_INFO,
-                        result = false
+                        result = false,
                     };
                 }
 
@@ -278,8 +269,6 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
 
                 _studentRepository.UpdateById(db, id);
                 _studentRepository.Save();
-
-
             }
             catch (Exception ex)
             {

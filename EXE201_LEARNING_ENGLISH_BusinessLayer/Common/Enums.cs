@@ -4,6 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Common { 
-
+namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Common 
+{ 
+    public enum Role
+    {
+        STUDENT,
+        TEACHER
+    }
 }

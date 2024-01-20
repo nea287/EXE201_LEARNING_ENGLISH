@@ -32,7 +32,7 @@ namespace EXE201_LEARNING_ENGLISH_API.Controllers
         }
 
         [HttpPost("CreateFeedback")]
-        public ResponseResult<FeedbackReponse> CreateFeedback([FromBody] CreateFeedbackRequest request, int slotId)
+        public ResponseResult<FeedbackReponse> CreateFeedback([FromBody] CreateFeedbackRequest request)
         {
             return _service.CreateFeedback(request);
         }

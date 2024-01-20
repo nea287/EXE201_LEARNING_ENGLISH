@@ -31,13 +31,13 @@ namespace EXE201_LEARNING_ENGLISH_API.Controllers
             return _service.GetSlots(filter, paging);
         }
 
-        [HttpPut("CreateSlot")]
-        public ResponseResult<SlotReponse> CreateSlot([FromBody] CreateSlotRequest request)
+        [HttpPost("CreateSlot")]
+        public ResponseResult<SlotReponse> CreateSlot(DayOfWeek dayOfWeek,[FromBody] CreateSlotRequest request)
         {
-            return _service.CreateSlot(request);
+            return _service.CreateSlot(dayOfWeek, request);
         }
 
-        [HttpPost("UpdateSlot/{id}")]
+        [HttpPut("UpdateSlot/{id}")]
         public ResponseResult<SlotReponse> UpdateSlot([FromBody] UpdateSlotRequest request, int id)
         {
             return _service.UpdateSlot(request, id);

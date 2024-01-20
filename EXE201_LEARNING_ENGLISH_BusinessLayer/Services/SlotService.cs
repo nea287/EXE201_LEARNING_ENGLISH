@@ -20,22 +20,42 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
 {
     public class SlotService : ISlotService
     {
-        private readonly IGenericRepository<Slot> _repository;
+        private readonly IGenericRepository<Slot> _slotRepository;
+        private readonly IGenericRepository<StudentCourse> _studentCourseRepository;
         private readonly IMapper _mapper;
 
-        public SlotService(IGenericRepository<Slot> repository, IMapper mapper)
+        public SlotService(IGenericRepository<Slot> slotRepository
+                            , IGenericRepository<StudentCourse> studentCourseRepository
+                            , IMapper mapper)
         {
-            _repository = repository;
+            _slotRepository = slotRepository;
+            _studentCourseRepository = studentCourseRepository;
             _mapper = mapper;
         }
-        public ResponseResult<SlotReponse> CreateSlot(CreateSlotRequest request)
+        public ResponseResult<SlotReponse> CreateSlot(DayOfWeek dayOfWeek, CreateSlotRequest request)
         {
             try
             {
+                var existedStudetnCourse = _studentCourseRepository.GetFirstOrDefault(x => x.StudentCourseId == request.StudentCourseId);
 
-                _repository.Insert(_mapper.Map<Slot>(request));
-                _repository.Save();
+                if (existedStudetnCourse == null)
+                {
+                    return new ResponseResult<SlotReponse>()
+                    {
+                        Message = Constraints.NOT_FOUND_INFO,
+                        result = false
+                    };
+                }
 
+                List<DateTime> listOfDatetime = Utils.GetDatesInRangeByDayOfWeek((DateTime) request.StartTime, (DateTime) request.EndTime, dayOfWeek);
+                foreach (var date in listOfDatetime)
+                {
+                    request.StartTime = date;
+                    request.EndTime = date.AddHours((double)request.Duration);
+                    var p = _mapper.Map<Slot>(request);
+                    _slotRepository.Insert(_mapper.Map<Slot>(request));
+                    _slotRepository.Save();
+                }
             }
             catch (Exception ex)
             {
@@ -47,7 +67,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
             }
             finally
             {
-                lock (_repository) ;
+                lock (_slotRepository) ;
             }
 
             return new ResponseResult<SlotReponse>()
@@ -61,7 +81,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
         {
             try
             {
-                var existedSlot = _repository.GetByIdByInt(id).Result;
+                var existedSlot = _slotRepository.GetByIdByInt(id).Result;
 
                 if (existedSlot == null)
                 {
@@ -72,21 +92,21 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
                     };
                 }
 
-                _repository.UpdateById(existedSlot, id);
-                _repository.Save();
+                _slotRepository.UpdateById(existedSlot, id);
+                _slotRepository.Save();
 
             }
             catch (Exception ex)
             {
                 return new ResponseResult<SlotReponse>()
                 {
-                    Message = Constraints.DELELTE_INFO_FAILED,
+                    Message = Constraints.DELETE_INFO_FAILED,
                     result = false
                 };
             }
             finally
             {
-                lock (_repository) ;
+                lock (_slotRepository) ;
             }
 
             return new ResponseResult<SlotReponse>()
@@ -102,7 +122,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
 
             try
             {
-                result = _mapper.Map<SlotReponse>(_repository.GetByIdByInt(id).Result);
+                result = _mapper.Map<SlotReponse>(_slotRepository.GetByIdByInt(id).Result);
 
                 if (result == null)
                 {
@@ -121,7 +141,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
             }
             finally
             {
-                lock (_repository) ;
+                lock (_slotRepository) ;
             }
 
             return new ResponseResult<SlotReponse>()
@@ -135,7 +155,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
             (int, IQueryable<SlotReponse>) result;
             try
             {
-                result = _repository.GetAll()
+                result = _slotRepository.GetAll()
                     .ProjectTo<SlotReponse>(_mapper.ConfigurationProvider)
                     .DynamicFilter(_mapper.Map<SlotReponse>(request))
                     .PagingIQueryable(paging.page, paging.pageSize, Constraints.LimitPaging, Constraints.DefaultPaging);
@@ -158,7 +178,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
             }
             finally
             {
-                lock (_repository) ;
+                lock (_slotRepository) ;
             }
 
             return new DynamicModelResponse.DynamicModelsResponse<SlotReponse>()
@@ -176,7 +196,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
         {
             try
             {
-                var existedAccount = _repository.GetByIdByInt(id).Result;
+                var existedAccount = _slotRepository.GetByIdByInt(id).Result;
 
                 if (existedAccount == null)
                 {
@@ -189,8 +209,8 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
 
                 var db = _mapper.Map<Slot>(request);
 
-                _repository.UpdateById(db, id);
-                _repository.Save();
+                _slotRepository.UpdateById(db, id);
+                _slotRepository.Save();
 
 
             }
@@ -204,7 +224,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
             }
             finally
             {
-                lock (_repository) ;
+                lock (_slotRepository) ;
             }
 
             return new ResponseResult<SlotReponse>()

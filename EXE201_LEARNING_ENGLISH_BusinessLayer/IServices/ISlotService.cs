@@ -17,7 +17,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.IServices
         public ResponseResult<SlotReponse> GetSlot(int id);
         public ResponseResult<SlotReponse> UpdateSlot(UpdateSlotRequest request, int id);
         public ResponseResult<SlotReponse> DeleteSlot(int id);
-        public ResponseResult<SlotReponse> CreateSlot(CreateSlotRequest request);
+        public ResponseResult<SlotReponse> CreateSlot(DayOfWeek dayOfWeek, CreateSlotRequest request);
         public DynamicModelsResponse<SlotReponse> GetSlots(SlotFilter request, PagingRequest paging);
     }
 }

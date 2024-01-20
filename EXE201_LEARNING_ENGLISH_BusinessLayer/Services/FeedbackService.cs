@@ -80,7 +80,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
             {
                 return new ResponseResult<FeedbackReponse>()
                 {
-                    Message = Constraints.DELELTE_INFO_FAILED,
+                    Message = Constraints.DELETE_INFO_FAILED,
                     result = false
                 };
             }
