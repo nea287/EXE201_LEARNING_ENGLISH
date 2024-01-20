@@ -34,6 +34,10 @@ namespace EXE201_LEARNING_ENGLISH_API.AppStarts
             #region LiveChat
             services.AddScoped<ILiveChatService, LiveChatService>();
             #endregion
+
+            #region Cart
+            services.AddScoped<ICartService, CartService>();
+            #endregion
         }
     }
 }
