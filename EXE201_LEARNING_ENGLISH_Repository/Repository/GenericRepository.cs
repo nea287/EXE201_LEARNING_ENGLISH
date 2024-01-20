@@ -275,6 +275,21 @@ namespace EXE201_LEARNING_ENGLISH_Repository.Repository
                 throw new Exception(ex.Message);
             }
         }
+
+        public override bool Any(Expression<Func<T, bool>> predicate)
+        {
+            bool result = false;
+            try
+            {
+                result = base.Any(predicate);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            return result;
+        }
+
         public override void Save()
         {
             try

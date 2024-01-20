@@ -11,7 +11,8 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Certificate
     {
         [Required]
         public string CertificateName { get; set; }
-        public string? Image { get; set; }
+        [Required]
+        public string Image { get; set; }
         public int? TeacherId { get; set; }
         public int? Status { get; set; }
     }
