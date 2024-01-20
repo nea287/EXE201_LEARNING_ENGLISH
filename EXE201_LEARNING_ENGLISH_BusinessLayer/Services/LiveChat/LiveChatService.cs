@@ -178,16 +178,36 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services.LiveChat
             return result;
         }
 
-        public async Task<bool> SendMessage(ChatMessageModel message)
-        {
-            
-            await _hubContext.Clients.User(message.Receiver).SendAsync("ReceivePrivateMessage", message.Sender, message.Message);
+        public async Task<bool> SendPrivateMessage(ChatMessageModel message)
+        { 
+            await _hubContext.Clients.Client(message.Receiver).SendAsync("ReceivePrivateMessage", message.Sender, message.Message);
 
             LiveChatRequest data = _mapper.Map<LiveChatRequest>(message);
             data.Timestamp = DateTime.UtcNow;
             return InsertMessage(data);
         }
 
+        public async Task<bool> SendMessage(string user, string message)
+        {
+            try
+            {
+                await _hubContext.Clients.All.SendAsync("ReceiveMessage", user, message);
+            }catch(Exception ex)
+            {
+                return false;
+            }
+
+            LiveChatRequest data = new LiveChatRequest()
+            {
+                Content = message,
+                ReceiverId = "All",
+                SenderId = user
+            };
+
+            data.Timestamp = DateTime.UtcNow;
+            return InsertMessage(data);
+            
+        }
         //public async Task LoginConfirmed(string userId)
         //{
         //    await _hubContext.Clients.Group(userId).SendAsync("LoginConfirmed", userId);

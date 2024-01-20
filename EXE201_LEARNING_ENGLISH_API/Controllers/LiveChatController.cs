@@ -55,7 +55,7 @@ namespace EXE201_LEARNING_ENGLISH_API.Controllers
                 //string apiUrl = _configuration.GetValue<string>("ApiSettings:LocalApiUrl") + "LiveChat";
                 //var response = await client.PostAsJsonAsync(apiUrl, message);
 
-                return _service.SendMessage(message);
+                return _service.SendPrivateMessage(message);
             //}
 
         }
@@ -64,6 +64,12 @@ namespace EXE201_LEARNING_ENGLISH_API.Controllers
         public ICollection<LiveChatReponse> GetMessagesOfReceivedUser()
         {
             return _service.GetMessages();
+        }
+
+        [HttpPost("SendMessageToAll/{user}/{message}")]
+        public Task<bool> SendMessageToAll(string user, string message)
+        {
+            return _service.SendMessage(user, message);
         }
     }
 }
