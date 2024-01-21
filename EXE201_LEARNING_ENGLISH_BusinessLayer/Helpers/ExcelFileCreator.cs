@@ -61,7 +61,9 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Helpers
                         }
                         start++;
                         col = 1;
-                        row += 2;
+
+                        if (start < 2) row += 1;
+                        row += 1;
                     }
 
                     var exelFile = new System.IO.FileInfo(filePath);
