@@ -138,6 +138,10 @@ builder.Services.AddAuthorization(options =>
 
 #endregion
 
+#region iis configure
+builder.Services.Configure<IISOptions>(options => { });
+#endregion
+
 var app = builder.Build();
 
 app.UseRouting(); //trước authen
