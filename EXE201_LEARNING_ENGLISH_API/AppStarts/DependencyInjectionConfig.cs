@@ -15,6 +15,9 @@ namespace EXE201_LEARNING_ENGLISH_API.AppStarts
         {
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IAccountService, AccountService>();
+
+            services.AddScoped<IRefreshTokenService, RefreshTokenService>();
+
             services.AddScoped<ICourseService, CourseService>();
 
             services.AddScoped<IStudentService, StudentService>();
