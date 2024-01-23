@@ -6,6 +6,7 @@ using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Category;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Certificate;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Course;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Feedback;
+using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.LiveChat;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Order;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.OrderDetail;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Slot;
@@ -27,6 +28,7 @@ namespace EXE201_LEARNING_ENGLISH_API.AppStarts
             CreateMap<AccountReponse, UpdateAccountRequest>().ReverseMap();
             CreateMap<AccountReponse, CreateAccountRequest>().ReverseMap();
             CreateMap<AccountReponse, AccountFilter>().ReverseMap();
+            CreateMap<Account, CreateAccount1Request>().ReverseMap();
             #endregion
 
             #region Category
@@ -44,6 +46,7 @@ namespace EXE201_LEARNING_ENGLISH_API.AppStarts
             CreateMap<Certificate, UpdateCertificateRequest>().ReverseMap();
             CreateMap<CertificateReponse, CreateCertificateRequest>().ReverseMap();
             CreateMap<CertificateReponse, UpdateCertificateRequest>().ReverseMap();
+            CreateMap<CertificateReponse, CertificateFilter>().ReverseMap();
             #endregion
 
             #region Course
@@ -69,6 +72,8 @@ namespace EXE201_LEARNING_ENGLISH_API.AppStarts
             CreateMap<Order, UpdateOrderRequest>().ReverseMap();
             CreateMap<OrderReponse, UpdateOrderRequest>().ReverseMap();
             CreateMap<OrderReponse, CreateOrderRequest>().ReverseMap();
+            CreateMap<OrderReponse, OrderFilter>().ReverseMap();
+            CreateMap<OrderDetail, CreateOrderDetailOrderRequest>().ReverseMap();
             #endregion
 
             #region OrderDetail
@@ -117,6 +122,23 @@ namespace EXE201_LEARNING_ENGLISH_API.AppStarts
             CreateMap<Vouncher, UpdateVouncherRequest>().ReverseMap();
             CreateMap<VouncherReponse, UpdateVouncherRequest>().ReverseMap();
             CreateMap<VouncherReponse, CreateVouncherRequest>().ReverseMap();
+            #endregion
+
+            #region LiveChat
+            CreateMap<LiveChatReponse, User>().ReverseMap();
+            CreateMap<LiveChatRequest, User>().ReverseMap();
+            CreateMap<LiveChatReponse, LiveChatFilter>().ReverseMap();
+
+            CreateMap<LiveChatRequest, ChatMessageModel>()
+                .ForMember(x => x.Message, opt => opt.MapFrom(dest => dest.Content))
+                .ForMember(x => x.Receiver, opt => opt.MapFrom(dest => dest.ReceiverId))
+                .ForMember(x => x.Sender, opt => opt.MapFrom(dest => dest.SenderId));
+
+            CreateMap<ChatMessageModel, LiveChatRequest>()
+                .ForMember(x => x.Content, opt => opt.MapFrom(dest => dest.Message))
+                .ForMember(x => x.SenderId, opt => opt.MapFrom(dest => dest.Sender))
+                .ForMember(x => x.ReceiverId, opt => opt.MapFrom(dest => dest.Receiver));
+
             #endregion
         }
     }
