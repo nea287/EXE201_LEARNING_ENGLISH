@@ -2,6 +2,7 @@
 using EXE201_LEARNING_ENGLISH_BusinessLayer.FilterModels;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.ReponseModels;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Account;
+using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Cart;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Category;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Certificate;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Course;
@@ -139,6 +140,12 @@ namespace EXE201_LEARNING_ENGLISH_API.AppStarts
                 .ForMember(x => x.SenderId, opt => opt.MapFrom(dest => dest.Sender))
                 .ForMember(x => x.ReceiverId, opt => opt.MapFrom(dest => dest.Receiver));
 
+            #endregion
+
+            #region Cart
+            CreateMap<Cart, CartReponse>().ReverseMap();
+            CreateMap<Cart, CartRequest>().ReverseMap();
+            CreateMap<CartReponse, CartFilter>().ReverseMap();
             #endregion
         }
     }

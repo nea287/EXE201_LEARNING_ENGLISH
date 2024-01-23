@@ -12,7 +12,10 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.IServices
         public LiveChatReponse GetContent(LiveChatRequest request);
         public bool InsertMessage(LiveChatRequest request);
         public bool DeleteMessage(LiveChatRequest request);
-        public Task<bool> SendMessage(ChatMessageModel message);
+        public Task<bool> SendPrivateMessage(ChatMessageModel message);
         public ICollection<LiveChatReponse> GetMessages();
+        public Task<bool> SendMessage(string user, string message);
+        //public Task LoginConfirmed(string userId);
+        //public Task LoginAnnounce(string userId);
     }
 }

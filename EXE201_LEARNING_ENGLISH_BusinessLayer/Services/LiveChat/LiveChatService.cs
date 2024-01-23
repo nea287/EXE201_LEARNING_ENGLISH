@@ -13,7 +13,11 @@ using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Caching.Distributed;
 using MongoDB.Driver;
 using System.Text;
+using System.Text.RegularExpressions;
 using XAct;
+using XAct.Users;
+using User = EXE201_LEARNING_ENGLISH_DataLayer.Models.User;
+
 namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services.LiveChat
 {
     public class LiveChatService : ILiveChatService
@@ -174,14 +178,45 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services.LiveChat
             return result;
         }
 
-        public async Task<bool> SendMessage(ChatMessageModel message)
-        {
-            
-            await _hubContext.Clients.User(message.Receiver).SendAsync("ReceivePrivateMessage", message.Sender, message.Message);
+        public async Task<bool> SendPrivateMessage(ChatMessageModel message)
+        { 
+            await _hubContext.Clients.Client(message.Receiver).SendAsync("ReceivePrivateMessage", message.Sender, message.Message);
 
             LiveChatRequest data = _mapper.Map<LiveChatRequest>(message);
             data.Timestamp = DateTime.UtcNow;
             return InsertMessage(data);
         }
+
+        public async Task<bool> SendMessage(string user, string message)
+        {
+            try
+            {
+                await _hubContext.Clients.All.SendAsync("ReceiveMessage", user, message);
+            }catch(Exception ex)
+            {
+                return false;
+            }
+
+            LiveChatRequest data = new LiveChatRequest()
+            {
+                Content = message,
+                ReceiverId = "All",
+                SenderId = user
+            };
+
+            data.Timestamp = DateTime.UtcNow;
+            return InsertMessage(data);
+            
+        }
+        //public async Task LoginConfirmed(string userId)
+        //{
+        //    await _hubContext.Clients.Group(userId).SendAsync("LoginConfirmed", userId);
+        //}
+
+        //public async Task LoginAnnounce(string mail)
+        //{
+        //    // Gửi xác nhận đăng nhập cho người gửi
+        //    await _hubContext.Clients.User(mail).SendAsync("LoginConfirmed", mail);
+        //}
     }
 }
