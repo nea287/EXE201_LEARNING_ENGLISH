@@ -4,8 +4,8 @@ using EXE201_LEARNING_ENGLISH_BusinessLayer.FilterModels;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.IServices;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.ReponseModels.Heplers;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.ReponseModels;
-using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Certificate;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Helpers;
+using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Vouncher;
 using EXE201_LEARNING_ENGLISH_DataLayer.Models;
 using EXE201_LEARNING_ENGLISH_Repository.IRepository;
 using System;
@@ -18,28 +18,35 @@ using EXE201_LEARNING_ENGLISH_BusinessLayer.Helpers;
 
 namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
 {
-    public class CertificateService : ICertificateService
+    public class VouncherService : IVouncherService
     {
-        private readonly IGenericRepository<Certificate> _repository;
+
+        private readonly IGenericRepository<Vouncher> _repository;
         private readonly IMapper _mapper;
 
-        public CertificateService(IGenericRepository<Certificate> repository, IMapper mapper)
+        private readonly IAccountService _accountService;
+
+        public VouncherService(IGenericRepository<Vouncher> repository
+                                , IMapper mapper
+                                , IAccountService accountService)
         {
             _repository = repository;
             _mapper = mapper;
+            _accountService = accountService;
         }
-        public ResponseResult<CertificateReponse> CreateCertificate(CreateCertificateRequest request)
+
+        public ResponseResult<VouncherReponse> CreateVouncher(CreateVouncherRequest request)
         {
             try
             {
+                // Validate
 
-                _repository.Insert(_mapper.Map<Certificate>(request));
+                _repository.Insert(_mapper.Map<Vouncher>(request));
                 _repository.Save();
-
             }
             catch (Exception ex)
             {
-                return new ResponseResult<CertificateReponse>()
+                return new ResponseResult<VouncherReponse>()
                 {
                     Message = Constraints.CREATE_INFO_FAILED,
                     result = false
@@ -50,40 +57,39 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
                 lock (_repository) ;
             }
 
-            return new ResponseResult<CertificateReponse>()
+            return new ResponseResult<VouncherReponse>()
             {
                 Message = Constraints.CREATE_INFO_SUCCESS,
                 result = true
             };
         }
 
-        public ResponseResult<CertificateReponse> DeleteCertificate(int id)
+        public ResponseResult<VouncherReponse> DeleteVouncher(int id)
         {
             try
             {
-                var existedCertificate = _repository.GetByIdByInt(id).Result;
+                var existedAccount = _repository.GetByIdByInt(id).Result;
 
-                if (existedCertificate == null || existedCertificate.Status == 0)
+                if (existedAccount == null || existedAccount.Status == 0)
                 {
-                    return new ResponseResult<CertificateReponse>()
+                    return new ResponseResult<VouncherReponse>()
                     {
                         Message = Constraints.NOT_FOUND_INFO,
-                        result = false
+                        result = false,
                     };
                 }
 
-                existedCertificate.Status = 0;
-
-                _repository.UpdateById(existedCertificate, id);
+                existedAccount.Status = 0;
+                _repository.UpdateById(existedAccount, id);
                 _repository.Save();
 
             }
             catch (Exception ex)
             {
-                return new ResponseResult<CertificateReponse>()
+                return new ResponseResult<VouncherReponse>()
                 {
                     Message = Constraints.DELETE_INFO_FAILED,
-                    result = false
+                    result = false,
                 };
             }
             finally
@@ -91,34 +97,34 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
                 lock (_repository) ;
             }
 
-            return new ResponseResult<CertificateReponse>()
+            return new ResponseResult<VouncherReponse>()
             {
                 Message = Constraints.DELETE_INFO_SUCCESS,
-                result = true
+                result = true,
             };
         }
 
-        public ResponseResult<CertificateReponse> GetCertificate(int id)
+        public ResponseResult<VouncherReponse> GetVouncher(int id)
         {
-            CertificateReponse result;
-
+            VouncherReponse result;
             try
             {
-                result = _mapper.Map<CertificateReponse>(_repository.GetByIdByInt(id).Result);
+                result = _mapper.Map<VouncherReponse>(_repository.GetByIdByInt(id).Result);
 
-                if (result == null || result.Status == 0)
+                if (result == null)
                 {
-                    return new ResponseResult<CertificateReponse>()
+                    return new ResponseResult<VouncherReponse>()
                     {
-                        Message = Constraints.NOT_FOUND_INFO,
+                        Message = Constraints.NOT_FOUND_INFO
                     };
                 }
+
             }
             catch (Exception ex)
             {
-                return new ResponseResult<CertificateReponse>()
+                return new ResponseResult<VouncherReponse>()
                 {
-                    Message = Constraints.LOAD_INFO_FAILED,
+                    Message = Constraints.LOAD_INFO_FAILED
                 };
             }
             finally
@@ -126,34 +132,33 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
                 lock (_repository) ;
             }
 
-            return new ResponseResult<CertificateReponse>()
+            return new ResponseResult<VouncherReponse>()
             {
                 Value = result,
             };
         }
 
-        public DynamicModelResponse.DynamicModelsResponse<CertificateReponse> GetCertificates(CertificateFilter request, PagingRequest paging)
+        public DynamicModelResponse.DynamicModelsResponse<VouncherReponse> GetVounchers(VouncherFilter request, PagingRequest paging)
         {
-            (int, IQueryable<CertificateReponse>) result;
+            (int, IQueryable<VouncherReponse>) result;
             try
             {
                 result = _repository.GetAll().Where(x => x.Status != 0)
-                    .ProjectTo<CertificateReponse>(_mapper.ConfigurationProvider)
-                    .DynamicFilter(_mapper.Map<CertificateReponse>(request))
+                    .ProjectTo<VouncherReponse>(_mapper.ConfigurationProvider)
+                    .DynamicFilter(_mapper.Map<VouncherReponse>(request))
                     .PagingIQueryable(paging.page, paging.pageSize, Constraints.LimitPaging, Constraints.DefaultPaging);
 
                 if (result.Item2.Count() == 0)
                 {
-                    return new DynamicModelResponse.DynamicModelsResponse<CertificateReponse>()
+                    return new DynamicModelResponse.DynamicModelsResponse<VouncherReponse>()
                     {
                         Message = Constraints.EMPTY_INFO,
                     };
                 }
-
             }
             catch (Exception ex)
             {
-                return new DynamicModelResponse.DynamicModelsResponse<CertificateReponse>()
+                return new DynamicModelResponse.DynamicModelsResponse<VouncherReponse>()
                 {
                     Message = Constraints.LOAD_INFO_FAILED,
                 };
@@ -163,7 +168,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
                 lock (_repository) ;
             }
 
-            return new DynamicModelResponse.DynamicModelsResponse<CertificateReponse>()
+            return new DynamicModelResponse.DynamicModelsResponse<VouncherReponse>()
             {
                 Metadata = new DynamicModelResponse.PagingMetadata()
                 {
@@ -174,33 +179,31 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
             };
         }
 
-        public ResponseResult<CertificateReponse> UpdateCertificate(UpdateCertificateRequest request, int id)
+        public ResponseResult<VouncherReponse> UpdateVouncher(UpdateVouncherRequest request, int id)
         {
             try
             {
-                var existedCertificate = _repository.GetByIdByInt(id).Result;
+                var existedAccount = _repository.GetByIdByInt(id).Result;
 
-                if (UpdateCertificate == null || existedCertificate.Status == 0)
+                if (existedAccount == null || existedAccount.Status == 0)
                 {
-                    return new ResponseResult<CertificateReponse>()
+                    return new ResponseResult<VouncherReponse>()
                     {
                         Message = Constraints.NOT_FOUND_INFO,
                         result = false
                     };
                 }
 
-                existedCertificate.Status = request.Status;
-                existedCertificate.Image = request.Image;
-                existedCertificate.TeacherId = request.TeacherId;
-                existedCertificate.CertificateName = request.CertificateName;
+                var db = _mapper.Map<Vouncher>(request);
 
-                _repository.UpdateById(existedCertificate, id);
+                _repository.UpdateById(db, id);
                 _repository.Save();
+
 
             }
             catch (Exception ex)
             {
-                return new ResponseResult<CertificateReponse>()
+                return new ResponseResult<VouncherReponse>()
                 {
                     Message = Constraints.UPDATE_INFO_FAILED,
                     result = false
@@ -211,7 +214,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
                 lock (_repository) ;
             }
 
-            return new ResponseResult<CertificateReponse>()
+            return new ResponseResult<VouncherReponse>()
             {
                 Message = Constraints.UPDATE_INFO_SUCCESS,
                 result = true

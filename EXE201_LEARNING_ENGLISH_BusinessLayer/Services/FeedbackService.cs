@@ -3,11 +3,10 @@ using AutoMapper.QueryableExtensions;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.Common;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.FilterModels;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.Helpers;
-using EXE201_LEARNING_ENGLISH_BusinessLayer.Helpers.Validate;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.IServices;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.ReponseModels;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.ReponseModels.Heplers;
-using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Course;
+using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Feedback;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Helpers;
 using EXE201_LEARNING_ENGLISH_DataLayer.Models;
 using EXE201_LEARNING_ENGLISH_Repository.IRepository;
@@ -19,44 +18,28 @@ using System.Threading.Tasks;
 
 namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
 {
-    public class CourseService : ICourseService
+    public class FeedbackService : IFeedbackService
     {
-        private readonly IGenericRepository<Course> _repository;
+        private readonly IGenericRepository<Feedback> _repository;
         private readonly IMapper _mapper;
 
-        public CourseService(IGenericRepository<Course> repository, IMapper mapper)
+        public FeedbackService(IGenericRepository<Feedback> repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
         }
-        public ResponseResult<CourseReponse> CreateCourse(CreateCourseRequest request)
+        public ResponseResult<FeedbackReponse> CreateFeedback(CreateFeedbackRequest request)
         {
             try
             {
-                #region Validate 
-                CourseValidate courseValidate = new CourseValidate();
 
-                bool resultValidate = courseValidate
-                    .CheckListNumberValidate((decimal)request.Duration, 
-                        (decimal)request.UnitPrice, (decimal)request.NumberOfLesson);
-
-                if (resultValidate)
-                {
-                    return new ResponseResult<CourseReponse>()
-                    {
-                        Message = Constraints.NUMBER_INVALIDATE,
-                        result = false
-                    };
-                }
-                
-                #endregion
-
-                _repository.Insert(_mapper.Map<Course>(request));
+                _repository.Insert(_mapper.Map<Feedback>(request));
                 _repository.Save();
 
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
-                return new ResponseResult<CourseReponse>()
+                return new ResponseResult<FeedbackReponse>()
                 {
                     Message = Constraints.CREATE_INFO_FAILED,
                     result = false
@@ -67,36 +50,35 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
                 lock (_repository) ;
             }
 
-            return new ResponseResult<CourseReponse>()
+            return new ResponseResult<FeedbackReponse>()
             {
                 Message = Constraints.CREATE_INFO_SUCCESS,
                 result = true
             };
         }
 
-        public ResponseResult<CourseReponse> DeleteCourse(int id)
+        public ResponseResult<FeedbackReponse> DeleteFeedback(int id)
         {
             try
             {
-                var existedCourse = _repository.GetByIdByInt(id).Result;
+                var existedFeedback = _repository.GetByIdByInt(id).Result;
 
-                if(existedCourse == null || existedCourse.Status == 0)
+                if (existedFeedback == null)
                 {
-                    return new ResponseResult<CourseReponse>()
+                    return new ResponseResult<FeedbackReponse>()
                     {
                         Message = Constraints.NOT_FOUND_INFO,
                         result = false
                     };
                 }
 
-                existedCourse.Status = 0;
-
-                _repository.UpdateById(existedCourse, id);
+                _repository.UpdateById(existedFeedback, id);
                 _repository.Save();
 
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
-                return new ResponseResult<CourseReponse>()
+                return new ResponseResult<FeedbackReponse>()
                 {
                     Message = Constraints.DELETE_INFO_FAILED,
                     result = false
@@ -107,31 +89,32 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
                 lock (_repository) ;
             }
 
-            return new ResponseResult<CourseReponse>()
+            return new ResponseResult<FeedbackReponse>()
             {
                 Message = Constraints.DELETE_INFO_SUCCESS,
                 result = true
             };
         }
 
-        public ResponseResult<CourseReponse> GetCourse(int id)
+        public ResponseResult<FeedbackReponse> GetFeedback(int id)
         {
-            CourseReponse result;
+            FeedbackReponse result;
 
             try
             {
-                result = _mapper.Map<CourseReponse>(_repository.GetByIdByInt(id).Result);
+                result = _mapper.Map<FeedbackReponse>(_repository.GetByIdByInt(id).Result);
 
-                if(result == null || result.Status == 0)
+                if (result == null)
                 {
-                    return new ResponseResult<CourseReponse>()
+                    return new ResponseResult<FeedbackReponse>()
                     {
                         Message = Constraints.NOT_FOUND_INFO,
                     };
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
-                return new ResponseResult<CourseReponse>()
+                return new ResponseResult<FeedbackReponse>()
                 {
                     Message = Constraints.LOAD_INFO_FAILED,
                 };
@@ -141,25 +124,25 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
                 lock (_repository) ;
             }
 
-            return new ResponseResult<CourseReponse>()
+            return new ResponseResult<FeedbackReponse>()
             {
                 Value = result,
             };
         }
 
-        public DynamicModelResponse.DynamicModelsResponse<CourseReponse> GetCourses(CourseFilter request, PagingRequest paging)
+        public DynamicModelResponse.DynamicModelsResponse<FeedbackReponse> GetFeedbacks(FeedbackFilter request, PagingRequest paging, int slotId)
         {
-            (int, IQueryable<CourseReponse>) result;
+            (int, IQueryable<FeedbackReponse>) result;
             try
             {
-                result = _repository.GetAll().Where(x => x.Status != 0)
-                    .ProjectTo<CourseReponse>(_mapper.ConfigurationProvider)
-                    .DynamicFilter(_mapper.Map<CourseReponse>(request))
+                result = _repository.GetAll().Where(x => x.SlotId == slotId)
+                    .ProjectTo<FeedbackReponse>(_mapper.ConfigurationProvider)
+                    .DynamicFilter(_mapper.Map<FeedbackReponse>(request))
                     .PagingIQueryable(paging.page, paging.pageSize, Constraints.LimitPaging, Constraints.DefaultPaging);
 
                 if (result.Item2.Count() == 0)
                 {
-                    return new DynamicModelResponse.DynamicModelsResponse<CourseReponse>()
+                    return new DynamicModelResponse.DynamicModelsResponse<FeedbackReponse>()
                     {
                         Message = Constraints.EMPTY_INFO,
                     };
@@ -168,7 +151,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
             }
             catch (Exception ex)
             {
-                return new DynamicModelResponse.DynamicModelsResponse<CourseReponse>()
+                return new DynamicModelResponse.DynamicModelsResponse<FeedbackReponse>()
                 {
                     Message = Constraints.LOAD_INFO_FAILED,
                 };
@@ -178,7 +161,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
                 lock (_repository) ;
             }
 
-            return new DynamicModelResponse.DynamicModelsResponse<CourseReponse>()
+            return new DynamicModelResponse.DynamicModelsResponse<FeedbackReponse>()
             {
                 Metadata = new DynamicModelResponse.PagingMetadata()
                 {
@@ -189,36 +172,31 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
             };
         }
 
-        public ResponseResult<CourseReponse> UpdateCourse(UpdateCourseRequest request, int id)
+        public ResponseResult<FeedbackReponse> UpdateFeedback(UpdateFeedbackRequest request, int id)
         {
             try
             {
-                var existedCourse = _repository.GetByIdByInt(id).Result;
+                var existedAccount = _repository.GetByIdByInt(id).Result;
 
-                if (UpdateCourse == null || existedCourse.Status == 0)
+                if (existedAccount == null)
                 {
-                    return new ResponseResult<CourseReponse>()
+                    return new ResponseResult<FeedbackReponse>()
                     {
                         Message = Constraints.NOT_FOUND_INFO,
                         result = false
                     };
                 }
 
-                existedCourse.NumberOfLesson = request.NumberOfLesson;
-                existedCourse.Status = request.Status;
-                existedCourse.Duration = request.Duration;
-                existedCourse.UnitPrice = request.UnitPrice;
-                existedCourse.Description = request.Description;
-                existedCourse.CategoryId = request.CategoryId;
-                existedCourse.CourseName = request.CourseName;
+                var db = _mapper.Map<Feedback>(request);
 
-                _repository.UpdateById(existedCourse, id);
+                _repository.UpdateById(db, id);
                 _repository.Save();
+
 
             }
             catch (Exception ex)
             {
-                return new ResponseResult<CourseReponse>()
+                return new ResponseResult<FeedbackReponse>()
                 {
                     Message = Constraints.UPDATE_INFO_FAILED,
                     result = false
@@ -229,7 +207,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
                 lock (_repository) ;
             }
 
-            return new ResponseResult<CourseReponse>()
+            return new ResponseResult<FeedbackReponse>()
             {
                 Message = Constraints.UPDATE_INFO_SUCCESS,
                 result = true
@@ -237,3 +215,4 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
         }
     }
 }
+

@@ -11,6 +11,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Student
     {
         [Required]
         public string StudentName { get; set; }
+        [EmailAddress]
         public string? Email { get; set; }
         public int? Status { get; set; }
     }

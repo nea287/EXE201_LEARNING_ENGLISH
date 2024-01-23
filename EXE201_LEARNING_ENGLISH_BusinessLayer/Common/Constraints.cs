@@ -19,10 +19,12 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Common
         public const string UPDATE_INFO_SUCCESS = "Cập nhật thông tin thành công!";
         public const string UPDATE_INFO_FAILED = "Cập nhật thông tin thất bại!";
         public const string DELETE_INFO_SUCCESS = "Xóa thông tin thành công!";
-        public const string DELELTE_INFO_FAILED = "Xóa thông tin thất bại!";
+        public const string DELETE_INFO_FAILED = "Xóa thông tin thất bại!";
         #endregion
 
         #region Validate
+        public const string EXISTED_PHONE_NUMBER = "Số điện thoại đã được dùng!";
+        public const string EXISTED_EMAIL = "Email đã được dùng!";
         public const string NUMBER_PHONE_INVALIDATE = "Số điện thoại không hợp lệ!";
         public const string BIRTHDATE_INVALIDATE = "Ngày sinh không hợp lệ";
         public const string EMAIL_INVALIDATE = "Email không hợp lệ!";
@@ -33,6 +35,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Common
 
         #region CourseValidate
         
+
         #endregion
 
         #region Page

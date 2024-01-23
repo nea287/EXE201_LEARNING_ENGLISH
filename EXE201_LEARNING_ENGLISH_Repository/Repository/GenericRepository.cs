@@ -301,5 +301,33 @@ namespace EXE201_LEARNING_ENGLISH_Repository.Repository
                 throw new Exception(ex.Message);
             }
         }
+
+        public override IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter = null, Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null, string? includeProperties = null)
+        {
+            IEnumerable<T> result;
+            try
+            {
+                result = base.GetAll(filter, orderBy, includeProperties);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            return result;
+        }
+
+        public T GetFirstOrDefault(Expression<Func<T, bool>>? filter = null, string? includeProperties = null)
+        {
+            T result;
+            try
+            {
+                result = base.getFirstOrDefault(filter, includeProperties);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            return result;
+        }
     }
 }
