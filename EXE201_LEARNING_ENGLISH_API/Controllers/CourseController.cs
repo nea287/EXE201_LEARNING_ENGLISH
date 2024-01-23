@@ -36,13 +36,13 @@ namespace EXE201_LEARNING_ENGLISH_API.Controllers
             return _service.GetCourses(filter, paging);
         }
 
-        [HttpPut("CreateCourse")]
+        [HttpPost("CreateCourse")]
         public ResponseResult<CourseReponse> CreateCourse([FromBody] CreateCourseRequest request)
         {
             return _service.CreateCourse(request);
         }
 
-        [HttpPost("UpdateCourse/{id}")]
+        [HttpPut("UpdateCourse/{id}")]
         public ResponseResult<CourseReponse> UpdateCourse([FromBody] UpdateCourseRequest request, int id)
         {
             return _service.UpdateCourse(request, id);

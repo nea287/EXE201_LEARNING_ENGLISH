@@ -33,7 +33,7 @@ namespace EXE201_LEARNING_ENGLISH_API.Controllers
             return _service.GetOrders(filter, paging);
         }
 
-        [HttpPut("CreateOrder")]
+        [HttpPost("CreateOrder")]
         public ResponseResult<OrderReponse> CreateOrder([FromBody] CreateOrderRequest request)
         {
             return _service.CreateOrder(request);

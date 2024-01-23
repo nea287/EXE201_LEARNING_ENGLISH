@@ -33,14 +33,14 @@ namespace EXE201_LEARNING_ENGLISH_API.Controllers
             return _service.GetCategorys(filter, paging);
         }
 
-        [HttpPut("CreateCategory")]
+        [HttpPost("CreateCategory")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public ResponseResult<CategoryReponse> CreateCategory([FromBody] CreateCategoryRequest request)
         {
             return _service.CreateCategory(request);
         }
 
-        [HttpPost("UpdateCategory/{id}")]
+        [HttpPut("UpdateCategory/{id}")]
         [Authorize(AuthenticationSchemes =JwtBearerDefaults.AuthenticationScheme)]
         public ResponseResult<CategoryReponse> UpdateCategory([FromBody] UpdateCategoryRequest request, int id)
         {

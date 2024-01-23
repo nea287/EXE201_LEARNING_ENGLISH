@@ -36,7 +36,7 @@ namespace EXE201_LEARNING_ENGLISH_API.Controllers
             return _service.GetContent(request);
         }
 
-        [HttpPut("InsertContent")]
+        [HttpPost("InsertContent")]
         public bool InsertContent([FromBody] LiveChatRequest request)
         {
             return _service.InsertMessage(request);

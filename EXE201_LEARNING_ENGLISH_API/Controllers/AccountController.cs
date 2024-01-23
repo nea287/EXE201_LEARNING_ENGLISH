@@ -40,14 +40,14 @@ namespace EXE201_LEARNING_ENGLISH_API.Controllers
             return _service.GetAccounts(filter, paging);
         }
 
-        [HttpPut("CreateAccount")]
+        [HttpPost("CreateAccount")]
         [AllowAnonymous]
         public ResponseResult<AccountReponse> CreateAccount([FromBody] CreateAccountRequest request)
         {
             return _service.CreateAccount(request);
         }
 
-        [HttpPost("UpdateAccount/{email}")]
+        [HttpPut("UpdateAccount/{email}")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public ResponseResult<AccountReponse> UpdateAccount([FromBody] UpdateAccountRequest request, string email)
         {

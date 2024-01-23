@@ -35,13 +35,13 @@ namespace EXE201_LEARNING_ENGLISH_API.Controllers
             return _service.GetCertificates(filter, paging);
         }
 
-        [HttpPut("CreateCertificate")]
+        [HttpPost("CreateCertificate")]
         public ResponseResult<CertificateReponse> CreateCertificate([FromBody] CreateCertificateRequest request)
         {
             return _service.CreateCertificate(request);
         }
 
-        [HttpPost("UpdateCertificate/{id}")]
+        [HttpPut("UpdateCertificate/{id}")]
         public ResponseResult<CertificateReponse> UpdateCertificate([FromBody] UpdateCertificateRequest request, int id)
         {
             return _service.UpdateCertificate(request, id);

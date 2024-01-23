@@ -38,13 +38,13 @@ namespace EXE201_LEARNING_ENGLISH_API.Controllers
             return _service.DeleteCart(courseId);
         }
 
-        [HttpPost("UpdateCart")]
+        [HttpPut("UpdateCart")]
         public ResponseResult<CartReponse> UpdateCart([FromQuery]CartRequest request)
         {
             return _service.UpdateCart(request);
         }
 
-        [HttpPut("CreateCart")]
+        [HttpPost("CreateCart")]
         public ResponseResult<CartReponse> CreateCart([FromQuery] CartRequest request)
         {
             return _service.InsertCart(request);

@@ -2376,8 +2376,7 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
-      "EXE201_LEARNING_ENGLISH_DataLayer >= 1.0.0",
-      "Microsoft.EntityFrameworkCore >= 6.0.14"
+      "EXE201_LEARNING_ENGLISH_DataLayer >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -2428,12 +2427,6 @@
     "frameworks": {
       "net6.0": {
         "targetAlias": "net6.0",
-        "dependencies": {
-          "Microsoft.EntityFrameworkCore": {
-            "target": "Package",
-            "version": "[6.0.14, )"
-          }
-        },
         "imports": [
           "net461",
           "net462",
@@ -2445,11 +2438,6 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "frameworkReferences": {
-          "Microsoft.NETCore.App": {
-            "privateAssets": "all"
-          }
-        },
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
       }
     }

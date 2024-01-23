@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "EXE201_LEARNING_ENGLISH_DAO": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:25567;http://localhost:25568"
+    }
+  }
+}
