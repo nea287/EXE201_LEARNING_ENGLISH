@@ -61,5 +61,11 @@ namespace EXE201_LEARNING_ENGLISH_API.Controllers
         {
             return _subService.GetListEmailOfStudentsInCourse(courseId);
         }
+
+        [HttpPost("SendListEmailToTeacher/{courseId}")]
+        public bool SendListEmailToTeacher(int courseId)
+        {
+            return _subService.SendListEmailOfCourseToTeacher(courseId);
+        }
     }
 }

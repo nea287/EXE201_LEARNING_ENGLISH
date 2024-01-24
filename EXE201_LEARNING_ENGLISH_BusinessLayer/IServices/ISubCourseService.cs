@@ -9,5 +9,6 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.IServices
     public interface ISubCourseService
     {
         public ICollection<string> GetListEmailOfStudentsInCourse(int courseId);
+        public bool SendListEmailOfCourseToTeacher(int courseId);
     }
 }

@@ -1,22 +1,25 @@
 ﻿using AutoMapper;
+using EXE201_LEARNING_ENGLISH_BusinessLayer.Helpers;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.IServices;
 using EXE201_LEARNING_ENGLISH_DataLayer.Models;
 using EXE201_LEARNING_ENGLISH_Repository.IRepository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using Microsoft.Extensions.Caching.Distributed;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
 {
     public class SubCourseService : CourseService, ISubCourseService
     {
         private readonly IGenericRepository<Course> _courseRepository;
+        private readonly IDistributedCache _cache;
 
-        public SubCourseService(IGenericRepository<Course> repository, IMapper mapper) : base(repository, mapper)
+        public SubCourseService(IGenericRepository<Course> repository, IMapper mapper, IDistributedCache cache)
+            : base(repository, mapper)
         {
             _courseRepository = repository;
+            _cache = cache;
         }
 
         public ICollection<string> GetListEmailOfStudentsInCourse(int courseId)
@@ -38,6 +41,30 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
                 lock (this) ;
             }
             return lstEmail;
+        }
+
+        public bool SendListEmailOfCourseToTeacher(int courseId)
+        {
+            try
+            {
+                var email = Encoding.UTF8.GetString(_cache.Get("-email"));
+                //string email = JsonConvert.DeserializeObject<string>(data);
+                string lstEmail = "";
+
+                foreach(var e in GetListEmailOfStudentsInCourse(courseId))
+                {
+                    lstEmail += e + "\n";
+                }
+                
+
+                SupportFeature.Instance.SendEmail(email, lstEmail, "List Email");
+
+            }catch(Exception ex)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

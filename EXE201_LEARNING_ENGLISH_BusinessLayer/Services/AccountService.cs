@@ -348,7 +348,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
 
             DistributedCacheEntryOptions options = new DistributedCacheEntryOptions()
                 .SetAbsoluteExpiration(TimeSpan.FromDays(1))
-                .SetSlidingExpiration(TimeSpan.FromSeconds(30));
+                .SetSlidingExpiration(TimeSpan.FromMinutes(60));
 
             string dataAsync = JsonConvert.SerializeObject(result);
             var dataToCache = Encoding.UTF8.GetBytes(dataAsync);
