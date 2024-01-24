@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Common 
 { 
-    public enum Role
+    public enum AccountRole
     {
+        ADMIN,
         STUDENT,
-        TEACHER
+        TEACHER,
     }
 }

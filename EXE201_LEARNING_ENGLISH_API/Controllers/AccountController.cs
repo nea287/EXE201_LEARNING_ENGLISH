@@ -19,10 +19,12 @@ namespace EXE201_LEARNING_ENGLISH_API.Controllers
     public class AccountController : ControllerBase
     {
         private readonly IAccountService _service;
+        private readonly ISubAccountService _subService;
 
-        public AccountController(IAccountService service)
+        public AccountController(IAccountService service, ISubAccountService subService)
         {
             _service = service;
+            _subService = subService;
         }
 
         [HttpGet("GetAccount/{email}")]
@@ -44,7 +46,7 @@ namespace EXE201_LEARNING_ENGLISH_API.Controllers
         [AllowAnonymous]
         public ResponseResult<AccountReponse> CreateAccount([FromBody] CreateAccountRequest request)
         {
-            return _service.CreateAccount(request);
+            return _subService.CreateAccount(request);
         }
 
         [HttpPut("UpdateAccount/{email}")]
