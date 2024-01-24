@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,13 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Helpers
             foreach (var item in properties)
             {
                 if (entity.GetType().GetProperty(item.Name) == null) continue;
+
+                if(item.PropertyType != typeof(string))
+                {
+                    if (typeof(ICollection<>).IsAssignableFrom(item.PropertyType.GetGenericTypeDefinition())) continue;
+                }
+                
+
                 var propertyVal = entity.GetType().GetProperty(item.Name).GetValue(entity, null);
                 if (propertyVal == null) continue;
                 if (item.CustomAttributes.Any(a => a.AttributeType == typeof(SkipAttribute))) continue;
@@ -29,27 +37,6 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Helpers
                 {
                     var array = (IList)propertyVal;
                     source = source.Where($"{item.Name}.Any(a=> @0.Contains(a))", array);
-                    //source = source.Where($"{item.Name}.Intersect({array}).Any()",);
-                }
-                else if (item.CustomAttributes.Any(a => a.AttributeType == typeof(ChildAttribute)))
-                {
-                    var childProperties = item.PropertyType.GetProperties();
-                    foreach (var childProperty in childProperties)
-                    {
-                        var childPropertyVal = propertyVal.GetType().GetProperty(childProperty.Name)
-                            .GetValue(propertyVal, null);
-                        if (childPropertyVal != null && childProperty.PropertyType.Name.ToLower() == "string")
-                            source = source.Where($"{item.Name}.{childProperty.Name} = \"{childPropertyVal}\"");
-                    }
-                }
-                else if (item.CustomAttributes.Any(a => a.AttributeType == typeof(ExcludeAttribute)))
-                {
-                    var childProperties = item.PropertyType.GetProperties();
-                    var field = item.CustomAttributes.FirstOrDefault(a => a.AttributeType == typeof(ExcludeAttribute))
-                        .NamedArguments.FirstOrDefault().TypedValue.Value;
-                    var array = ((List<int>)propertyVal).Cast<int?>();
-                    source = source.Where($"!@0.Contains(it.{field})", array);
-
                 }
                 else if (item.CustomAttributes.Any(a => a.AttributeType == typeof(SortAttribute)))
                 {
@@ -77,11 +64,11 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Helpers
                 }
                 else if (item.PropertyType == typeof(string))
                 {
-                    source = source.Where($"{item.Name} = \"{((string)propertyVal).Trim()}\""); ;
+                    source = source.Where($"{item.Name}.Contains(@0)", ((string)propertyVal).Trim());
                 }
                 else
                 {
-                    //source = source.Where($"{item.Name} = {propertyVal}");
+                    source = source.Where($"{item.Name} = \"{propertyVal}\"");
                 }
             }
             return source;
