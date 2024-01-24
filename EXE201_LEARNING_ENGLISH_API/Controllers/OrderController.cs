@@ -40,7 +40,7 @@ namespace EXE201_LEARNING_ENGLISH_API.Controllers
 
         }
 
-        [HttpPost("UpdateOrder/{id}/{courseId}")]
+        [HttpPut("UpdateOrder/{id}/{courseId}")]
         public ResponseResult<OrderReponse> UpdateOrder([FromBody] UpdateOrderRequest request, int id, int courseId)
         {
             return _service.UpdateOrder(request, id, courseId);
