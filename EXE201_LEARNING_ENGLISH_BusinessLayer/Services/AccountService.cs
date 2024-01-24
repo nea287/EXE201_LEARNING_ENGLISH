@@ -58,13 +58,13 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
             {
                 #region Validate
                 AccountValidate accountValidate = new AccountValidate();
-                string validate = accountValidate.CheckValidate<CreateAccountRequest>(request);
+                string validate = accountValidate.CheckValidate(request);
 
                 if (!validate.Equals(Constraints.VALIDATE))
                 {
                     return new ResponseResult<AccountReponse>()
                     {
-                        Message = Constraints.NUMBER_PHONE_INVALIDATE,
+                        Message = validate,
                         result = false
 
                     };
