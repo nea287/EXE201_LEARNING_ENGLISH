@@ -66,5 +66,22 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
 
             return true;
         }
+
+        public bool SendMailToStudents(int courseId, string message, string title)
+        {
+            try
+            {
+                foreach(var email in GetListEmailOfStudentsInCourse(courseId))
+                {
+                    SupportFeature.Instance.SendEmail(email, message, title);
+                }
+
+            }catch(Exception ex)
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }

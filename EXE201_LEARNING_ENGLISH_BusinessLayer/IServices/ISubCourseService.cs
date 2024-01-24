@@ -10,5 +10,6 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.IServices
     {
         public ICollection<string> GetListEmailOfStudentsInCourse(int courseId);
         public bool SendListEmailOfCourseToTeacher(int courseId);
+        public bool SendMailToStudents(int courseId, string message, string title);
     }
 }
