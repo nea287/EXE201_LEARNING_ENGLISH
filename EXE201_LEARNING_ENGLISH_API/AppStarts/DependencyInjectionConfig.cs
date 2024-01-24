@@ -20,6 +20,7 @@ namespace EXE201_LEARNING_ENGLISH_API.AppStarts
             services.AddScoped<IRefreshTokenService, RefreshTokenService>();
 
             services.AddScoped<ICourseService, CourseService>();
+            services.AddScoped<ISubCourseService, SubCourseService>();
 
             services.AddScoped<IStudentService, StudentService>();
             services.AddScoped<ITeacherService, TeacherService>();

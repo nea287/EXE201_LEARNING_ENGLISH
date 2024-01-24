@@ -16,10 +16,12 @@ namespace EXE201_LEARNING_ENGLISH_API.Controllers
     public class CourseController : ControllerBase
     {
         private readonly ICourseService _service;
+        private readonly ISubCourseService _subService;
 
-        public CourseController(ICourseService service)
+        public CourseController(ICourseService service, ISubCourseService subService)
         {
             _service = service;
+            _subService = subService;
         }
 
         [HttpGet("GetCourse/{id}")]
@@ -52,6 +54,12 @@ namespace EXE201_LEARNING_ENGLISH_API.Controllers
         public ResponseResult<CourseReponse> DeleteCourse(int id)
         {
             return _service.DeleteCourse(id);
+        }
+
+        [HttpGet("GetListEmailOfCourse/{courseId}")]
+        public ICollection<string> GetListEmailOfCourse(int courseId)
+        {
+            return _subService.GetListEmailOfStudentsInCourse(courseId);
         }
     }
 }
