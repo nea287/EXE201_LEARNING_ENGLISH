@@ -482,6 +482,14 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
 
         public bool Verify(string mail)
         {
+            DistributedCacheEntryOptions options1 = new DistributedCacheEntryOptions()
+                .SetAbsoluteExpiration(DateTime.Now.AddMinutes(2))
+                .SetSlidingExpiration(TimeSpan.FromMinutes(2));
+
+            var email = Encoding.UTF8.GetBytes(mail);
+
+            _cache.Set("-mail", email, options1);
+
             string code = Convert.ToString(new Random().Next(10000, 99999));
             try
             {
