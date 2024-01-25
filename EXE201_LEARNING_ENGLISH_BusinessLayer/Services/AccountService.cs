@@ -25,6 +25,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
+using XAct;
 
 namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
 {
@@ -285,6 +286,13 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
                     _repository.Find(x => x.Email.Equals(email)
                     && x.Password.Equals(password)));
 
+                if (result.IsNull())
+                {
+                    return new ResponseResult<AccountReponse>()
+                    {
+                        Message = Constraints.LOGIN_FAILED
+                    };
+                }
                 var checkExistedToken = CheckExistedToken(email);
 
                 var dataToken = GenerateTokens(email, result.Role.Value);
