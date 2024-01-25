@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace EXE201_LEARNING_ENGLISH_API.Controllers
 {
-    [Authorize] 
+    [Authorize(Policy = "RequireTeacherRole")] 
     [Route("api/[controller]")]
     [ApiController]
     public class CourseController : ControllerBase
