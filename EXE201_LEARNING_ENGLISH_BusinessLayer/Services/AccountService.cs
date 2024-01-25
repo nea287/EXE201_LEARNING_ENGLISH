@@ -372,8 +372,9 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
             };
         }
 
-        public ResponseResult<AccountReponse> Register(CreateAccount1Request request, string code, string codeVerify)
+        public ResponseResult<AccountReponse> Register(CreateAccount1Request request, string code)
         {
+            string codeVerify = Encoding.UTF8.GetString(_cache.Get("verify"));
             try
             {
                 if (!codeVerify.Equals(code))
@@ -401,7 +402,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
                 return new ResponseResult<AccountReponse>()
                 {
                     Message = Constraints.REGISTER_FAILED,
-                    result = true,
+                    result = false,
                 };
             }
             finally

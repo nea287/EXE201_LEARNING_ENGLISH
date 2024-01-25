@@ -1,6 +1,7 @@
 ﻿using EXE201_LEARNING_ENGLISH_BusinessLayer.IServices;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.ReponseModels;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.ReponseModels.Heplers;
+using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Account;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
@@ -59,6 +60,13 @@ namespace EXE201_LEARNING_ENGLISH_API.Controllers
         public bool Logout()
         {
             return _service.Logout();
+        }
+
+        [HttpPost("Register/{code}")]
+        [AllowAnonymous]
+        public ResponseResult<AccountReponse> Register([FromQuery] CreateAccount1Request request, string code)
+        {
+            return _service.Register(request, code);
         }
     }
 }

@@ -70,11 +70,6 @@ namespace EXE201_LEARNING_ENGLISH_API.Controllers
         {
             return _service.CreateListAccountExcelFile(filePath);
         }
-        [HttpPost("Register/{code}/{codeVetify}")]
-        [AllowAnonymous]
-        public ResponseResult<AccountReponse> Register([FromQuery]CreateAccount1Request request,string code, string codeVetify)
-        {
-            return _service.Register(request, code, codeVetify);
-        }
+
     }
 }
