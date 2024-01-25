@@ -8,9 +8,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Cors;
 
 namespace EXE201_LEARNING_ENGLISH_API.Controllers
 {
+    [EnableCors("AllowAnyOrigins")]
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]

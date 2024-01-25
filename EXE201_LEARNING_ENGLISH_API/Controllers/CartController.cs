@@ -5,11 +5,13 @@ using EXE201_LEARNING_ENGLISH_BusinessLayer.ReponseModels.Heplers;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Cart;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Helpers;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EXE201_LEARNING_ENGLISH_API.Controllers
-{ 
+{
+    [EnableCors("AllowAnyOrigins")]
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]

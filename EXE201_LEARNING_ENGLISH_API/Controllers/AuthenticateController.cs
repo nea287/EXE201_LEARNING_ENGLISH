@@ -3,6 +3,7 @@ using EXE201_LEARNING_ENGLISH_BusinessLayer.ReponseModels;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.ReponseModels.Heplers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -12,6 +13,7 @@ using System.Security.Claims;
 
 namespace EXE201_LEARNING_ENGLISH_API.Controllers
 {
+    [EnableCors("AllowAnyOrigins")]
     [Route("api/[controller]")]
     [ApiController]
     public class AuthenticateController : ControllerBase

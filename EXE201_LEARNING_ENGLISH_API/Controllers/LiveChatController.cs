@@ -5,10 +5,12 @@ using EXE201_LEARNING_ENGLISH_BusinessLayer.ReponseModels.Heplers;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Helpers;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.LiveChat;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EXE201_LEARNING_ENGLISH_API.Controllers
 {
+    [EnableCors("AllowAnyOrigins")]
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]

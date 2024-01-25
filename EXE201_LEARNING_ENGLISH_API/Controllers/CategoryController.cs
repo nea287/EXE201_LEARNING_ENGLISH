@@ -7,9 +7,11 @@ using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Cors;
 
 namespace EXE201_LEARNING_ENGLISH_API.Controllers
 {
+    [EnableCors("AllowAnyOrigins")]
     [Route("api/[controller]")]
     [ApiController]
     public class CategoryController : ControllerBase

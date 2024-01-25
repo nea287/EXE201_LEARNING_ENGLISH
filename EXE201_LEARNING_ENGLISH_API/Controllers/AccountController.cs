@@ -6,6 +6,7 @@ using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Account;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using XAct.Security;
@@ -14,6 +15,7 @@ using AllowAnonymousAttribute = Microsoft.AspNetCore.Authorization.AllowAnonymou
 
 namespace EXE201_LEARNING_ENGLISH_API.Controllers
 {
+    [EnableCors("AllowAnyOrigins")]
     [Route("api/[controller]")]
     [ApiController]
     public class AccountController : ControllerBase

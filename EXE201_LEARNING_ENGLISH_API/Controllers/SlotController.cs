@@ -6,9 +6,11 @@ using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Slot;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 
 namespace EXE201_LEARNING_ENGLISH_API.Controllers
 {
+    [EnableCors("AllowAnyOrigins")]
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
