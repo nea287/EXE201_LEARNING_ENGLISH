@@ -149,6 +149,7 @@ builder.Services.Configure<IISOptions>(options => { });
 var app = builder.Build();
 
 app.UseRouting(); //trước authen
+app.UseCors();
 
 app.UseAuthentication(); //trước useEndpoints
 
@@ -185,6 +186,6 @@ app.UseEndpoints(endpoints =>
     endpoints.MapControllers();
 });
 
-app.UseCors("AllowAnyOrigins");
+
 
 app.Run();
