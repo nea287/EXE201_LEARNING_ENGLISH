@@ -4,11 +4,13 @@ using EXE201_LEARNING_ENGLISH_BusinessLayer.ReponseModels;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.ReponseModels.Heplers;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Cart;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Helpers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EXE201_LEARNING_ENGLISH_API.Controllers
-{
+{ 
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CartController : ControllerBase

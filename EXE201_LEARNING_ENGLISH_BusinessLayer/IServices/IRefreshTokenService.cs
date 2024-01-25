@@ -8,6 +8,6 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.IServices
 {
     public interface IRefreshTokenService
     {
-        public string GenerateRefreshToken(string email);
+        public string GenerateRefreshToken(string email, int role);
     }
 }

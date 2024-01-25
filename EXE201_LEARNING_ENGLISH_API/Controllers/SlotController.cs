@@ -5,9 +5,11 @@ using EXE201_LEARNING_ENGLISH_BusinessLayer.ReponseModels;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Slot;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Helpers;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EXE201_LEARNING_ENGLISH_API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class SlotController : Controller
@@ -32,18 +34,21 @@ namespace EXE201_LEARNING_ENGLISH_API.Controllers
         }
 
         [HttpPost("CreateSlot")]
+        [Authorize(Policy = "RequireTeacherRole")]
         public ResponseResult<SlotReponse> CreateSlot(DayOfWeek dayOfWeek,[FromBody] CreateSlotRequest request)
         {
             return _service.CreateSlot(dayOfWeek, request);
         }
 
         [HttpPut("UpdateSlot/{id}")]
+        [Authorize(Policy = "RequireTeacherRole")]
         public ResponseResult<SlotReponse> UpdateSlot([FromBody] UpdateSlotRequest request, int id)
         {
             return _service.UpdateSlot(request, id);
         }
 
         [HttpDelete("DeleteSlot/{id}")]
+        [Authorize(Policy = "RequireTeacherRole")]
         public ResponseResult<SlotReponse> DeleteSlot(int id)
         {
             return _service.DeleteSlot(id);

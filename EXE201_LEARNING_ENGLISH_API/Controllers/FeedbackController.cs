@@ -5,6 +5,7 @@ using EXE201_LEARNING_ENGLISH_BusinessLayer.ReponseModels;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Feedback;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Helpers;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EXE201_LEARNING_ENGLISH_API.Controllers
 {
@@ -32,6 +33,7 @@ namespace EXE201_LEARNING_ENGLISH_API.Controllers
         }
 
         [HttpPost("CreateFeedback")]
+        [Authorize]
         public ResponseResult<FeedbackReponse> CreateFeedback([FromBody] CreateFeedbackRequest request)
         {
             return _service.CreateFeedback(request);

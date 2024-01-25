@@ -34,21 +34,21 @@ namespace EXE201_LEARNING_ENGLISH_API.Controllers
         }
 
         [HttpPost("CreateCategory")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(Policy = "RequireAdminRole")]
         public ResponseResult<CategoryReponse> CreateCategory([FromBody] CreateCategoryRequest request)
         {
             return _service.CreateCategory(request);
         }
 
         [HttpPut("UpdateCategory/{id}")]
-        [Authorize(AuthenticationSchemes =JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(Policy = "RequireAdminRole")]
         public ResponseResult<CategoryReponse> UpdateCategory([FromBody] UpdateCategoryRequest request, int id)
         {
             return _service.UpdateCategory(request, id);
         }
 
         [HttpDelete("DeleteCategory/{id}")]
-        [Authorize(AuthenticationSchemes =JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(Policy = "RequireAdminRole")]
         public ResponseResult<CategoryReponse> DeleteCategory(int id)
         {
             return _service.DeleteCategory(id);

@@ -28,15 +28,14 @@ namespace EXE201_LEARNING_ENGLISH_API.Controllers
         }
 
         [HttpGet("GetAccount/{email}")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(Policy = "RequireAdminRole")]
         public ResponseResult<AccountReponse> GetAccount(string email)
         {
             return _service.GetAccount(email);
         }
 
         [HttpGet("GetListAccount")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        //[Authorize] Như nhau không ảnh hưởng
+        [Authorize(Policy = "RequireAdminRole")]
         public DynamicModelResponse.DynamicModelsResponse<AccountReponse> GetListAccount([FromQuery] AccountFilter filter, [FromQuery] PagingRequest paging)
         {
             return _service.GetAccounts(filter, paging);
@@ -64,7 +63,7 @@ namespace EXE201_LEARNING_ENGLISH_API.Controllers
         }
 
         [HttpPost("CreateListAccountExcelFile/{filePath}")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(Policy = "RequireAdminRole")]
         public bool CreateListAccountExcelFile(string filePath)
         {
             return _service.CreateListAccountExcelFile(filePath);

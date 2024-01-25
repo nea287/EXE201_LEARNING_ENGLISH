@@ -8,6 +8,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Common
 { 
     public enum AccountRole
     {
+        NULL,
         ADMIN,
         STUDENT,
         TEACHER,

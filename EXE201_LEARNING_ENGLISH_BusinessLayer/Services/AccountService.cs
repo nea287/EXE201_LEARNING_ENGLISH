@@ -287,7 +287,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
 
                 var checkExistedToken = CheckExistedToken(email);
 
-                var dataToken = GenerateTokens(email);
+                var dataToken = GenerateTokens(email, result.Role.Value);
 
 
                 if (checkExistedToken != null)
@@ -658,14 +658,31 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
         #endregion
 
         #region Token
-        public (string accessToken, string refreshToken) GenerateTokens(string email)
+        public (string accessToken, string refreshToken) GenerateTokens(string email, int role)
         {
+            string roleName = "";
+            switch (role)
+            {
+                case (int)AccountRole.ADMIN:
+                    roleName = AccountRole.ADMIN.ToString();
+                    break;
+
+                case (int)AccountRole.STUDENT:
+                    roleName = AccountRole.STUDENT.ToString();
+                    break;
+
+                case (int)AccountRole.TEACHER:
+                    roleName = AccountRole.TEACHER.ToString();
+                    break;
+            }
+
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Token:SecretKey"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var claims = new[]
             {
-                new Claim(ClaimTypes.Name, email)
+                new Claim(ClaimTypes.Name, email),
+                new Claim(ClaimTypes.Role, roleName)
             };
 
             var accessToken = new JwtSecurityToken(
@@ -676,7 +693,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
                 signingCredentials: creds
                 );
 
-            var refreshToken = _refreshTokenService.GenerateRefreshToken(email);
+            var refreshToken = _refreshTokenService.GenerateRefreshToken(email, role);
 
             var accessTokenString = new JwtSecurityTokenHandler().WriteToken(accessToken);
 

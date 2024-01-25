@@ -36,18 +36,21 @@ namespace EXE201_LEARNING_ENGLISH_API.Controllers
         }
 
         [HttpPost("CreateCertificate")]
+        [Authorize(Policy = "RequireTeacherRole")]
         public ResponseResult<CertificateReponse> CreateCertificate([FromBody] CreateCertificateRequest request)
         {
             return _service.CreateCertificate(request);
         }
 
         [HttpPut("UpdateCertificate/{id}")]
+        [Authorize(Policy = "RequireTeacherRole")]
         public ResponseResult<CertificateReponse> UpdateCertificate([FromBody] UpdateCertificateRequest request, int id)
         {
             return _service.UpdateCertificate(request, id);
         }
 
         [HttpDelete("DeleteCertificate/{id}")]
+        [Authorize(Policy = "RequireTeacherRole")]
         public ResponseResult<CertificateReponse> DeleteCertificate(int id)
         {
             return _service.DeleteCertificate(id);

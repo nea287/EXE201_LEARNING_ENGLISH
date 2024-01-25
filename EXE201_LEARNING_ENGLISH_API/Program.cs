@@ -98,7 +98,7 @@ builder.Services.AddCors(c =>
 });
 #endregion
 
-#region JWT
+#region Authen and Author
 
 var tokenConfig = builder.Configuration.GetSection("Token");
 JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear(); // clear default behaviour không ảnh hưởng đến jwt
@@ -125,10 +125,14 @@ builder.Services.AddAuthentication(x =>
 //authorization
 builder.Services.AddAuthorization(options =>
 {
-    //options.AddPolicy("RequireAdminRole", policy =>
-    //{
-    //    policy.RequireRole("Admin");
-    //});
+    options.AddPolicy("RequireAdminRole", policy =>
+    {
+        policy.RequireRole("ADMIN");
+    });
+    options.AddPolicy("RequireTeacherRole", policy =>
+    {
+        policy.RequireRole("TEACHER");
+    });
     options.AddPolicy("Bearer", policy =>
     {
         policy.AuthenticationSchemes.Add(JwtBearerDefaults.AuthenticationScheme);
