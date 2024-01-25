@@ -11,6 +11,7 @@ using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Course;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Helpers;
 using EXE201_LEARNING_ENGLISH_DataLayer.Models;
 using EXE201_LEARNING_ENGLISH_Repository.IRepository;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -152,10 +153,20 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
             (int, IQueryable<CourseReponse>) result;
             try
             {
-                result = _repository.GetAll().Where(x => x.Status != 0)
+                result= _repository.GetAll()
+                    .Where(x => x.Status != 0).Include(x => x.Teacher)
                     .ProjectTo<CourseReponse>(_mapper.ConfigurationProvider)
                     .DynamicFilter(_mapper.Map<CourseReponse>(request))
                     .PagingIQueryable(paging.page, paging.pageSize, Constraints.LimitPaging, Constraints.DefaultPaging);
+
+                //result.Item1 = result1.Item1;
+                //result.Item2 = _mapper.Map<IQueryable<CourseReponse>>(result1.Item2);
+
+                //foreach(var e in result1.Item2)
+                //{
+                    
+                //}
+
 
                 if (result.Item2.Count() == 0)
                 {

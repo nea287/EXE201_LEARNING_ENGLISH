@@ -15,6 +15,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.ReponseModels
         public string? Description { get; set; }
         public decimal? UnitPrice { get; set; }
         public int? TeacherId { get; set; }
+        public string? TeacherName { get; set; }
         public double? Duration { get; set; }
         public int? NumberOfLesson { get; set; }
         public int? CategoryId { get; set; }
