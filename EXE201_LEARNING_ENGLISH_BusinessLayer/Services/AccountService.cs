@@ -499,7 +499,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
 
             _cache.Set("-mail", email, options1);
 
-            string code = Convert.ToString(new Random().Next(10000, 99999));
+            string code = Convert.ToString(new Random().Next(100000, 999999));
             try
             {
                 MimeMessage message = new MimeMessage(); // tạo đối tượng mimemessage
