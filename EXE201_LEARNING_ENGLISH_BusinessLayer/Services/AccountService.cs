@@ -393,7 +393,10 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
                     };
                 }
 
-                _repository.Insert(_mapper.Map<Account>(request));
+                Account account = _mapper.Map<Account>(request);
+                account.Status = 1;
+                _repository.Insert(account);
+
                 _repository.Save();
 
             }

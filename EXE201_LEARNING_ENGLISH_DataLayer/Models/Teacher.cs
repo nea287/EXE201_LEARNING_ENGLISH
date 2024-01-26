@@ -16,6 +16,7 @@ namespace EXE201_LEARNING_ENGLISH_DataLayer.Models
         public string? Email { get; set; }
         public int? Status { get; set; }
         public string? Level { get; set; }
+        public string? TeacherCode { get; set; }
 
         public virtual Account? EmailNavigation { get; set; }
         public virtual ICollection<Certificate> Certificates { get; set; }

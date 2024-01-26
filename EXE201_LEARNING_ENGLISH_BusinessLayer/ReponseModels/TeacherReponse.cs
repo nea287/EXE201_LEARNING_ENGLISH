@@ -15,6 +15,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.ReponseModels
         public string? Email { get; set; }
         public int? Status { get; set; }
         public string? Level { get; set; }
+        public string? TeacherCode { get; set; }
 
         public ICollection<CertificateReponse>? Certificates { get; set; }
         public ICollection<CourseReponse>? Courses { get; set; }

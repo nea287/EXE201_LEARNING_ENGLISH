@@ -35,7 +35,13 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
         {
             try
             {
-                _teacherRepository.Insert(_mapper.Map<Teacher>(request));
+                int countTeacher = _teacherRepository.GetAll().Count();
+                Teacher teacher = _mapper.Map<Teacher>(request);
+                teacher.TeacherCode = "DT" + "11" + String.Concat(countTeacher);
+
+                teacher.Status = 1;
+
+                _teacherRepository.Insert(teacher);
                 _teacherRepository.Save();
             }
             catch (Exception ex)
