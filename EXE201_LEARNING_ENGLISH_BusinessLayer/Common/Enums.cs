@@ -10,7 +10,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Common
     {
         NULL,
         ADMIN,
-        STUDENT,
         TEACHER,
+        STUDENT,
     }
 }
