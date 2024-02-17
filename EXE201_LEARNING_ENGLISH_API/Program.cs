@@ -93,7 +93,7 @@ builder.Services.AddSignalR();
 #region Cors
 builder.Services.AddCors(c =>
 {
-    c.AddPolicy("AllowAnyOrigins", options => 
+    c.AddPolicy("AllowAnyOrigins", options =>
         options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 });
 #endregion
@@ -156,18 +156,17 @@ app.UseAuthentication(); //trước useEndpoints
 app.UseAuthorization();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+
+app.UseSwagger();
+app.UseSwaggerUI(c =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        // Thêm Middleware để xử lý Bearer Token trong Swagger UI
-        //OAuthUseBasicAuthenticationWithAccessCodeFlow
-        //c.OAuthUseBasicAuthenticationWithAccessCodeGrant();
-        //c.OAuthClientId("swagger");
-        //c.OAuthClientSecret("swagger-secret");
-    });
-}
+    // Thêm Middleware để xử lý Bearer Token trong Swagger UI
+    //OAuthUseBasicAuthenticationWithAccessCodeFlow
+    //c.OAuthUseBasicAuthenticationWithAccessCodeGrant();
+    //c.OAuthClientId("swagger");
+    //c.OAuthClientSecret("swagger-secret");
+});
+
 
 
 
