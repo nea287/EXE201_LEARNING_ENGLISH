@@ -354,16 +354,16 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
                 lock (_repository) ;
             }
 
-            DistributedCacheEntryOptions options = new DistributedCacheEntryOptions()
-                .SetAbsoluteExpiration(TimeSpan.FromDays(1))
-                .SetSlidingExpiration(TimeSpan.FromMinutes(60));
+            // DistributedCacheEntryOptions options = new DistributedCacheEntryOptions()
+            //    .SetAbsoluteExpiration(TimeSpan.FromDays(1))
+            //    .SetSlidingExpiration(TimeSpan.FromMinutes(60));
 
-            string dataAsync = JsonConvert.SerializeObject(result);
-            var dataToCache = Encoding.UTF8.GetBytes(dataAsync);
-            _cache.Set(result.Email.ToLower() + "-account", dataToCache, options);
+            // string dataAsync = JsonConvert.SerializeObject(result);
+            // var dataToCache = Encoding.UTF8.GetBytes(dataAsync);
+            // _cache.Set(result.Email.ToLower() + "-account", dataToCache, options);
 
-            var emailToCache = Encoding.UTF8.GetBytes(email);
-            _cache.Set("-email", emailToCache, options);
+            // var emailToCache = Encoding.UTF8.GetBytes(email);
+            // _cache.Set("-email", emailToCache, options);
 
             return new ResponseResult<AccountReponse>()
             {
