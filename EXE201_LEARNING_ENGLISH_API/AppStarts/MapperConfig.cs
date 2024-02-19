@@ -101,12 +101,11 @@ namespace EXE201_LEARNING_ENGLISH_API.AppStarts
 
             #region Student
             CreateMap<Student, StudentReponse>().ReverseMap();
-            CreateMap<Student, CreateStudentCourseRequest>().ReverseMap();
-            CreateMap<Student, UpdateStudentCourseRequest>().ReverseMap();
             CreateMap<Student, CreateStudentRequest>().ReverseMap();
-            CreateMap<StudentReponse, UpdateStudentCourseRequest>().ReverseMap();
-            CreateMap<StudentReponse, CreateStudentCourseRequest>().ReverseMap();
+            CreateMap<Student, UpdateStudentRequest>().ReverseMap();
             CreateMap<StudentReponse, StudentFilter>().ReverseMap();
+            CreateMap<StudentReponse, CreateStudentRequest>().ReverseMap();
+            CreateMap<StudentReponse, UpdateStudentRequest>().ReverseMap();
             #endregion
 
             #region StudentCourse
@@ -115,6 +114,7 @@ namespace EXE201_LEARNING_ENGLISH_API.AppStarts
             CreateMap<StudentCourse, UpdateStudentCourseRequest>().ReverseMap();
             CreateMap<StudentCourseReponse, UpdateStudentCourseRequest>().ReverseMap();
             CreateMap<StudentCourseReponse, CreateStudentCourseRequest>().ReverseMap();
+            CreateMap<StudentCourseReponse, StudentCourseFilter>().ReverseMap();
             #endregion
 
             #region Teacher

@@ -1,0 +1,39 @@
+﻿@page
+@model EXE201_LEARNING_ENGLISH_Client.Pages.Students.Course.IndexModel
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid py-5">
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h5 class="text-primary text-uppercase mb-3" style="letter-spacing: 5px;">Courses</h5>
+            <h1>Our Popular Courses</h1>
+        </div>
+        <div class="row">
+            @foreach (var course in Model.StudentCourseViewModels)
+            {
+                <div class="col-lg-4 col-md-6 mb-4" onclick="redictToCourse('@course.StudentCourseId')">
+                    <div class="rounded overflow-hidden mb-2">
+                        <img class="img-fluid" src="~/img/course-6.jpg" alt="">
+                        <div class="bg-secondary p-4">
+                            <a class="h5" style="color: orange; font-size: 1.5em;">@course.CourseName</a>
+                            <br />
+                            <a class="h5">@course.StartDate</a>
+                            <br />
+                            <a class="h5">@course.EndDate</a>
+                            <br />
+                            <a class="h5">@course.Link</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    function redictToCourse(studentCourseId) {
+        window.location.href = './Course/Slot?CourseId=' + studentCourseId;
+    }
+</script>

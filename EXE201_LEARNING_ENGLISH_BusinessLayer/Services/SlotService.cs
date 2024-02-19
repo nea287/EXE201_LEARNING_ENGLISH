@@ -192,6 +192,20 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
             };
         }
 
+        public IList<Slot> GetSlotsByStudentCourseId(int studentCourseId)
+        {
+            IList<Slot> result = null;
+            try
+            {
+               result = _slotRepository.GetAll(x => x.StudentCourseId == studentCourseId).ToList();
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return result;
+        }
+
         public ResponseResult<SlotReponse> UpdateSlot(UpdateSlotRequest request, int id)
         {
             try

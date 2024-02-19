@@ -18,10 +18,16 @@ namespace EXE201_LEARNING_ENGLISH_Client.Pages
     public class LoginModel : PageModel
     {
         private readonly IAccountService _accountService;
+        private readonly IStudentService _studentService;
+        private readonly ITeacherService _teacherService;
 
-        public LoginModel(IAccountService accountService)
+        public LoginModel(IAccountService accountService,
+                            IStudentService studentService,
+                            ITeacherService teacherService)
         {
             _accountService = accountService;
+            _studentService = studentService;
+            _teacherService = teacherService;
         }
 
         [BindProperty]
@@ -42,13 +48,11 @@ namespace EXE201_LEARNING_ENGLISH_Client.Pages
             var account = _accountService.Login(LoginViewModel.Email, LoginViewModel.Password);
             if (account != null)
             {
-                HttpContext.Session.SetInt32("ROLE", (int) account.Value.Role);
                 switch (account.Value.Role)
                 {
                     case 1:
-                        return RedirectToPage("./Courses/Index");
-                    case 2:
-                        return RedirectToPage("./Courses/Index");
+                        HttpContext.Session.SetInt32("ID", (int) _studentService.GetStudent(account.Value.Email).Value.StudentId);
+                        return RedirectToPage("./Students/Course/Index");
                 }
             }
             return Page();

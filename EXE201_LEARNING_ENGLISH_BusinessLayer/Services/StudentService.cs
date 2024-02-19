@@ -200,9 +200,60 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
             };
         }
 
+        public ResponseResult<StudentReponse> GetStudent(string email)
+        {
+            StudentReponse result;
+            try
+            {
+                result = _mapper.Map<StudentReponse>(_studentRepository.GetFirstOrDefault(x => x.Email.Equals(email)));
+                if (result == null)
+                {
+                    return new ResponseResult<StudentReponse>()
+                    {
+                        Message = Constraints.NOT_FOUND_INFO
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                return new ResponseResult<StudentReponse>()
+                {
+                    Message = Constraints.LOAD_INFO_FAILED
+                };
+            }
+            finally
+            {
+                lock (_studentRepository) ;
+            }
+
+            return new ResponseResult<StudentReponse>()
+            {
+                Value = result,
+            };
+        }
+
         public DynamicModelResponse.DynamicModelsResponse<StudentCourseReponse> GetStudentCourses(StudentFilter request, PagingRequest paging)
         {
             throw new Exception();
+        }
+
+        public IList<StudentCourse> GetStudentCoursesByStudentId(StudentCourseFilter request, PagingRequest paging,int? studentId)
+        {
+            IList<StudentCourse> result = null;
+            try
+            {
+                result = (IList<StudentCourse>) _studentCourseRepository.GetAll(includeProperties: "Course").Where(x => x.StudentId == studentId).ToList();
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                lock (_studentRepository) ;
+            }
+
+            return result;
         }
 
         public DynamicModelResponse.DynamicModelsResponse<StudentReponse> GetStudents(StudentFilter request, PagingRequest paging)

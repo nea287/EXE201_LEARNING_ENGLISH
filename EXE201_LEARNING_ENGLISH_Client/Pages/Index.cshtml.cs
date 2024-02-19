@@ -1,6 +1,7 @@
 ﻿using EXE201_LEARNING_ENGLISH_BusinessLayer.FilterModels;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.IServices;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Helpers;
+using EXE201_LEARNING_ENGLISH_Client.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -17,14 +18,6 @@ namespace EXE201_LEARNING_ENGLISH_Client.Pages
             _courseService = courseService;
         }
 
-        public class CourseViewModel
-        {
-            public string? Name { get; set; }
-            public string? Description { get; set; }
-            public decimal? UnitPrice { get; set; }
-            public string? TeacherName { get; set; }
-        }
-
         public IList<CourseViewModel> CourseList;
 
         public void OnGet()
@@ -36,6 +29,7 @@ namespace EXE201_LEARNING_ENGLISH_Client.Pages
             foreach (var course in courseList.Results)
             {
                 CourseViewModel courseViewModel = new CourseViewModel();
+                courseViewModel.Id = course.CourseId;
                 courseViewModel.Name = course.CourseName;
                 courseViewModel.Description = course.Description;
                 courseViewModel.UnitPrice = course.UnitPrice;
