@@ -1,0 +1,29 @@
+{
+  "profiles": {
+    "EXE201_LEARNING_ENGLISH_VIEW": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "Admin/Index",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://localhost:7009;http://localhost:5009"
+    },
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  },
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:3167",
+      "sslPort": 44303
+    }
+  }
+}
