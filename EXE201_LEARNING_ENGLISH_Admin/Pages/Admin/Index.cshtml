@@ -4,6 +4,7 @@
 @using static EXE201_LEARNING_ENGLISH_BusinessLayer.ReponseModels.Heplers.DynamicModelResponse
 @model EXE201_LEARNING_ENGLISH_Admin.Pages.Admin.IndexModel
 @{
+    Layout = null;
     //DynamicModelsResponse<AccountReponse> result = new DynamicModelsResponse<AccountReponse>();
 }
 <!DOCTYPE html>
@@ -531,7 +532,7 @@
                                             <i class="mdi mdi-account-multiple text-primary widget-icon"></i>
                                         </div>
                                         <h5 class="text-muted font-weight-normal mt-0">Total Users</h5>
-                                        <h3 class="mt-2">@(startupModel.lstAccount.Results != null ? startupModel.lstAccount.Metadata.Total + 100 : 0)</h3>
+                                        <h3 class="mt-2">@(startupModel.lstAccount.Results != null ? startupModel.lstAccount.Metadata.Total + 100 : 98)</h3>
                                     </div>
                                     <div id="sparkline3"></div>
                                 </div> <!-- end card-body-->
@@ -556,135 +557,99 @@
                     <!-- end row -->
 
                     <div class="row">
-                        <!-- On tables -->
-                        <table class="table-primary">
-                            <thead>
-                                <tr class="table-warning">
-                                    <th>Order Id</th>
-                                    <th>Course Name</th>
-                                    <th>Unit Price</th>
-                                    <th>Discount</th>
-                                    <th>Order Date</th>
-                                    <th>Final Price</th>
-                                </tr>
-                            </thead>
 
-                            <tbody>
-                                <!-- On cells (`td` or `th`) -->
-                                <tr>
-                                    @if (startupModel.lstOrder.Results != null)
-                                    {
-                                        @foreach (var e in startupModel.lstOrder.Results)
-                                        {
-                                            @foreach(var i in e.OrderDetails){
-                                                <td class="table-primary">@(i.OrderId)</td>
-                                                <td class="table-secondary">@(i.CourseName)</td>
-                                                <td class="table-success">@(i.UnitPrice)</td>
-                                                <td class="table-danger">@(i.Discount)</td>
-                                                <td class="table-info">@(i.OrderDate)</td>
-                                                <td class="table-dark">@(i.FinalPrice)</td>
+                        <div class="col-xl-8">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="header-title">Sales Analytics</h4>
+
+                                    <canvas id="myPieChart"></canvas>
+
+                                    <script>
+                                        // Lấy dữ liệu từ Razor và chuyển vào mảng JavaScript
+                                        var labels = [@foreach (var label in startupModel.lstOrder.Results.Select(x => x.)) { '@label', }];
+                                        var data = [@foreach (var value in startupModel.lstCourse.Results.Select(x => x.)) { @value, }];
+
+
+                                        // Vẽ biểu đồ tròn
+                                        var ctx = document.getElementById('myPieChart').getContext('2d');
+                                        var myPieChart = new Chart(ctx, {
+                                            type: 'pie',
+                                            data: {
+                                                labels: labels,
+                                                datasets: [{
+                                                    data: data,
+                                                    backgroundColor: [
+                                                        'rgba(255, 99, 132, 0.5)',
+                                                        'rgba(54, 162, 235, 0.5)',
+                                                        'rgba(255, 206, 86, 0.5)',
+                                                        // Thêm màu cho các dữ liệu khác nếu cần
+                                                    ],
+                                                    borderColor: [
+                                                        'rgba(255, 99, 132, 1)',
+                                                        'rgba(54, 162, 235, 1)',
+                                                        'rgba(255, 206, 86, 1)',
+                                                        // Thêm màu viền cho các dữ liệu khác nếu cần
+                                                    ],
+                                                    borderWidth: 1
+                                                }]
+                                            },
+                                            options: {
+                                                responsive: true
                                             }
-
-                                        }
-                                    }
-
-                                </tr>
-                            </tbody>
-                        </table>
-
-
-
-                        @*                        <div class="col-xl-8">
-                        <div class="card">
-                        <div class="card-body">
-                        <h4 class="header-title">Sales Analytics</h4>
-
-                        <canvas id="bar" height="350" class="mt-4"></canvas>
+                                        });
+                                    </script>
+                                </div>
+                            </div>
 
                         </div>
-                        </div>
-                        </div>
-                        <div class="col-xl-4">
-                        <div class="card">
-                        <div class="card-body">
-                        <h4 class="header-title">Top Marketplaces</h4>
 
-                        <canvas id="doughnut" height="350" class="mt-4"></canvas>
 
-                        </div>
-                        </div>
-                        </div>*@
                     </div>
-                    <!-- end row -->
+
 
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="header-title">Recent Customers</h4>
+                                    <h4 class="header-title">Recent Trasactions</h4>
 
                                     <div class="table-responsive mt-3">
+
+                                        <!-- On tables -->
                                         <table class="table table-hover table-centered mb-0">
                                             <thead>
-                                                <tr>
-                                                    <th>Teacher Id</th>
-                                                    <th>Basic Info</th>
-                                                    <th>Teacher Code</th>
-                                                    <th>Email</th>
-                                                    <th>Level</th>
-                                                    <th>Action</th>
+                                                <tr class="table-warning">
+                                                    <th>Order Id</th>
+                                                    <th>Course Name</th>
+                                                    <th>Unit Price</th>
+                                                    <th>Discount</th>
+                                                    <th>Order Date</th>
+                                                    <th>Final Price</th>
                                                 </tr>
                                             </thead>
 
                                             <tbody>
-                                                @if (startupModel.result.Results != null)
+                                                <!-- On cells (`td` or `th`) -->
+                                                @if (startupModel.lstOrder.Results != null)
                                                 {
-                                                    @foreach (var e in startupModel.result.Results)
+                                                    @foreach (var e in startupModel.lstOrder.Results)
                                                     {
-                                                        <tr>
-                                                            <th scope="row">@e.TeacherId</th>
-                                                            <td>
-                                                                <img src="~/images/users/avatar-2.jpg" alt="contact-img" height="36" title="contact-img" class="rounded-circle float-left mr-2">
-                                                                <div class="overflow-hidden">
-                                                                    <p class="mb-0 font-weight-medium"><a href="javascript: void(0);">@e.TeacherName</a></p>
-                                                                    <span class="font-13">george@examples.com</span>
-                                                                </div>
-                                                            </td>
+                                                        @foreach (var i in e.OrderDetails)
+                                                        {
+                                                            <tr>
+                                                                <td class="table-primary">@(i.OrderId)</td>
+                                                                <td class="table-secondary">@(i.CourseName)</td>
+                                                                <td class="table-success">@(i.UnitPrice)</td>
+                                                                <td class="table-danger">@(i.Discount)</td>
+                                                                <td class="table-info">@(i.OrderDate)</td>
+                                                                <td class="table-dark">@(i.FinalPrice)</td>
+                                                            </tr>
+                                                        }
 
-                                                            <td>
-                                                                @e.TeacherCode
-
-                                                            </td>
-
-                                                            <td>
-                                                                @e.Email
-                                                            </td>
-
-                                                            <td>
-                                                                @e.Level
-                                                            </td>
-
-                                                            <td>
-                                                                <div class="btn-group dropdown">
-                                                                    <a href="javascript: void(0);" class="dropdown-toggle arrow-none btn btn-light btn-sm" data-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-horizontal"></i></a>
-                                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                                        <a class="dropdown-item" href="#"><i class="mdi mdi-pencil mr-1 text-muted"></i>Edit Contact</a>
-                                                                        <a class="dropdown-item" href="#"><i class="mdi mdi-delete mr-1 text-muted"></i>Remove</a>
-                                                                        <a class="dropdown-item" href="#"><i class="mdi mdi-email mr-1 text-muted"></i>Send Email</a>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
                                                     }
-
-
                                                 }
-                                                else
-                                                {
-                                                <td>
-                                                    <p>null</p>
-                                                </td>
-                                                }
+
 
                                             </tbody>
                                         </table>
@@ -694,37 +659,137 @@
                             </div>
                         </div>
                     </div>
-                    <!-- end row -->
 
-                </div> <!-- container-fluid -->
 
-            </div> <!-- content -->
-            <!-- Footer Start -->
-            <footer class="footer">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-6">
-                            2018 - 2019 &copy; Simulor theme by <a href="">Coderthemes</a>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="text-md-right footer-links d-none d-sm-block">
-                                <a href="#">About Us</a>
-                                <a href="#">Help</a>
-                                <a href="#">Contact Us</a>
+                    @*                        <div class="col-xl-8">
+                    <div class="card">
+                    <div class="card-body">
+                    <h4 class="header-title">Sales Analytics</h4>
+
+                    <canvas id="bar" height="350" class="mt-4"></canvas>
+
+                    </div>
+                    </div>
+                    </div>
+                    <div class="col-xl-4">
+                    <div class="card">
+                    <div class="card-body">
+                    <h4 class="header-title">Top Marketplaces</h4>
+
+                    <canvas id="doughnut" height="350" class="mt-4"></canvas>
+
+                    </div>
+                    </div>
+                    </div>*@
+                </div>
+                <!-- end row -->
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="header-title">Recent Customers</h4>
+
+                                <div class="table-responsive mt-3">
+                                    <table class="table table-hover table-centered mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>Teacher Id</th>
+                                                <th>Basic Info</th>
+                                                <th>Teacher Code</th>
+                                                <th>Email</th>
+                                                <th>Level</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            @if (startupModel.result.Results != null)
+                                            {
+                                                @foreach (var e in startupModel.result.Results)
+                                                {
+                                                    <tr>
+                                                        <th scope="row">@e.TeacherId</th>
+                                                        <td>
+                                                            <img src="~/images/users/avatar-2.jpg" alt="contact-img" height="36" title="contact-img" class="rounded-circle float-left mr-2">
+                                                            <div class="overflow-hidden">
+                                                                <p class="mb-0 font-weight-medium"><a href="javascript: void(0);">@e.TeacherName</a></p>
+                                                                <span class="font-13">#@e.Email</span>
+                                                            </div>
+                                                        </td>
+
+                                                        <td>
+                                                            @e.TeacherCode
+
+                                                        </td>
+
+                                                        <td>
+                                                            @e.Email
+                                                        </td>
+
+                                                        <td>
+                                                            @e.Level
+                                                        </td>
+
+                                                        <td>
+                                                            <div class="btn-group dropdown">
+                                                                <a href="javascript: void(0);" class="dropdown-toggle arrow-none btn btn-light btn-sm" data-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-horizontal"></i></a>
+                                                                <div class="dropdown-menu dropdown-menu-right">
+                                                                    <a class="dropdown-item" href="#"><i class="mdi mdi-pencil mr-1 text-muted"></i>Edit Contact</a>
+                                                                    <a class="dropdown-item" href="#"><i class="mdi mdi-delete mr-1 text-muted"></i>Remove</a>
+                                                                    <a class="dropdown-item" href="#"><i class="mdi mdi-email mr-1 text-muted"></i>Send Email</a>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                }
+
+
+                                            }
+                                            else
+                                            {
+                                            <td>
+                                                <p>null</p>
+                                            </td>
+                                            }
+
+                                        </tbody>
+                                    </table>
+
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </footer>
-            <!-- end Footer -->
+                <!-- end row -->
 
-        </div>
+            </div> <!-- container-fluid -->
 
-        <!-- ============================================================== -->
-        <!-- End Page content -->
-        <!-- ============================================================== -->
+        </div> <!-- content -->
+        <!-- Footer Start -->
+        <footer class="footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6">
+                        2018 - 2019 &copy; Simulor theme by <a href="">Coderthemes</a>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="text-md-right footer-links d-none d-sm-block">
+                            <a href="#">About Us</a>
+                            <a href="#">Help</a>
+                            <a href="#">Contact Us</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- end Footer -->
 
+    </div>
 
+    <!-- ============================================================== -->
+    <!-- End Page content -->
+    <!-- ============================================================== -->
     </div>
     <!-- END wrapper -->
     <!-- Right Sidebar -->
