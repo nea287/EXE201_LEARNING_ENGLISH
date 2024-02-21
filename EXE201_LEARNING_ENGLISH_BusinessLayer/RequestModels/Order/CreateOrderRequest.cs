@@ -12,11 +12,11 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Order
     public class CreateOrderRequest
     {
         [Required]
-        public int Quantity { get; set; }
-        public decimal? TotalAmount { get; set; }
+        //public int Quantity { get; set; }
+        //public decimal? TotalAmount { get; set; }
         public int? StudentId { get; set; }
         public double? Discount { get; set; }
-        public decimal? FinalAmount { get; set; }
+        //public decimal? FinalAmount { get; set; }
         public DateTime? CheckInDate { get; set; }
         public DateTime? ApproveDate { get; set; }
         public int? VouncherId { get; set; }

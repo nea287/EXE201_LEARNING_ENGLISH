@@ -80,6 +80,8 @@ namespace EXE201_LEARNING_ENGLISH_API.AppStarts
             CreateMap<OrderReponse, CreateOrderRequest>().ReverseMap();
             CreateMap<OrderReponse, OrderFilter>().ReverseMap();
             CreateMap<OrderDetail, CreateOrderDetailOrderRequest>().ReverseMap();
+            CreateMap<Order, OrderReponse>()
+                .ForMember(x => x.StudentName, dest => dest.MapFrom(opt => opt.Student.StudentName));
             #endregion
 
             #region OrderDetail
@@ -90,6 +92,8 @@ namespace EXE201_LEARNING_ENGLISH_API.AppStarts
             CreateMap<OrderDetailReponse, CreateOrderDetailRequest>().ReverseMap();
             CreateMap<OrderDetail, OrderDetailReponse>()
             .ForMember(x => x.CourseName, opt => opt.MapFrom(dest => dest.Course.CourseName));
+
+            
             #endregion
 
             #region Slot

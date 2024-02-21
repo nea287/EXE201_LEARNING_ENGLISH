@@ -13,6 +13,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.ReponseModels
         public int? Quantity { get; set; }
         public decimal? TotalAmount { get; set; }
         public int? StudentId { get; set; }
+        public string? StudentName { get; set; }
         public double? Discount { get; set; }
         public decimal? FinalAmount { get; set; }
         public DateTime? CheckInDate { get; set; }
