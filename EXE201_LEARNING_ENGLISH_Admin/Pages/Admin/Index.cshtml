@@ -561,11 +561,11 @@
                             <thead>
                                 <tr class="table-warning">
                                     <th>Order Id</th>
-                                    <th>Basic Info</th>
-                                    <th>Teacher Code</th>
-                                    <th>Email</th>
-                                    <th>Level</th>
-                                    <th>Action</th>
+                                    <th>Course Name</th>
+                                    <th>Unit Price</th>
+                                    <th>Discount</th>
+                                    <th>Order Date</th>
+                                    <th>Final Price</th>
                                 </tr>
                             </thead>
 
@@ -580,9 +580,9 @@
                                                 <td class="table-primary">@(i.OrderId)</td>
                                                 <td class="table-secondary">@(i.CourseName)</td>
                                                 <td class="table-success">@(i.UnitPrice)</td>
-                                                <td class="table-danger">...</td>
-                                                <td class="table-info">...</td>
-                                                <td class="table-dark">...</td>
+                                                <td class="table-danger">@(i.Discount)</td>
+                                                <td class="table-info">@(i.OrderDate)</td>
+                                                <td class="table-dark">@(i.FinalPrice)</td>
                                             }
 
                                         }
