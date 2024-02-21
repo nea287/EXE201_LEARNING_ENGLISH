@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Cors;
 namespace EXE201_LEARNING_ENGLISH_API.Controllers
 {
     [EnableCors("AllowAnyOrigins")]
-    [Authorize(Policy = "RequireTeacherRole")] 
+    //[Authorize(Policy = "RequireTeacherRole")] 
     [Route("api/[controller]")]
     [ApiController]
     public class CourseController : ControllerBase

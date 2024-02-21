@@ -49,14 +49,14 @@ namespace EXE201_LEARNING_ENGLISH_API.Controllers
         }
 
         [HttpGet("RecognitionFaceId")]
-        [Authorize]
+        //[Authorize]
         public bool RecognitionFaceId([FromQuery] string? unknowImage)
         {
             return _service.RecognitionFaceId(unknowImage);
         }
 
         [HttpGet("Logout")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public bool Logout()
         {
             return _service.Logout();

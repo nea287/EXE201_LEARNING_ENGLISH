@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Cors;
 namespace EXE201_LEARNING_ENGLISH_API.Controllers
 {
     [EnableCors("AllowAnyOrigins")]
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class SlotController : Controller
@@ -36,21 +36,21 @@ namespace EXE201_LEARNING_ENGLISH_API.Controllers
         }
 
         [HttpPost("CreateSlot")]
-        [Authorize(Policy = "RequireTeacherRole")]
+        //[Authorize(Policy = "RequireTeacherRole")]
         public ResponseResult<SlotReponse> CreateSlot(DayOfWeek dayOfWeek,[FromBody] CreateSlotRequest request)
         {
             return _service.CreateSlot(dayOfWeek, request);
         }
 
         [HttpPut("UpdateSlot/{id}")]
-        [Authorize(Policy = "RequireTeacherRole")]
+        //[Authorize(Policy = "RequireTeacherRole")]
         public ResponseResult<SlotReponse> UpdateSlot([FromBody] UpdateSlotRequest request, int id)
         {
             return _service.UpdateSlot(request, id);
         }
 
         [HttpDelete("DeleteSlot/{id}")]
-        [Authorize(Policy = "RequireTeacherRole")]
+        //[Authorize(Policy = "RequireTeacherRole")]
         public ResponseResult<SlotReponse> DeleteSlot(int id)
         {
             return _service.DeleteSlot(id);
