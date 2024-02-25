@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using static EXE201_LEARNING_ENGLISH_BusinessLayer.ReponseModels.Heplers.DynamicModelResponse;
 using System.Security.Principal;
 using Newtonsoft.Json;
+using EXE201_LEARNING_ENGLISH_BusinessLayer.ReponseModels.Heplers;
 
 namespace EXE201_LEARNING_ENGLISH_Admin.Pages.Admin
 {
@@ -13,12 +14,13 @@ namespace EXE201_LEARNING_ENGLISH_Admin.Pages.Admin
         public static DynamicModelsResponse<OrderReponse> lstOrder = new DynamicModelsResponse<OrderReponse>();
         public static DynamicModelsResponse<AccountReponse> lstAccount = new DynamicModelsResponse<AccountReponse>();
         public static DynamicModelsResponse<CourseReponse> lstCourse = new DynamicModelsResponse<CourseReponse>();
+        public static ResponseResult<ICollection<CategoryReponse>> lstCate = new ResponseResult<ICollection<CategoryReponse>>();
         public void OnGet()
         {
         }
 
-        [HttpGet("ListAccount")]
-        public void OnGetListAccount(string data)
+        [HttpGet("Accounts")]
+        public void OnGetAccounts(string data)
         {
             lstAccount = JsonConvert.DeserializeObject<DynamicModelsResponse<AccountReponse>>(data);
         }
@@ -37,6 +39,11 @@ namespace EXE201_LEARNING_ENGLISH_Admin.Pages.Admin
         public void OnGetListCourse(string data)
         {
             lstCourse = JsonConvert.DeserializeObject<DynamicModelsResponse<CourseReponse>>(data);
+        }
+        [HttpGet("CategoryStatistics")]
+        public void OnGetCategoryStatistics(string data)
+        {
+            lstCate = JsonConvert.DeserializeObject<ResponseResult<ICollection<CategoryReponse>>>(data);
         }
     }
 }

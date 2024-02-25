@@ -763,6 +763,7 @@
         }
 
         function passDataToModel(result, url) {
+            console.log(JSON.stringify(result));
 
             // Truyền dữ liệu vào Razor model bằng cách gọi action của controller thông qua URL
             $.ajax({
@@ -793,22 +794,24 @@
         // Hàm gọi nhiều yêu cầu Ajax song song
         $(document).ready(function () {
             try {
-                fetchData('https://devengapi.monoinfinity.net/api/Account/GetListAccount', '/Admin/startup?handler=ListAccount');
+                fetchData('https://devengapi.monoinfinity.net/api/Account/GetListAccount', '/Admin/startup?handler=Accounts');
                 fetchData('https://devengapi.monoinfinity.net/api/Teacher/GetListTeacher', '/Admin/startup?handler=ListTeacher');
 
                 fetchData('https://devengapi.monoinfinity.net/api/Order/GetListOrder', '/Admin/startup?handler=ListOrder');
                 fetchData('https://devengapi.monoinfinity.net/api/Course/GetListCourse', '/Admin/startup?handler=ListCourse');
+                fetchData('https://devengapi.monoinfinity.net/api/Category/CategoryStatistics', '/Admin/startup?handler=CategoryStatistics');
+
                 // Xử lý dữ liệu từ các yêu cầu Ajax ở đây
             } catch (error) {
                 console.error('Đã xảy ra lỗi:', error);
             }
             //
             // Đặt thời gian chờ là 2 giây trước khi thực hiện mã tiếp theo
-            setTimeout(function () {
-                // Mã sẽ được thực thi sau khi đợi 2 giây
-                window.location.replace("/Admin/Index");
-                // Đặt mã tiếp theo ở đây
-            }, 500); // Thời gian được đặt bằng mili giây, nên 2000 mili giây tương đương với 2 giây
+            //setTimeout(function () {
+            //    // Mã sẽ được thực thi sau khi đợi 2 giây
+            //    window.location.replace("/Admin/Index");
+            //    // Đặt mã tiếp theo ở đây
+            //}, 500); // Thời gian được đặt bằng mili giây, nên 2000 mili giây tương đương với 2 giây
 
 
         });
