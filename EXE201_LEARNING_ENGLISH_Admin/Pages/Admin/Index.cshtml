@@ -562,42 +562,83 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="header-title">Sales Analytics</h4>
+                                     <script  src="~/libs/chart-js/chart.js"></script>
+                                    <canvas id="myPieChart" height="350" ></canvas>
 
-                                    <canvas id="myPieChart"></canvas>
-                                    <script src="~/libs/chart-js/chart.js"></script>
-                                     <script>
-                                        // Vẽ biểu đồ tròn
-                                        var labels = [@foreach (var label in startupModel.lstCate.Value.Select(x => x.CategoryName)) { @label}];
-                                        var data = [@foreach (var value in startupModel.lstCate.Value.Select(x =>))
-                                        {
-                                            @value }];
-                                        var ctx = document.getElementById('myPieChart').getContext('2d');
-                                        var myPieChart = new Chart(ctx, {
-                                            type: 'pie',
-                                            data: {
-                                                labels: @foreach (var label in startupModel.lstCate.Value){@label},
-                                                datasets: [{
-                                            data:[@foreach(var value in startupModel.lstCate.Value){@value}],
-                                                    backgroundColor: [
-                                                        'rgba(255, 99, 132, 0.5)',
-                                                        'rgba(54, 162, 235, 0.5)',
-                                                        'rgba(255, 206, 86, 0.5)',
-                                                        // Thêm màu cho các dữ liệu khác nếu cần
-                                                    ],
-                                                    borderColor: [
-                                                        'rgba(255, 99, 132, 1)',
-                                                        'rgba(54, 162, 235, 1)',
-                                                        'rgba(255, 206, 86, 1)',
-                                                        // Thêm màu viền cho các dữ liệu khác nếu cần
-                                                    ],
-                                                    borderWidth: 1
-                                                }]
-                                            },
-                                            options: {
-                                                responsive: true
-                                            }
-                                        });
+                                    <script>
+                                        // Lấy tham chiếu đến canvas
+var ctx = document.getElementById('myPieChart').getContext('2d');
+// Tạo dữ liệu cho biểu đồ tròn
+var data = {
+    labels: @Html.Raw(Json.Serialize(startupModel.lstCate.Value.Select(x => x.CategoryName))),
+    datasets: [{
+        label: 'My Dataset',
+        data: @Html.Raw(Json.Serialize(startupModel.lstCate.Value.Select(x => x.TotalAmount).ToList())),
+        backgroundColor: [
+            'rgba(255, 99, 132, 0.6)',
+            'rgba(54, 162, 235, 0.6)',
+            'rgba(255, 206, 86, 0.6)',
+            'rgba(75, 192, 192, 0.6)',
+            'rgba(153, 102, 255, 0.6)',
+            'rgba(255, 159, 64, 0.6)'
+        ],
+        borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1
+    }]
+};
+
+// Khởi tạo biểu đồ tròn
+var myPieChart = new Chart(ctx, {
+    type: 'pie',
+    data: data,
+    options: {
+        // Cấu hình tùy chọn của biểu đồ tròn
+    }
+});
+
                                     </script>
+@*                                     <script >
+                                        // Vẽ biểu đồ tròn
+                                        var labels = [@foreach (var label in startupModel.lstCate.Value.Select(x => x.CategoryName).ToList()) {@(label)}];
+                                        var data = [@foreach (var value in startupModel.lstCate.Value.Select(x => x.TotalAmount).ToList()){@(value??0) }];
+    var ctx = document.getElementById('myPieChart').getContext('2d');
+    var myPieChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: labels,
+            datasets: [{
+                data: data,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(255, 206, 86, 0.5)',
+                    'rgba(75, 192, 192, 0.5)',
+                    'rgba(153, 102, 255, 0.5)',
+                    'rgba(255, 159, 64, 0.5)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            // Cấu hình các tùy chọn khác cho biểu đồ tròn tại đây
+        }
+    });
+                                    </script>*@
                                 </div>
                             </div>
 
