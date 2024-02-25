@@ -564,21 +564,20 @@
                                     <h4 class="header-title">Sales Analytics</h4>
 
                                     <canvas id="myPieChart"></canvas>
-
-@*                                    <script>
-                                        // Lấy dữ liệu từ Razor và chuyển vào mảng JavaScript
-                                        var labels = [@foreach (var label in startupModel.lstOrder.Results.Select(x => x.)) { '@label', }];
-                                        var data = [@foreach (var value in startupModel.lstCourse.Results.Select(x => x.)) { @value, }];
-
-
+                                    <script src="~/libs/chart-js/chart.js"></script>
+                                     <script>
                                         // Vẽ biểu đồ tròn
+                                        var labels = [@foreach (var label in startupModel.lstCate.Value.Select(x => x.CategoryName)) { @label}];
+                                        var data = [@foreach (var value in startupModel.lstCate.Value.Select(x =>))
+                                        {
+                                            @value }];
                                         var ctx = document.getElementById('myPieChart').getContext('2d');
                                         var myPieChart = new Chart(ctx, {
                                             type: 'pie',
                                             data: {
-                                                labels: labels,
+                                                labels: @foreach (var label in startupModel.lstCate.Value){@label},
                                                 datasets: [{
-                                                    data: data,
+                                            data:[@foreach(var value in startupModel.lstCate.Value){@value}],
                                                     backgroundColor: [
                                                         'rgba(255, 99, 132, 0.5)',
                                                         'rgba(54, 162, 235, 0.5)',
@@ -598,13 +597,13 @@
                                                 responsive: true
                                             }
                                         });
-                                    </script>*@
+                                    </script>
                                 </div>
                             </div>
 
                         </div>
 
-
+                       
                     </div>
 
 
@@ -649,8 +648,6 @@
 
                                                     }
                                                 }
-
-
                                             </tbody>
                                         </table>
 
@@ -659,28 +656,6 @@
                             </div>
                         </div>
                     </div>
-
-
-                    @*                        <div class="col-xl-8">
-                    <div class="card">
-                    <div class="card-body">
-                    <h4 class="header-title">Sales Analytics</h4>
-
-                    <canvas id="bar" height="350" class="mt-4"></canvas>
-
-                    </div>
-                    </div>
-                    </div>
-                    <div class="col-xl-4">
-                    <div class="card">
-                    <div class="card-body">
-                    <h4 class="header-title">Top Marketplaces</h4>
-
-                    <canvas id="doughnut" height="350" class="mt-4"></canvas>
-
-                    </div>
-                    </div>
-                    </div>*@
                 </div>
                 <!-- end row -->
 
@@ -884,8 +859,10 @@
         </div> <!-- end slimscroll-menu-->
     </div>
 
+
     <!--js-->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
 
     <!-- /Right-bar -->
     <!-- Right bar overlay-->

@@ -745,7 +745,7 @@
                 beforeSend: function (xhr) {
                     // Trước khi gửi yêu cầu, bạn có thể thêm các tiêu đề hoặc thông tin như token bearer vào đây
                     // Ví dụ:
-                    //xhr.setRequestHeader('Authorization', 'Bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoibmd1eWVuMUBnbWFpbC5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBRE1JTiIsImV4cCI6MTcwODUwMDM5NCwiaXNzIjoiWW91cklzc3VlciIsImF1ZCI6IllvdXJBdWRpZW5jZSJ9.ct-REgCme2Lel8SFp-fhu68fr8hJtKohf91FqGcb3PM');
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoibmd1eWVuMUBnbWFpbC5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBRE1JTiIsImV4cCI6MTcwODUwMDM5NCwiaXNzIjoiWW91cklzc3VlciIsImF1ZCI6IllvdXJBdWRpZW5jZSJ9.ct-REgCme2Lel8SFp-fhu68fr8hJtKohf91FqGcb3PM');
                 },
                 success: function (data) {
                     // Xử lý dữ liệu trả về khi yêu cầu thành công
@@ -763,7 +763,7 @@
         }
 
         function passDataToModel(result, url) {
-            console.log(JSON.stringify(result));
+            //console.log(JSON.stringify(result));
 
             // Truyền dữ liệu vào Razor model bằng cách gọi action của controller thông qua URL
             $.ajax({
@@ -778,7 +778,7 @@
                 data: {
                     data: JSON.stringify(result)
                 },
-                contentType: 'application/json',
+                contentType: 'text/plain',
                 success: function (response) {
                 },
                 error: function (xhr, status, error) {
@@ -796,7 +796,6 @@
             try {
                 fetchData('https://devengapi.monoinfinity.net/api/Account/GetListAccount', '/Admin/startup?handler=Accounts');
                 fetchData('https://devengapi.monoinfinity.net/api/Teacher/GetListTeacher', '/Admin/startup?handler=ListTeacher');
-
                 fetchData('https://devengapi.monoinfinity.net/api/Order/GetListOrder', '/Admin/startup?handler=ListOrder');
                 fetchData('https://devengapi.monoinfinity.net/api/Course/GetListCourse', '/Admin/startup?handler=ListCourse');
                 fetchData('https://devengapi.monoinfinity.net/api/Category/CategoryStatistics', '/Admin/startup?handler=CategoryStatistics');
@@ -807,11 +806,11 @@
             }
             //
             // Đặt thời gian chờ là 2 giây trước khi thực hiện mã tiếp theo
-            //setTimeout(function () {
-            //    // Mã sẽ được thực thi sau khi đợi 2 giây
-            //    window.location.replace("/Admin/Index");
-            //    // Đặt mã tiếp theo ở đây
-            //}, 500); // Thời gian được đặt bằng mili giây, nên 2000 mili giây tương đương với 2 giây
+            setTimeout(function () {
+                // Mã sẽ được thực thi sau khi đợi 2 giây
+                window.location.replace("/Admin/Index");
+                // Đặt mã tiếp theo ở đây
+            }, 1000); // Thời gian được đặt bằng mili giây, nên 2000 mili giây tương đương với 2 giây
 
 
         });
