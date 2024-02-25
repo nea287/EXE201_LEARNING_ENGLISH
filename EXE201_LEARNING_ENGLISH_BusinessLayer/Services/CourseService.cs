@@ -154,7 +154,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
             try
             {
                 result= _repository.GetAll()
-                    .Where(x => x.Status != 0).Include(x => x.Teacher)
+                    .Where(x => x.Status != 0)
                     .ProjectTo<CourseReponse>(_mapper.ConfigurationProvider)
                     .DynamicFilter(_mapper.Map<CourseReponse>(request))
                     .PagingIQueryable(paging.page, paging.pageSize, Constraints.LimitPaging, Constraints.DefaultPaging);

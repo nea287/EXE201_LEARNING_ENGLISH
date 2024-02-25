@@ -21,6 +21,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.ReponseModels
         public int? CategoryId { get; set; }
         public int? Status { get; set; }
         public int? VouncherId { get; set; }
+        public decimal? TotalAmount { get; set; }
         public ICollection<OrderDetailReponse>? OrderDetails { get; set; }
         public ICollection<StudentCourseReponse>? StudentCourses { get; set; }
     }
