@@ -22,7 +22,11 @@ namespace EXE201_LEARNING_ENGLISH_API.Controllers
         {
             _service = service;
         }
-
+        [HttpGet("CategoryStatistics")]
+        public ResponseResult<ICollection<CategoryReponse>> CategoryStatistics()
+        {
+            return _service.CategoryStatistics();
+        }
         [HttpGet("GetCategory/{id}")]
         public ResponseResult<CategoryReponse> GetCategory(int id)
         {

@@ -11,9 +11,11 @@ using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Category;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Helpers;
 using EXE201_LEARNING_ENGLISH_DataLayer.Models;
 using EXE201_LEARNING_ENGLISH_Repository.IRepository;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,13 +23,45 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
 {
     public class CategoryService : ICategoryService
     {
+        private readonly IGenericRepository<OrderDetail> _orderRepository;
         private readonly IGenericRepository<Category> _repository;
         private readonly IMapper _mapper;
 
-        public CategoryService(IGenericRepository<Category> repository, IMapper mapper)
+        public CategoryService(IGenericRepository<Category> repository, IMapper mapper, IGenericRepository<OrderDetail> orderRepository)
         {
+            _orderRepository = orderRepository;
             _repository = repository;
             _mapper = mapper;
+        }
+
+        public ResponseResult<ICollection<CategoryReponse>> CategoryStatistics()
+        {
+            ICollection<CategoryReponse> lstCate = new List<CategoryReponse>();
+
+            try
+            {
+
+                lstCate = _mapper.Map<ICollection<CategoryReponse>>(_repository.GetAll().ToList());
+                lstCate = lstCate.OrderByDescending(x => x.TotalAmount).ToList();
+
+
+            }
+            catch(Exception ex)
+            {
+                return new ResponseResult<ICollection<CategoryReponse>>()
+                {
+                    Message = Constraints.LOAD_INFO_FAILED,
+                };
+            }
+
+            return new ResponseResult<ICollection<CategoryReponse>>()
+            {
+                Value = lstCate,
+                result = true,
+            };
+
+
+
         }
         public ResponseResult<CategoryReponse> CreateCategory(CreateCategoryRequest request)
         {
@@ -141,7 +175,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
                     .DynamicFilter(_mapper.Map<CategoryReponse>(request))
                     .PagingIQueryable(paging.page, paging.pageSize, Constraints.LimitPaging, Constraints.DefaultPaging);
 
-                if (result.Item2.Count() == 0)
+                if (result.Item2.ToList().Count() == 0)
                 {
                     return new DynamicModelResponse.DynamicModelsResponse<CategoryReponse>()
                     {

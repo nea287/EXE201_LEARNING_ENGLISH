@@ -15,6 +15,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.IServices
     public interface ICategoryService
     {
         public ResponseResult<CategoryReponse> GetCategory(int id);
+        public ResponseResult<ICollection<CategoryReponse>> CategoryStatistics();
         public ResponseResult<CategoryReponse> UpdateCategory(UpdateCategoryRequest request, int id);
         public ResponseResult<CategoryReponse> DeleteCategory(int id);
         public ResponseResult<CategoryReponse> CreateCategory(CreateCategoryRequest request);
