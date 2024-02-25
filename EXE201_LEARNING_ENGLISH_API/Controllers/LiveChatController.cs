@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace EXE201_LEARNING_ENGLISH_API.Controllers
 {
     [EnableCors("AllowAnyOrigins")]
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class LiveChatController : ControllerBase

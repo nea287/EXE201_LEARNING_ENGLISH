@@ -16,6 +16,7 @@ using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.StudentCourse;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Teacher;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Vouncher;
 using EXE201_LEARNING_ENGLISH_DataLayer.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace EXE201_LEARNING_ENGLISH_API.AppStarts
 {
@@ -35,6 +36,14 @@ namespace EXE201_LEARNING_ENGLISH_API.AppStarts
 
             #region Category
             CreateMap<Category, CategoryReponse>().ReverseMap();
+            CreateMap<Category, CategoryReponse>()
+                .ForMember(x => x.TotalAmount, dest => dest.MapFrom(opt =>
+             opt.Courses
+            .Where(c => c.CategoryId == opt.CategoryId)
+            .SelectMany(c => c.OrderDetails)
+            .Sum(od => od.FinalPrice)
+
+                ));
             CreateMap<Category, CreateCategoryRequest>().ReverseMap();
             CreateMap<Category, UpdateCategoryRequest>().ReverseMap();
             CreateMap<CategoryReponse, UpdateCategoryRequest>().ReverseMap();
@@ -80,6 +89,8 @@ namespace EXE201_LEARNING_ENGLISH_API.AppStarts
             CreateMap<OrderReponse, CreateOrderRequest>().ReverseMap();
             CreateMap<OrderReponse, OrderFilter>().ReverseMap();
             CreateMap<OrderDetail, CreateOrderDetailOrderRequest>().ReverseMap();
+            CreateMap<Order, OrderReponse>()
+                .ForMember(x => x.StudentName, dest => dest.MapFrom(opt => opt.Student.StudentName));
             #endregion
 
             #region OrderDetail
@@ -90,6 +101,8 @@ namespace EXE201_LEARNING_ENGLISH_API.AppStarts
             CreateMap<OrderDetailReponse, CreateOrderDetailRequest>().ReverseMap();
             CreateMap<OrderDetail, OrderDetailReponse>()
             .ForMember(x => x.CourseName, opt => opt.MapFrom(dest => dest.Course.CourseName));
+
+
             #endregion
 
             #region Slot

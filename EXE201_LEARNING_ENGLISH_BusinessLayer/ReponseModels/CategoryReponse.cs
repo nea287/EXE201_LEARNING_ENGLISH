@@ -17,6 +17,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.ReponseModels
 
         public int? CategoryId { get; set; }
         public string? CategoryName { get; set; }
+        public decimal? TotalAmount { get; set; }
 
         public ICollection<CourseReponse>? Courses { get; set; }
         public ICollection<VouncherReponse>? Vounchers { get; set; }

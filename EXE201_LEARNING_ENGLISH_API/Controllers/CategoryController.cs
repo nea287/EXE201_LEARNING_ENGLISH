@@ -22,7 +22,11 @@ namespace EXE201_LEARNING_ENGLISH_API.Controllers
         {
             _service = service;
         }
-
+        [HttpGet("CategoryStatistics")]
+        public ResponseResult<ICollection<CategoryReponse>> CategoryStatistics()
+        {
+            return _service.CategoryStatistics();
+        }
         [HttpGet("GetCategory/{id}")]
         public ResponseResult<CategoryReponse> GetCategory(int id)
         {
@@ -36,21 +40,21 @@ namespace EXE201_LEARNING_ENGLISH_API.Controllers
         }
 
         [HttpPost("CreateCategory")]
-        [Authorize(Policy = "RequireAdminRole")]
+        //[Authorize(Policy = "RequireAdminRole")]
         public ResponseResult<CategoryReponse> CreateCategory([FromBody] CreateCategoryRequest request)
         {
             return _service.CreateCategory(request);
         }
 
         [HttpPut("UpdateCategory/{id}")]
-        [Authorize(Policy = "RequireAdminRole")]
+        //[Authorize(Policy = "RequireAdminRole")]
         public ResponseResult<CategoryReponse> UpdateCategory([FromBody] UpdateCategoryRequest request, int id)
         {
             return _service.UpdateCategory(request, id);
         }
 
         [HttpDelete("DeleteCategory/{id}")]
-        [Authorize(Policy = "RequireAdminRole")]
+        //[Authorize(Policy = "RequireAdminRole")]
         public ResponseResult<CategoryReponse> DeleteCategory(int id)
         {
             return _service.DeleteCategory(id);

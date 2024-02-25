@@ -35,7 +35,7 @@ namespace EXE201_LEARNING_ENGLISH_API.Controllers
         }
 
         [HttpPost("CreateFeedback")]
-        [Authorize]
+        //[Authorize]
         public ResponseResult<FeedbackReponse> CreateFeedback([FromBody] CreateFeedbackRequest request)
         {
             return _service.CreateFeedback(request);

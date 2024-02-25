@@ -20,6 +20,7 @@ using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.OrderDetail;
 using System.Collections;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.Helpers.Validate;
 using ZstdSharp.Unsafe;
+using XAct;
 
 namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
 {
@@ -40,21 +41,34 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
             try
             {
                 #region Validate
-                OrderValidate orderValidate = new OrderValidate();
-                bool resultValidate = orderValidate.CheckListNumberValidate(request.Quantity, 
-                    request.TotalAmount.Value, request.FinalAmount.Value);
+                //OrderValidate orderValidate = new OrderValidate();
+                //bool resultValidate = orderValidate.CheckListNumberValidate(request.Quantity, 
+                //    request.TotalAmount.Value, request.FinalAmount.Value);
 
-                if (resultValidate)
-                {
-                    return new ResponseResult<OrderReponse>()
-                    {
-                        Message = Constraints.NUMBER_INVALIDATE,
-                        result = false
-                    };
-                }
+                //if (resultValidate)
+                //{
+                //    return new ResponseResult<OrderReponse>()
+                //    {
+                //        Message = Constraints.NUMBER_INVALIDATE,
+                //        result = false
+                //    };
+                //}
                 #endregion
 
                 orderReponse = _mapper.Map<Order>(request);
+
+                ICollection<OrderDetail> lstOrderDetail = orderReponse.OrderDetails;
+                foreach(var e in lstOrderDetail)
+                {
+                    e.FinalPrice = e.UnitPrice.Value * ((decimal)e.Discount.Value == 0 
+                        ? 1 : (decimal)e.Discount.Value);
+                    
+                }
+
+                orderReponse.Quantity = orderReponse.OrderDetails.Count();
+                orderReponse.TotalAmount = orderReponse.OrderDetails.Sum(x => x.UnitPrice);
+                orderReponse.FinalAmount = orderReponse.OrderDetails.Sum(x => x.FinalPrice) * 
+                    ((decimal)orderReponse.Discount.Value == 0 ? 1 : (decimal)orderReponse.Discount.Value);
 
                 _repository.Insert(orderReponse);
                 _repository.Save();
