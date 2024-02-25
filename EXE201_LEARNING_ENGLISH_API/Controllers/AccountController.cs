@@ -31,6 +31,7 @@ namespace EXE201_LEARNING_ENGLISH_API.Controllers
 
         [HttpGet("GetAccount/{email}")]
         //[Authorize(Policy = "RequireAdminRole")]
+        [AllowAnonymous]
         public ResponseResult<AccountReponse> GetAccount(string email)
         {
             return _service.GetAccount(email);
@@ -38,6 +39,7 @@ namespace EXE201_LEARNING_ENGLISH_API.Controllers
 
         [HttpGet("GetListAccount")]
         //[Authorize(Policy = "RequireAdminRole")]
+        [AllowAnonymous]
         public DynamicModelResponse.DynamicModelsResponse<AccountReponse> GetListAccount([FromQuery] AccountFilter filter, [FromQuery] PagingRequest paging)
         {
             return _service.GetAccounts(filter, paging);
@@ -52,6 +54,7 @@ namespace EXE201_LEARNING_ENGLISH_API.Controllers
 
         [HttpPut("UpdateAccount/{email}")]
         //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [AllowAnonymous]
         public ResponseResult<AccountReponse> UpdateAccount([FromBody] UpdateAccountRequest request, string email)
         {
             return _service.UpdateAccount(request, email);  
@@ -59,6 +62,7 @@ namespace EXE201_LEARNING_ENGLISH_API.Controllers
 
         [HttpDelete("DeleteAccount/{email}")]
         //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [AllowAnonymous]
         public ResponseResult<AccountReponse> DeleteAccount(string email)
         {
             return _service.DeleteAccount(email);
@@ -66,6 +70,7 @@ namespace EXE201_LEARNING_ENGLISH_API.Controllers
 
         [HttpPost("CreateListAccountExcelFile/{filePath}")]
         //[Authorize(Policy = "RequireAdminRole")]
+        [AllowAnonymous]
         public bool CreateListAccountExcelFile(string filePath)
         {
             return _service.CreateListAccountExcelFile(filePath);
