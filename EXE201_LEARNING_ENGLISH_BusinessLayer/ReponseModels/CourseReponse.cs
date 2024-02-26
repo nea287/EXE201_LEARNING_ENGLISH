@@ -19,6 +19,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.ReponseModels
         public double? Duration { get; set; }
         public int? NumberOfLesson { get; set; }
         public int? CategoryId { get; set; }
+        public string? CategoryName { get; set; }
         public int? Status { get; set; }
         public int? VouncherId { get; set; }
         public decimal? TotalAmount { get; set; }
