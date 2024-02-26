@@ -65,7 +65,8 @@ namespace EXE201_LEARNING_ENGLISH_API.AppStarts
             CreateMap<Course, CourseReponse>()
             .ForMember(x => x.TotalAmount, dest => dest.MapFrom(opt =>
                 opt.OrderDetails.Where(a => a.CourseId == opt.CourseId).Sum(o => o.FinalPrice)))
-            .ForMember(x => x.TeacherName, opt => opt.MapFrom(dest => dest.Teacher.TeacherName));
+            .ForMember(x => x.TeacherName, opt => opt.MapFrom(dest => dest.Teacher.TeacherName))
+            .ForMember(x => x.CategoryName, dest => dest.MapFrom(o => o.Category.CategoryName));
 
             CreateMap<Course, CreateCourseRequest>().ReverseMap();
             CreateMap<Course, UpdateCourseRequest>().ReverseMap();
