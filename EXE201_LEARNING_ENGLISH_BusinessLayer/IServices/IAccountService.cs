@@ -20,7 +20,8 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.IServices
         public ResponseResult<AccountReponse> CreateAccount(CreateAccountRequest request);
         public DynamicModelsResponse<AccountReponse> GetAccounts(AccountFilter request, PagingRequest paging);
         public ResponseResult<AccountReponse> Login(string email, string password);
-        public ResponseResult<AccountReponse> Register(CreateAccount1Request request, string code);
+        //public ResponseResult<AccountReponse> Register(CreateAccount1Request request/*, string code*/);
+        public ResponseResult<AccountReponse> Register(CreateAccountRequest request/*, string code*/);
         public bool SendQRCodeEmail(string receiveEmail, string qrCodeData);
         public bool Verify(string mail);
         public bool RecognitionFaceId(string? unknowImage);

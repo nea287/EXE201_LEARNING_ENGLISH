@@ -242,7 +242,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
             IList<StudentCourse> result = null;
             try
             {
-                result = (IList<StudentCourse>) _studentCourseRepository.GetAll(includeProperties: "Course").Where(x => x.StudentId == studentId).ToList();
+                result = (IList<StudentCourse>)_studentCourseRepository.GetAll(includeProperties: "Course").Where(x => x.StudentId == studentId).ToList();
             }
             catch (Exception ex)
             {
@@ -254,6 +254,48 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
             }
 
             return result;
+        }
+
+        public DynamicModelResponse.DynamicModelsResponse<StudentCourseReponse> GetStudentCourses(StudentCourseFilter request, PagingRequest paging)
+        {
+            (int, IQueryable<StudentCourseReponse>) result;
+            try
+            {
+                result = _studentCourseRepository.GetAll()
+                    .ProjectTo<StudentCourseReponse>(_mapper.ConfigurationProvider)
+                    .DynamicFilter(_mapper.Map<StudentCourseReponse>(request))
+                    .PagingIQueryable(paging.page, paging.pageSize, Constraints.LimitPaging, Constraints.DefaultPaging);
+
+                if (result.Item2.Count() == 0)
+                {
+                    return new DynamicModelResponse.DynamicModelsResponse<StudentCourseReponse>()
+                    {
+                        Message = Constraints.EMPTY_INFO,
+                    };
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return new DynamicModelResponse.DynamicModelsResponse<StudentCourseReponse>()
+                {
+                    Message = Constraints.LOAD_INFO_FAILED,
+                };
+            }
+            finally
+            {
+                lock (_studentRepository) ;
+            }
+
+            return new DynamicModelResponse.DynamicModelsResponse<StudentCourseReponse>()
+            {
+                Metadata = new DynamicModelResponse.PagingMetadata()
+                {
+                    Page = paging.page,
+                    Size = paging.pageSize
+                },
+                Results = result.Item2.ToList()
+            };
         }
 
         public DynamicModelResponse.DynamicModelsResponse<StudentReponse> GetStudents(StudentFilter request, PagingRequest paging)

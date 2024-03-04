@@ -62,11 +62,17 @@ namespace EXE201_LEARNING_ENGLISH_API.Controllers
             return _service.Logout();
         }
 
+        //[HttpPost("Register/{code}")]
+        //[AllowAnonymous]
+        //public ResponseResult<AccountReponse> Register([FromQuery] CreateAccount1Request request/*, string code*/)
+        //{
+        //    return _service.Register(request/*, code*/);
+        //}
         [HttpPost("Register/{code}")]
         [AllowAnonymous]
-        public ResponseResult<AccountReponse> Register([FromQuery] CreateAccount1Request request, string code)
+        public ResponseResult<AccountReponse> Register([FromQuery] CreateAccountRequest request/*, string code*/)
         {
-            return _service.Register(request, code);
+            return _service.Register(request/*, code*/);
         }
     }
 }

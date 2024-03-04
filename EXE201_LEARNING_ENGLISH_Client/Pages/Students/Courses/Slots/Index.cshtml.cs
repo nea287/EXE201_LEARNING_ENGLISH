@@ -1,10 +1,9 @@
 using EXE201_LEARNING_ENGLISH_BusinessLayer.IServices;
 using EXE201_LEARNING_ENGLISH_Client.ViewModel;
-using EXE201_LEARNING_ENGLISH_DataLayer.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace EXE201_LEARNING_ENGLISH_Client.Pages.Students.Course.Slot
+namespace EXE201_LEARNING_ENGLISH_Client.Pages.Students.Courses.Slots
 {
     public class IndexModel : PageModel
     {

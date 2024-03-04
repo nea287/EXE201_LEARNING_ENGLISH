@@ -138,6 +138,40 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
             };
         }
 
+        public ResponseResult<TeacherReponse> GetTeacher(string email)
+        {
+            TeacherReponse result;
+            try
+            {
+                result = _mapper.Map<TeacherReponse>(_teacherRepository.GetFirstOrDefault(x => x.Email.Equals(email)));
+
+                if (result == null)
+                {
+                    return new ResponseResult<TeacherReponse>()
+                    {
+                        Message = Constraints.NOT_FOUND_INFO
+                    };
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return new ResponseResult<TeacherReponse>()
+                {
+                    Message = Constraints.LOAD_INFO_FAILED
+                };
+            }
+            finally
+            {
+                lock (_teacherRepository) ;
+            }
+
+            return new ResponseResult<TeacherReponse>()
+            {
+                Value = result,
+            };
+        }
+
         public DynamicModelResponse.DynamicModelsResponse<TeacherReponse> GetTeachers(TeacherFilter request, PagingRequest paging)
         {
             (int, IQueryable<TeacherReponse>) result;

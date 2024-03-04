@@ -19,12 +19,17 @@ namespace EXE201_LEARNING_ENGLISH_Client.Pages
         }
 
         public IList<CourseViewModel> CourseList;
+        PagingRequest pagingRequest;
+        CourseFilter courseFilter;
 
         public void OnGet()
         {
             CourseList = new List<CourseViewModel>();
-            PagingRequest pagingRequest = new PagingRequest();
-            CourseFilter courseFilter = new CourseFilter();
+            pagingRequest = new PagingRequest();
+
+            //pagingRequest.pageSize = 2;
+            courseFilter = new CourseFilter();
+
             var courseList = _courseService.GetCourses(courseFilter, pagingRequest);
             foreach (var course in courseList.Results)
             {

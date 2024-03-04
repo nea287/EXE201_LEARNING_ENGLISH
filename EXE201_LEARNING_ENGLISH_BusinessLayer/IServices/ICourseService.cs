@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static EXE201_LEARNING_ENGLISH_BusinessLayer.ReponseModels.Heplers.DynamicModelResponse;
+using EXE201_LEARNING_ENGLISH_DataLayer.Models;
 
 namespace EXE201_LEARNING_ENGLISH_BusinessLayer.IServices
 {
@@ -19,5 +20,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.IServices
         public ResponseResult<CourseReponse> DeleteCourse(int id);
         public ResponseResult<CourseReponse> CreateCourse(CreateCourseRequest request);
         public DynamicModelsResponse<CourseReponse> GetCourses(CourseFilter request, PagingRequest paging);
+        // fix sau
+        public IList<Course> GetCoursesByTeacherId(int id);
     }
 }
