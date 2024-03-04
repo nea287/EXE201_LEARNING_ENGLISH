@@ -5,7 +5,7 @@ using EXE201_LEARNING_ENGLISH_Client.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace EXE201_LEARNING_ENGLISH_Client.Pages.Students.Course
+namespace EXE201_LEARNING_ENGLISH_Client.Pages.Students.Courses
 {
     public class IndexModel : PageModel
     {
@@ -19,19 +19,22 @@ namespace EXE201_LEARNING_ENGLISH_Client.Pages.Students.Course
         public IList<StudentCourseViewModel> StudentCourseViewModels { get; set; }
         private int? StudentId;
 
+        [BindProperty]
+        public StudentCourseFilter StudentCourseFilter { get; set; }
+        [BindProperty]
+        public PagingRequest PagingRequest { get; set; } 
+
         public void OnGet()
         {
             StudentCourseViewModels = new List<StudentCourseViewModel>();
             StudentId = HttpContext.Session.GetInt32("ID");
-            StudentCourseFilter filter = new StudentCourseFilter();
-            PagingRequest paging = new PagingRequest();
-            var studentCourses = _studentService.GetStudentCoursesByStudentId(filter, paging, StudentId);
-            foreach (var studentCourse in studentCourses)
+            StudentCourseFilter.StudentId = StudentId;
+            var studentCourses = _studentService.GetStudentCourses(StudentCourseFilter, PagingRequest);
+            foreach (var studentCourse in studentCourses.Results.ToList())
             {
                 StudentCourseViewModel studentCourseViewModel = new StudentCourseViewModel
                 {
                     StudentCourseId = studentCourse.StudentCourseId,
-                    CourseName = studentCourse.Course.CourseName,
                     EndDate = studentCourse.EndDate,
                     StartDate = studentCourse.StartDate,
                     Link = studentCourse.Link

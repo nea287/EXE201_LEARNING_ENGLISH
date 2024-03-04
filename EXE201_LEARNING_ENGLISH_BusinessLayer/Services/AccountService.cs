@@ -372,15 +372,15 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
             };
         }
 
-        public ResponseResult<AccountReponse> Register(CreateAccount1Request request, string code)
+        public ResponseResult<AccountReponse> Register(CreateAccountRequest request/*, string code*/)
         {
-            string codeVerify = Encoding.UTF8.GetString(_cache.Get("verify"));
+            //string codeVerify = Encoding.UTF8.GetString(_cache.Get("verify"));
             try
             {
-                if (!codeVerify.Equals(code))
-                {
-                    throw new Exception();
-                }
+                //if (!codeVerify.Equals(code))
+                //{
+                //    throw new Exception();
+                //}
 
                 var existedAccount = _repository.GetByIdByString(request.Email).Result;
                 if (existedAccount != null)

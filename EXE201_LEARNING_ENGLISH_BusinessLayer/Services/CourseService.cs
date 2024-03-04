@@ -201,6 +201,20 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
             };
         }
 
+        public IList<Course> GetCoursesByTeacherId(int id)
+        {
+            IList<Course> result = null;
+            try
+            {
+                result = _repository.GetAll(x => x.TeacherId == id).ToList();
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return result;
+        }
+
         public ResponseResult<CourseReponse> UpdateCourse(UpdateCourseRequest request, int id)
         {
             try

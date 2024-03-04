@@ -15,6 +15,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.IServices
     public interface ITeacherService
     {
         public ResponseResult<TeacherReponse> GetTeacher(int id);
+        public ResponseResult<TeacherReponse> GetTeacher(string email);
         public ResponseResult<TeacherReponse> UpdateTeacher(UpdateTeacherRequest request, int id);
         public ResponseResult<TeacherReponse> DeleteTeacher(int id);
         public ResponseResult<TeacherReponse> CreateTeacher(CreateTeacherRequest request);

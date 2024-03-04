@@ -24,7 +24,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.IServices
         public ResponseResult<StudentReponse> CreateStudent(CreateStudentRequest createStudentRequest);
         public DynamicModelsResponse<StudentReponse> GetStudents(StudentFilter request, PagingRequest paging);
         public ResponseResult<StudentCourseReponse> CreateStudentCourse(CreateStudentCourseRequest request);
-        public DynamicModelsResponse<StudentCourseReponse> GetStudentCourses(StudentFilter request, PagingRequest paging);
+        public DynamicModelsResponse<StudentCourseReponse> GetStudentCourses(StudentCourseFilter request, PagingRequest paging);
         // chỗ này fix sau
         public IList<StudentCourse> GetStudentCoursesByStudentId(StudentCourseFilter request, PagingRequest paging, int? studentId);
     }

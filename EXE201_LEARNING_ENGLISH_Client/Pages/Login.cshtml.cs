@@ -1,5 +1,6 @@
 using EXE201_LEARNING_ENGLISH_BusinessLayer.IServices;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.Services;
+using EXE201_LEARNING_ENGLISH_Client.ViewModel;
 using EXE201_LEARNING_ENGLISH_DataLayer.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -9,11 +10,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace EXE201_LEARNING_ENGLISH_Client.Pages
 {
-    public class LoginViewModel
-    {
-        public string? Email { get; set; }
-        public string? Password { get; set; }
-    }
 
     public class LoginModel : PageModel
     {
@@ -52,7 +48,10 @@ namespace EXE201_LEARNING_ENGLISH_Client.Pages
                 {
                     case 1:
                         HttpContext.Session.SetInt32("ID", (int) _studentService.GetStudent(account.Value.Email).Value.StudentId);
-                        return RedirectToPage("./Students/Course/Index");
+                        return RedirectToPage("./Students/Courses/Index");
+                    case 2:
+                        HttpContext.Session.SetInt32("ID", (int)_teacherService.GetTeacher(account.Value.Email).Value.TeacherId);
+                        return RedirectToPage("./Teachers/Courses/Index");
                 }
             }
             return Page();

@@ -1,15 +1,21 @@
 ﻿@page
-@model EXE201_LEARNING_ENGLISH_Client.Pages.Students.Course.IndexModel
+@model EXE201_LEARNING_ENGLISH_Client.Pages.Students.Courses.IndexModel
 @{
-    Layout = "~/Pages/Shared/_Layout.cshtml";
 }
+
 
 <div class="container-fluid py-5">
     <div class="container py-5">
         <div class="text-center mb-5">
-            <h5 class="text-primary text-uppercase mb-3" style="letter-spacing: 5px;">Courses</h5>
-            <h1>Our Popular Courses</h1>
+            <h5 class="text-primary text-uppercase mb-3" style="letter-spacing: 5px;">Your course</h5>
         </div>
+
+        <form method="post">
+            <input type="text" asp-for="PagingRequest.KeySearch" placeholder="Search By Course Name" />
+            <input type="text" asp-for="PagingRequest.KeySearch" placeholder="Search By Course Name" />
+            <button type="submit">Search</button>
+        </form>
+
         <div class="row">
             @foreach (var course in Model.StudentCourseViewModels)
             {
@@ -32,8 +38,10 @@
     </div>
 </div>
 
+
+
 <script>
     function redictToCourse(studentCourseId) {
-        window.location.href = './Course/Slot?CourseId=' + studentCourseId;
+        window.location.href = './Courses/Slots?CourseId=' + studentCourseId;
     }
 </script>
