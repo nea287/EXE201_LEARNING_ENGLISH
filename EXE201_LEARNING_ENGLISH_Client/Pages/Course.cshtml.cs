@@ -1,7 +1,9 @@
 using EXE201_LEARNING_ENGLISH_BusinessLayer.FilterModels;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.IServices;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Helpers;
+using EXE201_LEARNING_ENGLISH_BusinessLayer.Services;
 using EXE201_LEARNING_ENGLISH_Client.ViewModel;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -61,6 +63,20 @@ namespace EXE201_LEARNING_ENGLISH_Client.Pages
             }
 
             return Page();
+        }
+
+        public IActionResult OnPost(int courseId)
+        {
+            //if (HttpContext.Session.GetInt32("ID") == null)
+            //{
+            //    return RedirectToPage("/Login");
+            //}
+            //if (HttpContext.Session.GetInt32("ROLE") == 1)
+            //{
+            //    return RedirectToPage($"/Students/Orders/Create", courseId);
+            //}
+            //return Page();
+            return RedirectToPage("/Students/Orders/Create", new { courseId });
         }
     }
 }

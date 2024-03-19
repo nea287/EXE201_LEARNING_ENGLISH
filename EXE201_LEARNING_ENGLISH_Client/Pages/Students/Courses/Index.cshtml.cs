@@ -28,6 +28,7 @@ namespace EXE201_LEARNING_ENGLISH_Client.Pages.Students.Courses
         {
             StudentCourseViewModels = new List<StudentCourseViewModel>();
             StudentId = HttpContext.Session.GetInt32("ID");
+            StudentCourseFilter ??= new StudentCourseFilter();
             StudentCourseFilter.StudentId = StudentId;
             var studentCourses = _studentService.GetStudentCourses(StudentCourseFilter, PagingRequest);
             foreach (var studentCourse in studentCourses.Results.ToList())

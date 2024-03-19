@@ -56,7 +56,9 @@ else
                         <div class="border-top mt-4 pt-4">
                             <div class="d-flex justify-content-between">
                                 <h5 class="m-0">@string.Format("{0:N3}", @Model.CourseViewModel.UnitPrice) VND</h5>
-                                <a class="btn btn-primary" href="https://localhost:44394/Home/Payment">Book Now</a>
+                                <form method="post">
+                                    <button action="submit" asp-route-courseId="@Model.CourseViewModel.Id" class="btn btn-primary">Book Now</button>
+                                </form>                           
                             </div>
                         </div>
                     </div>

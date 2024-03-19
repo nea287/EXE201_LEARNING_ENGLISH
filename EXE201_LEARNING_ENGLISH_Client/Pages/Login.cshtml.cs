@@ -44,10 +44,11 @@ namespace EXE201_LEARNING_ENGLISH_Client.Pages
             var account = _accountService.Login(LoginViewModel.Email, LoginViewModel.Password);
             if (account != null)
             {
+                HttpContext.Session.SetInt32("ROLE", (int)account.Value.Role);
                 switch (account.Value.Role)
                 {
                     case 1:
-                        HttpContext.Session.SetInt32("ID", (int) _studentService.GetStudent(account.Value.Email).Value.StudentId);
+                        HttpContext.Session.SetInt32("ID", (int) _studentService.GetStudent(account.Value.Email).Value.StudentId);                        
                         return RedirectToPage("./Students/Courses/Index");
                     case 2:
                         HttpContext.Session.SetInt32("ID", (int)_teacherService.GetTeacher(account.Value.Email).Value.TeacherId);
