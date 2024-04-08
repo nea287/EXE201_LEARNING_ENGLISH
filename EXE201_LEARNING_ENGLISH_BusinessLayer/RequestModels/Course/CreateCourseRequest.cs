@@ -11,7 +11,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Course
     {
 
         [Required]
-        public string CourseName { get; set; }
+        public string? CourseName { get; set; }
         public string? Description { get; set; }
         public decimal? UnitPrice { get; set; }
         public int? TeacherId { get; set; }
@@ -20,5 +20,6 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Course
         public int? CategoryId { get; set; }
         public int? Status { get; set; }
         public int? VouncherId { get; set; }
+        public byte[]? Image { get; set; }
     }
 }

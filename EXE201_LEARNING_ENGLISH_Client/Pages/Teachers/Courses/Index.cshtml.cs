@@ -26,10 +26,10 @@ namespace EXE201_LEARNING_ENGLISH_Client.Pages.Teachers.Courses
                 {
                     Description = courses.Description,
                     Duration = courses.Duration,
-                    Name = courses.CourseName,
+                    CourseName = courses.CourseName,
                     NumberOfLesson = courses.NumberOfLesson,
                     UnitPrice = courses.UnitPrice,
-                    Id = courses.CourseId
+                    CourseId = courses.CourseId
                 });
             }
         }

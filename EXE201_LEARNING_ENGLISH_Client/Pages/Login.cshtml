@@ -10,7 +10,7 @@
         <div class="col-lg-5">
             <div class="card border-0">
                 <div class="card-header bg-light text-center p-4">
-                    <h1 class="m-0">Login</h1>
+                    <h1 class="m-0">Đăng nhập</h1>
                 </div>
                 <div class="card-body rounded-bottom bg-primary p-5">
                     <form method="post">
@@ -18,17 +18,21 @@
                             <input asp-for="LoginViewModel.Email" type="text" class="form-control border-0 p-4" placeholder="Email" required="required" />
                         </div>
                         <div class="form-group">
-                            <input asp-for="LoginViewModel.Password" type="password" class="form-control border-0 p-4" placeholder="Password" required="required" />
+                            <input asp-for="LoginViewModel.Password" type="password" class="form-control border-0 p-4" placeholder="Mật khẩu" required="required" />
                         </div>
                         <div>
-                            <button class="btn btn-dark btn-block border-0 py-3" type="submit">Login</button>
+                            <button class="btn btn-dark btn-block border-0 py-3" type="submit">Đăng nhập</button>
                         </div>
                     </form>
                     <br />
                     <div>
                         <div class="d-flex flex-column justify-content-start">
-                            Dont't have an account? <a asp-page="/Register" class="text-white mb-2"> Click here to register</a>
-                        </div>
+                            <a asp-page="/Register" class="text-white mb-2"> Đăng ký ngay tại đây</a>
+                            @if (ViewData["Message"] != null)
+                            {
+                                @ViewData["Message"]
+                            }
+                        </div>                    
                     </div>
                 </div>
             </div>

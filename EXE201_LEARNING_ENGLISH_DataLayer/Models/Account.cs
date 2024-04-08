@@ -24,6 +24,7 @@ namespace EXE201_LEARNING_ENGLISH_DataLayer.Models
         public string? City { get; set; }
         public string? Gender { get; set; }
         public string? PhoneNumber { get; set; }
+        public byte[]? Avatar { get; set; }
 
         public virtual FcmToken? FcmToken { get; set; }
         public virtual ICollection<Student> Students { get; set; }

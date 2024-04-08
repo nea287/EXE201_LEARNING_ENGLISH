@@ -34,8 +34,8 @@ namespace EXE201_LEARNING_ENGLISH_Client.Pages
             foreach (var course in courseList.Results)
             {
                 CourseViewModel courseViewModel = new CourseViewModel();
-                courseViewModel.Id = course.CourseId;
-                courseViewModel.Name = course.CourseName;
+                courseViewModel.CourseId = (int) course.CourseId;
+                courseViewModel.CourseName = course.CourseName;
                 courseViewModel.Description = course.Description;
                 courseViewModel.UnitPrice = course.UnitPrice;
                 courseViewModel.TeacherName = course.TeacherName;

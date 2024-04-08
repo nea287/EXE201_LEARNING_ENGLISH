@@ -21,6 +21,7 @@ namespace EXE201_LEARNING_ENGLISH_DataLayer.Models
         public int? CategoryId { get; set; }
         public int? Status { get; set; }
         public int? VouncherId { get; set; }
+        public byte[]? Image { get; set; }
 
         public virtual Category? Category { get; set; }
         public virtual Teacher? Teacher { get; set; }

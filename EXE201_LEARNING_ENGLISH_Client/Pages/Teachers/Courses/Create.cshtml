@@ -28,6 +28,15 @@
                         <div>
                             <button class="btn btn-dark btn-block border-0 py-3" type="submit">Create</button>
                         </div>
+                        <div>
+                            <select class="form-control" id="category" asp-for="SelectedCategoryId">
+                                <option value="">-- Select Category --</option>
+                                @foreach (var category in Model.Categories)
+                                {
+                                    <option value="@category.CategoryId">@category.CategoryName</option>
+                                }
+                            </select>
+                        </div>
                     </form>
                 </div>
             </div>

@@ -35,7 +35,7 @@ namespace EXE201_LEARNING_ENGLISH_DataLayer.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                 optionsBuilder.UseSqlServer("Server=MSI\\SQLEXPRESS01;Uid=sa;Pwd=1234;Database=EXE201_LEARNING_ENGLISH;TrustServerCertificate=true");
+                optionsBuilder.UseSqlServer("server = (local); database = EXE201_LEARNING_ENGLISH;uid=sa;pwd=sa;");
             }
         }
 
@@ -54,6 +54,8 @@ namespace EXE201_LEARNING_ENGLISH_DataLayer.Models
                 entity.Property(e => e.AccessTime).HasColumnType("datetime");
 
                 entity.Property(e => e.Address).HasMaxLength(200);
+
+                entity.Property(e => e.Avatar).HasColumnType("image");
 
                 entity.Property(e => e.Birthdate).HasColumnType("datetime");
 
@@ -104,6 +106,8 @@ namespace EXE201_LEARNING_ENGLISH_DataLayer.Models
                 entity.Property(e => e.CourseName).HasMaxLength(150);
 
                 entity.Property(e => e.Description).HasMaxLength(300);
+
+                entity.Property(e => e.Image).HasColumnType("image");
 
                 entity.Property(e => e.UnitPrice).HasColumnType("money");
 
@@ -276,6 +280,8 @@ namespace EXE201_LEARNING_ENGLISH_DataLayer.Models
                     .IsUnicode(false);
 
                 entity.Property(e => e.Level).HasColumnType("text");
+
+                entity.Property(e => e.TeacherCode).HasMaxLength(50);
 
                 entity.Property(e => e.TeacherName).HasMaxLength(150);
 

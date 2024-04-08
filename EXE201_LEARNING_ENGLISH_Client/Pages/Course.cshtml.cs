@@ -35,9 +35,9 @@ namespace EXE201_LEARNING_ENGLISH_Client.Pages
                 var course = _courseService.GetCourse(CourseId);
                 CourseViewModel = new CourseViewModel()
                 {
-                    Id = course.Value.CourseId,
+                    CourseId = (int) course.Value.CourseId,
                     Description = course.Value.Description,
-                    Name = course.Value.CourseName,
+                    CourseName = course.Value.CourseName,
                     TeacherName = course.Value.TeacherName,
                     UnitPrice = course.Value.UnitPrice,
                     Duration = course.Value.Duration,
@@ -53,8 +53,8 @@ namespace EXE201_LEARNING_ENGLISH_Client.Pages
                 foreach (var course in courseList.Results)
                 {
                     CourseViewModel courseViewModel = new CourseViewModel();
-                    courseViewModel.Id = course.CourseId;
-                    courseViewModel.Name = course.CourseName;
+                    courseViewModel.CourseId = (int) course.CourseId;
+                    courseViewModel.CourseName = course.CourseName;
                     courseViewModel.Description = course.Description;
                     courseViewModel.UnitPrice = course.UnitPrice;
                     courseViewModel.TeacherName = course.TeacherName;
