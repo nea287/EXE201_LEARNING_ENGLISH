@@ -25,16 +25,19 @@ namespace EXE201_LEARNING_ENGLISH_Client.Pages.Teachers.Courses
             _categoryService = categoryService;
         }
 
+        [BindProperty]
         public CreateCourseRequest CreateCourseRequest { get; set; }
         public IList<CategoryReponse> Categories { get; private set; }
 
         public void OnGet() => LoadData();
 
         public IActionResult OnPost()
-        {
+        {          
+            CreateCourseRequest.CategoryId = SelectedCategoryId;
             CreateCourseRequest.TeacherId = HttpContext.Session.GetInt32("ID");
+            CreateCourseRequest.Status = 1;
             _courseService.CreateCourse(CreateCourseRequest);
-            return RedirectToPage("/Index");
+            return RedirectToPage("/Teachers/Courses/Index");
         }
 
         public void LoadData()

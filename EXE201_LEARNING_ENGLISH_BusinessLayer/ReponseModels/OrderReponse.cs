@@ -19,6 +19,8 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.ReponseModels
         public DateTime? CheckInDate { get; set; }
         public DateTime? ApproveDate { get; set; }
         public int? VouncherId { get; set; }
+        public string? Status { get; set; }
+        public string? CourseId { get; set; }
 
         public ICollection<OrderDetailReponse>? OrderDetails { get; set; }
     }

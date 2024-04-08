@@ -13,6 +13,6 @@
         public int? CategoryId { get; set; }
         public int? Status { get; set; }
         public int? VouncherId { get; set; }
-        public byte[]? Image { get; set; }
+        public string? Image { get; set; }
     }
 }

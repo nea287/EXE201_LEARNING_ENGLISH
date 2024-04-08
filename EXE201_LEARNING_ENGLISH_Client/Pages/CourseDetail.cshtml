@@ -1,0 +1,33 @@
+﻿@page
+@model EXE201_LEARNING_ENGLISH_Client.Pages.CourseDetailModel
+@{
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4 col-md-6 mx-auto mb-4">
+            <div class="rounded overflow-hidden mb-2">
+                <img src="data:image/png;base64,@Model.CourseViewModel.Image" alt="Image" style="width: 400px; height: 200px;" / />
+                <div class="bg-secondary p-4">
+                    <div class="d-flex justify-content-between mb-3">
+                        <small class="m-0"><i class="fa fa-users text-primary mr-2"></i>@Model.CourseViewModel.TeacherName</small>
+                    </div>
+                    <a class="h5" style="color: orange; font-size: 1.5em;">@Model.CourseViewModel.CourseName</a>
+                    <div class="d-flex justify-content-between mt-2">
+                        <p>Thời gian học: @Model.CourseViewModel.Duration hours</p>
+                    </div>
+                    <p>Số buổi: @Model.CourseViewModel.NumberOfLesson</p>
+                    <a class="h5">@Model.CourseViewModel.Description</a>
+                    <div class="border-top mt-4 pt-4">
+                        <div class="d-flex justify-content-between">
+                            <h5 class="m-0">@string.Format("{0:N3}", @Model.CourseViewModel.UnitPrice) VND</h5>
+                            <form method="post">
+                                <button action="submit" asp-route-courseId="@Model.CourseViewModel.CourseId" class="btn btn-primary">Đặt ngay</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -31,16 +31,19 @@ namespace EXE201_LEARNING_ENGLISH_Client.Pages.Students.Courses
             StudentCourseFilter ??= new StudentCourseFilter();
             StudentCourseFilter.StudentId = StudentId;
             var studentCourses = _studentService.GetStudentCourses(StudentCourseFilter, PagingRequest);
-            foreach (var studentCourse in studentCourses.Results.ToList())
+            if (studentCourses.Results != null)
             {
-                StudentCourseViewModel studentCourseViewModel = new StudentCourseViewModel
+                foreach (var studentCourse in studentCourses.Results.ToList())
                 {
-                    StudentCourseId = studentCourse.StudentCourseId,
-                    EndDate = studentCourse.EndDate,
-                    StartDate = studentCourse.StartDate,
-                    Link = studentCourse.Link
-                };
-                StudentCourseViewModels.Add(studentCourseViewModel);
+                    StudentCourseViewModel studentCourseViewModel = new StudentCourseViewModel
+                    {
+                        StudentCourseId = studentCourse.StudentCourseId,
+                        EndDate = studentCourse.EndDate,
+                        StartDate = studentCourse.StartDate,
+                        Link = studentCourse.Link
+                    };
+                    StudentCourseViewModels.Add(studentCourseViewModel);
+                }
             }
         }
     }

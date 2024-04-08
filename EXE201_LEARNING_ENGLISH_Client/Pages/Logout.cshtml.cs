@@ -9,7 +9,7 @@ namespace EXE201_LEARNING_ENGLISH_Client.Pages
         {
         }
 
-        public IActionResult Logout()
+        public IActionResult OnPost()
         {
             HttpContext.Session.Clear();
             return RedirectToPage("Index");

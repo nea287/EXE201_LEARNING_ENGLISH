@@ -7,34 +7,35 @@
 <div class="container-fluid py-5">
     <div class="container py-5">
         <div class="text-center mb-5">
-            <h5 class="text-primary text-uppercase mb-3" style="letter-spacing: 5px;">Your course</h5>
+            <h5 class="text-primary text-uppercase mb-3" style="letter-spacing: 5px;">Khóa học bạn tham gia</h5>
         </div>
 
-        <form method="post">
-            <input type="text" asp-for="PagingRequest.KeySearch" placeholder="Search By Course Name" />
-            <input type="text" asp-for="PagingRequest.KeySearch" placeholder="Search By Course Name" />
-            <button type="submit">Search</button>
-        </form>
-
-        <div class="row">
-            @foreach (var course in Model.StudentCourseViewModels)
-            {
-                <div class="col-lg-4 col-md-6 mb-4" onclick="redictToCourse('@course.StudentCourseId')">
-                    <div class="rounded overflow-hidden mb-2">
-                        <img class="img-fluid" src="~/img/course-6.jpg" alt="">
-                        <div class="bg-secondary p-4">
-                            <a class="h5" style="color: orange; font-size: 1.5em;">@course.CourseName</a>
-                            <br />
-                            <a class="h5">@course.StartDate</a>
-                            <br />
-                            <a class="h5">@course.EndDate</a>
-                            <br />
-                            <a class="h5">@course.Link</a>
+        @if (Model.StudentCourseViewModels != null && Model.StudentCourseViewModels.Count != 0)
+        {
+            <div class="row">
+                @foreach (var course in Model.StudentCourseViewModels)
+                {
+                    <div class="col-lg-4 col-md-6 mb-4" onclick="redictToCourse('@course.StudentCourseId')">
+                        <div class="rounded overflow-hidden mb-2">
+                            <img class="img-fluid" src="~/img/course-6.jpg" alt="">
+                            <div class="bg-secondary p-4">
+                                <a class="h5" style="color: orange; font-size: 1.5em;">@course.CourseName</a>
+                                <br />
+                                <a class="h5">@course.StartDate</a>
+                                <br />
+                                <a class="h5">@course.EndDate</a>
+                                <br />
+                                <a class="h5">@course.Link</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-            }
-        </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="row align-items-center justify-content-center">Bạn không tham gia vào khóa học nào</div>
+        }
     </div>
 </div>
 

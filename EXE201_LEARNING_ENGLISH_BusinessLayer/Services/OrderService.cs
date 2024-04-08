@@ -54,21 +54,23 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
                 //    };
                 //}
                 #endregion
-
                 orderReponse = _mapper.Map<Order>(request);
 
                 ICollection<OrderDetail> lstOrderDetail = orderReponse.OrderDetails;
                 foreach(var e in lstOrderDetail)
                 {
                     e.FinalPrice = e.UnitPrice.Value * ((decimal)e.Discount.Value == 0 
-                        ? 1 : (decimal)e.Discount.Value);
-                    
+                        ? 1 : (decimal)e.Discount.Value);            
                 }
 
-                orderReponse.Quantity = orderReponse.OrderDetails.Count();
-                orderReponse.TotalAmount = orderReponse.OrderDetails.Sum(x => x.UnitPrice);
-                orderReponse.FinalAmount = orderReponse.OrderDetails.Sum(x => x.FinalPrice) * 
-                    ((decimal)orderReponse.Discount.Value == 0 ? 1 : (decimal)orderReponse.Discount.Value);
+                //orderReponse.Quantity = orderReponse.OrderDetails.Count();
+                //orderReponse.TotalAmount = orderReponse.OrderDetails.Sum(x => x.UnitPrice);
+                //orderReponse.FinalAmount = orderReponse.OrderDetails.Sum(x => x.FinalPrice) * 
+                //    ((decimal)orderReponse.Discount.Value == 0 ? 1 : (decimal)orderReponse.Discount.Value);
+
+                orderReponse.Quantity = 1;
+                orderReponse.TotalAmount = request.TotalAmount;
+                orderReponse.FinalAmount = request.FinalAmount * 20 / 100;
 
                 _repository.Insert(orderReponse);
                 _repository.Save();

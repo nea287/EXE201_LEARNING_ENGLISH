@@ -49,9 +49,17 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
                         result = false
                     };
                 }
-                
-                #endregion
 
+                #endregion
+                if (request.ImageFile != null && request.ImageFile.Length > 0)
+                {
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        request.ImageFile.CopyTo(memoryStream);
+                        request.Image = memoryStream.ToArray();
+                    }
+                }
+                
                 _repository.Insert(_mapper.Map<Course>(request));
                 _repository.Save();
 
@@ -156,7 +164,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
                 result= _repository.GetAll()
                     .Where(x => x.Status != 0)
                     .ProjectTo<CourseReponse>(_mapper.ConfigurationProvider)
-                    .DynamicFilter(_mapper.Map<CourseReponse>(request))
+                    /*.DynamicFilter(_mapper.Map<CourseReponse>(request))*/
                     .PagingIQueryable(paging.page, paging.pageSize, Constraints.LimitPaging, Constraints.DefaultPaging);
 
                 //result.Item1 = result1.Item1;

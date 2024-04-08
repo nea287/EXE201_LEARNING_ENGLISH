@@ -59,7 +59,8 @@ namespace EXE201_LEARNING_ENGLISH_Client.AppStarts
             CreateMap<CourseReponse, UpdateCourseRequest>().ReverseMap();
             CreateMap<CourseReponse, CourseFilter>().ReverseMap();
             CreateMap<Course, CourseReponse>()
-                .ForMember(x => x.TeacherName, opt => opt.MapFrom(dest => dest.Teacher.TeacherName));
+                .ForMember(x => x.TeacherName, opt => opt.MapFrom(dest => dest.Teacher.TeacherName))
+                .ForMember(x => x.MomoNumber, opt => opt.MapFrom(dest => dest.Teacher.MomoNumber));
             //CreateMap<CourseReponse, Course>().ForMember(x => x.Teacher.TeacherName, opt => opt.MapFrom(dest => dest.TeacherName));
             #endregion
 

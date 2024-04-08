@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -20,6 +21,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Course
         public int? CategoryId { get; set; }
         public int? Status { get; set; }
         public int? VouncherId { get; set; }
+        public IFormFile? ImageFile { get; set; }
         public byte[]? Image { get; set; }
     }
 }

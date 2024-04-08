@@ -19,6 +19,8 @@ namespace EXE201_LEARNING_ENGLISH_DataLayer.Models
         public DateTime? CheckInDate { get; set; }
         public DateTime? ApproveDate { get; set; }
         public int? VouncherId { get; set; }
+        public string? Status { get; set; }
+        public int? CourseId { get; set; }
 
         public virtual Student? Student { get; set; }
         public virtual Vouncher? Vouncher { get; set; }

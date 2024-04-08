@@ -182,6 +182,8 @@ namespace EXE201_LEARNING_ENGLISH_DataLayer.Models
 
                 entity.Property(e => e.FinalAmount).HasColumnType("money");
 
+                entity.Property(e => e.Status).HasMaxLength(50);
+
                 entity.Property(e => e.TotalAmount).HasColumnType("money");
 
                 entity.HasOne(d => d.Student)
@@ -280,6 +282,10 @@ namespace EXE201_LEARNING_ENGLISH_DataLayer.Models
                     .IsUnicode(false);
 
                 entity.Property(e => e.Level).HasColumnType("text");
+
+                entity.Property(e => e.MomoNumber)
+                    .HasMaxLength(10)
+                    .IsFixedLength();
 
                 entity.Property(e => e.TeacherCode).HasMaxLength(50);
 

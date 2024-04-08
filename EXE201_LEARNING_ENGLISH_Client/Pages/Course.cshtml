@@ -3,7 +3,7 @@
 @{
 }
 
-@if (@Model.CourseList != null)
+@* @if (@Model.CourseList != null)
 {
     <div class="container-fluid py-5">
         <div class="container py-5">
@@ -72,5 +72,85 @@ else
 <script>
     function redirectToCourseDetail(courseId) {
         window.location.href = '/Course?id=' + courseId;
+    }
+</script> *@
+
+
+@{
+    var prevDisabled = !Model.CourseList.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.CourseList.HasNextPage ? "disabled" : "";
+}
+
+<div class="container-fluid py-5">
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h5 class="text-primary text-uppercase mb-3" style="letter-spacing: 5px;">Các khóa học của chúng tôi</h5>
+        </div>
+        <div class="row">
+            <div class="col-12 mb-3">
+                <a class="btn btn-primary py-2 px-4 mr-auto" asp-page="./Create">Tạo mới</a>
+            </div>
+        </div>
+        <form asp-asp-page="./Index" method="get">
+            <div class="form-actions no-color">
+                <p>
+                    Find by name:
+                    <input type="text"
+                           name="SearchName"
+                           value="@Model.CurrentFilter" />
+                    <input type="submit"
+                           value="Search"
+                           class="btn btn-primary" />
+                    <a asp-page="./Index">Back to full List</a>
+                </p>
+            </div>
+        </form>
+        <div class="row">
+            @foreach (var course in Model.CourseList)
+            {
+                <div class="col-lg-4 col-md-6 mb-4" onclick="redirectToCourseDetail('@course.CourseId')">
+                    <div class="rounded overflow-hidden mb-2">
+                        <img src="data:image/png;base64,@course.Image" alt="Image" style="width: 400px; height: 200px;" / />
+                        <div class="bg-secondary p-4">
+                            <div class="d-flex justify-content-between mb-3">
+                                <small class="m-0"><i class="fa fa-users text-primary mr-2"></i>@course.TeacherName</small>
+                            </div>
+                            <a class="h5" style="color: orange; font-size: 1.5em;">@course.CourseName</a>
+                            <div class="d-flex justify-content-between mt-2">
+                                <p>Thời gian học: @course.Duration hours</p>
+                            </div>
+                            <p>Số buổi: @course.NumberOfLesson</p>
+                            <a class="h5">@course.Description</a>
+                            <div class="border-top mt-4 pt-4">
+                                <div class="d-flex justify-content-between">
+                                    <h5 class="m-0">@string.Format("{0:N3}", @course.UnitPrice) VND</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="row">
+            <a asp-page="./Index"
+               asp-route-pageIndex="@(Model.CourseList.PageIndex - 1)"
+               asp-route-currentFilter="@Model.CurrentFilter"
+               class="btn btn-primary @prevDisabled">
+                Previous
+            </a>
+
+            <a asp-page="./Index"
+               asp-route-pageIndex="@(Model.CourseList.PageIndex + 1)"
+               asp-route-currentFilter="@Model.CurrentFilter"
+               class="btn btn-primary @nextDisabled">
+                Next
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+    function redirectToCourseDetail(courseId) {
+        window.location.href = '/CourseDetail/?id=' + courseId;
     }
 </script>

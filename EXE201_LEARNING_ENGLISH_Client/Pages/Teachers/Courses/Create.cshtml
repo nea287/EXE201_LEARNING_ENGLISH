@@ -12,21 +12,21 @@
                     <h1 class="m-0">Login</h1>
                 </div>
                 <div class="card-body rounded-bottom bg-primary p-5">
-                    <form method="post">
+                    <form method="post" enctype="multipart/form-data">
                         <div class="form-group">
-                            <input asp-for="CreateCourseRequest.CourseName" type="text" class="form-control border-0 p-4" placeholder="Email" required="required" />
+                            <input asp-for="CreateCourseRequest.CourseName" type="text" class="form-control border-0 p-4" placeholder="Tên khóa học mới" required="required" />
                         </div>
                         <div class="form-group">
-                            <input asp-for="CreateCourseRequest.Description" type="text" class="form-control border-0 p-4" placeholder="Email" required="required" />
+                            <input asp-for="CreateCourseRequest.Description" type="text" class="form-control border-0 p-4" placeholder="Chú thích" required="required" />
                         </div>
                         <div class="form-group">
-                            <input asp-for="CreateCourseRequest.UnitPrice" type="number" class="form-control border-0 p-4" placeholder="Email" required="required" />
+                            <input asp-for="CreateCourseRequest.UnitPrice" type="number" class="form-control border-0 p-4" placeholder="Đơn giá" required="required" />
                         </div>
                         <div class="form-group">
-                            <input asp-for="CreateCourseRequest.NumberOfLesson" type="number" class="form-control border-0 p-4" placeholder="Email" required="required" />
-                        </div>
-                        <div>
-                            <button class="btn btn-dark btn-block border-0 py-3" type="submit">Create</button>
+                            <input asp-for="CreateCourseRequest.NumberOfLesson" type="number" class="form-control border-0 p-4" placeholder="Số buổi" required="required" />
+                        </div>                        
+                        <div class="form-group">
+                            <input asp-for="CreateCourseRequest.Duration" type="number" class="form-control border-0 p-4" placeholder="Thời gian học mỗi buổi" required="required" />
                         </div>
                         <div>
                             <select class="form-control" id="category" asp-for="SelectedCategoryId">
@@ -36,6 +36,14 @@
                                     <option value="@category.CategoryId">@category.CategoryName</option>
                                 }
                             </select>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CreateCourseRequest.ImageFile"></label>
+                            <input asp-for="CreateCourseRequest.ImageFile" type="file" class="form-control-file" />
+                            <span asp-validation-for="CreateCourseRequest.ImageFile" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <button class="btn btn-dark btn-block border-0 py-3" type="submit">Create</button>
                         </div>
                     </form>
                 </div>

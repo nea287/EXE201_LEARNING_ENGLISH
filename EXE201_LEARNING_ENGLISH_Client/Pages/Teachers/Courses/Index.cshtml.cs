@@ -1,7 +1,11 @@
+using EXE201_LEARNING_ENGLISH_BusinessLayer.FilterModels;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.IServices;
+using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Helpers;
 using EXE201_LEARNING_ENGLISH_Client.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using System.Drawing.Printing;
 
 namespace EXE201_LEARNING_ENGLISH_Client.Pages.Teachers.Courses
 {
@@ -14,12 +18,13 @@ namespace EXE201_LEARNING_ENGLISH_Client.Pages.Teachers.Courses
             _courseService = courseService;
         }
 
-        public IList<CourseViewModel> CourseList { get; set; }
+        public string CurrentFilter { get; set; }
+        public PaginatedList<CourseViewModel> CourseList { get; set; }
 
-        public void OnGet()
+        public void OnGet(string? SearchName, int? pageIndex)
         {
             int teacherId = (int) HttpContext.Session.GetInt32("ID");
-            CourseList = new List<CourseViewModel>();
+            CourseList = new();
             foreach (var courses in _courseService.GetCoursesByTeacherId(teacherId))
             {
                 CourseList.Add(new CourseViewModel
@@ -29,9 +34,16 @@ namespace EXE201_LEARNING_ENGLISH_Client.Pages.Teachers.Courses
                     CourseName = courses.CourseName,
                     NumberOfLesson = courses.NumberOfLesson,
                     UnitPrice = courses.UnitPrice,
-                    CourseId = courses.CourseId
+                    CourseId = courses.CourseId,
+                    Image = Convert.ToBase64String(courses.Image),
+                    TeacherName = courses.Teacher.TeacherName
                 });
             }
+            IQueryable<CourseViewModel> courseIQs = CourseList.AsQueryable();
+            if (!String.IsNullOrEmpty(SearchName))
+                courseIQs = courseIQs.Where(s => s.CourseName.Contains(SearchName));
+            CourseList = PaginatedList<CourseViewModel>.Create(
+                courseIQs.AsNoTracking(), pageIndex ?? 1, 3);
         }
     }
 }

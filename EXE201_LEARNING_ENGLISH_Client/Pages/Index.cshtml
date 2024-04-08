@@ -162,13 +162,16 @@
             {
                 <div class="col-lg-4 col-md-6 mb-4" onclick="redirectToCourseDetail('@course.CourseId')">
                     <div class="rounded overflow-hidden mb-2">
-                        <img class="img-fluid" src="img/course-6.jpg" alt="">
+                        <img src="data:image/png;base64,@course.Image" alt="Image" style="width: 400px; height: 200px;" / />
                         <div class="bg-secondary p-4">
                             <div class="d-flex justify-content-between mb-3">
                                 <small class="m-0"><i class="fa fa-users text-primary mr-2"></i>@course.TeacherName</small>
                             </div>
                             <a class="h5" style="color: orange; font-size: 1.5em;">@course.CourseName</a>
-                            <br />
+                            <div class="d-flex justify-content-between mt-2">
+                                <p>Thời gian học: @course.Duration hours</p>
+                            </div>
+                            <p>Số buổi: @course.NumberOfLesson</p>
                             <a class="h5">@course.Description</a>
                             <div class="border-top mt-4 pt-4">
                                 <div class="d-flex justify-content-between">
@@ -185,7 +188,7 @@
 
 <script>
     function redirectToCourseDetail(courseId) {
-        window.location.href = '/Course?id=' + courseId;
+        window.location.href = '/CourseDetail?id=' + courseId;
     }
 </script>
 

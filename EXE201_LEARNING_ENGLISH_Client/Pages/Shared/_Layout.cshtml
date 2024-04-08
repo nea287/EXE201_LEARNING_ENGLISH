@@ -101,11 +101,11 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav py-0">
-                            <a href="index.html" class="nav-item nav-link active">Trang chủ</a>
-                            <a href="about.html" class="nav-item nav-link">Về chúng tôi</a>
-                            <a href="course.html" class="nav-item nav-link">Các khóa học</a>
-                            <a href="teacher.html" class="nav-item nav-link">Các thầy cô</a>
-                            <a href="contact.html" class="nav-item nav-link">Liên hệ</a>
+                            <a asp-page="/Index" class="nav-item nav-link active">Trang chủ</a>
+                            <a asp-page="/About" class="nav-item nav-link">Về chúng tôi</a>
+                            <a asp-page="/Course" class="nav-item nav-link">Các khóa học</a>
+                            <a asp-page="/Staff" class="nav-item nav-link">Các thầy cô</a>
+                            <a asp-page="/Contact" class="nav-item nav-link">Liên hệ</a>
                         </div>
                         @if(Context.Session.GetString("EMAIL") != null)
                         {

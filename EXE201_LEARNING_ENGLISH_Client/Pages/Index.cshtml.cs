@@ -2,6 +2,7 @@
 using EXE201_LEARNING_ENGLISH_BusinessLayer.IServices;
 using EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Helpers;
 using EXE201_LEARNING_ENGLISH_Client.ViewModel;
+using EXE201_LEARNING_ENGLISH_DataLayer.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -25,11 +26,15 @@ namespace EXE201_LEARNING_ENGLISH_Client.Pages
         public void OnGet()
         {
             CourseList = new List<CourseViewModel>();
-            pagingRequest = new PagingRequest();
+            pagingRequest = new PagingRequest()
+            {
+                page = 1,
+                pageSize = 6
+            };
 
             //pagingRequest.pageSize = 2;
             courseFilter = new CourseFilter();
-
+            
             var courseList = _courseService.GetCourses(courseFilter, pagingRequest);
             foreach (var course in courseList.Results)
             {
@@ -39,6 +44,9 @@ namespace EXE201_LEARNING_ENGLISH_Client.Pages
                 courseViewModel.Description = course.Description;
                 courseViewModel.UnitPrice = course.UnitPrice;
                 courseViewModel.TeacherName = course.TeacherName;
+                courseViewModel.Image = Convert.ToBase64String(course.Image);
+                courseViewModel.Duration = course.Duration;
+                courseViewModel.NumberOfLesson = course.NumberOfLesson;
                 CourseList.Add(courseViewModel);
             }
         }

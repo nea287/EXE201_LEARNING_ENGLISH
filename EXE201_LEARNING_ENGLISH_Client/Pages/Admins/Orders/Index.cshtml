@@ -1,0 +1,88 @@
+﻿@page
+@model EXE201_LEARNING_ENGLISH_Client.Pages.Admins.Orders.IndexModel
+@{
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                OrderId
+            </th>
+            <th>
+                Total Amount
+            </th>
+            <th>
+                Final Amount
+            </th>           
+            <th>
+                Check In Date
+            </th>
+            <th>
+                Approved Date
+            </th>
+            <th>
+                Status
+            </th>
+            <th>
+                Teacher momo
+            </th>
+            <th>
+                Action
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.OrderViewModels)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FinalAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CheckInDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ApproveDate)
+                </td>                
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MomoNumber)
+                </td>
+                <td>
+                    @if (item.ApproveDate == null)
+                    {
+                        <form method="post" asp-page-handler="Update" asp-route-id="@item.OrderId">
+                            <input type="hidden" name="id" value="@item.OrderId" />
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </form>
+                    }
+                </td>            
+            </tr>
+        }
+    </tbody>
+</table>
+
+@{
+    var prevDisabled = !Model.OrderViewModels.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.OrderViewModels.HasNextPage ? "disabled" : "";
+}
+
+<a asp-page="./Index"
+   asp-route-pageIndex="@(Model.OrderViewModels.PageIndex - 1)"
+   class="btn btn-primary @prevDisabled">
+    Previous
+</a>
+<a asp-page="./Index"
+   asp-route-pageIndex="@(Model.OrderViewModels.PageIndex + 1)"
+   class="btn btn-primary @nextDisabled">
+    Next
+</a>

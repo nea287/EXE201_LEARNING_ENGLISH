@@ -20,6 +20,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.FilterModels
         public int? CategoryId { get; set; }
         public int? Status { get; set; }
         public int? VouncherId { get; set; }
+        public byte[]? Image { get; set; }
         public ICollection<OrderDetailFilter>? OrderDetails { get; set; }
         public ICollection<StudentCourseFilter>? StudentCourses { get; set; }
     }
