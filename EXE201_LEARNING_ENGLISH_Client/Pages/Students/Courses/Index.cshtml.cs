@@ -30,17 +30,18 @@ namespace EXE201_LEARNING_ENGLISH_Client.Pages.Students.Courses
             StudentId = HttpContext.Session.GetInt32("ID");
             StudentCourseFilter ??= new StudentCourseFilter();
             StudentCourseFilter.StudentId = StudentId;
-            var studentCourses = _studentService.GetStudentCourses(StudentCourseFilter, PagingRequest);
-            if (studentCourses.Results != null)
+            var studentCourses = _studentService.GetStudentCoursesByStudentId(StudentId);
+            if (studentCourses != null)
             {
-                foreach (var studentCourse in studentCourses.Results.ToList())
+                foreach (var studentCourse in studentCourses.ToList())
                 {
                     StudentCourseViewModel studentCourseViewModel = new StudentCourseViewModel
                     {
                         StudentCourseId = studentCourse.StudentCourseId,
                         EndDate = studentCourse.EndDate,
                         StartDate = studentCourse.StartDate,
-                        Link = studentCourse.Link
+                        Link = studentCourse.Link,
+                        CourseName = studentCourse.Course.CourseName
                     };
                     StudentCourseViewModels.Add(studentCourseViewModel);
                 }

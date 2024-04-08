@@ -17,6 +17,7 @@ namespace EXE201_LEARNING_ENGLISH_DataLayer.Models
         public DateTime? EndDate { get; set; }
         public string? Link { get; set; }
 
+
         public virtual Course? Course { get; set; }
         public virtual Student? Student { get; set; }
         public virtual ICollection<Slot> Slots { get; set; }

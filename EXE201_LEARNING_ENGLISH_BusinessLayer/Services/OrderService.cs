@@ -70,7 +70,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
 
                 orderReponse.Quantity = 1;
                 orderReponse.TotalAmount = request.TotalAmount;
-                orderReponse.FinalAmount = request.FinalAmount * 20 / 100;
+                orderReponse.FinalAmount = request.FinalAmount;
 
                 _repository.Insert(orderReponse);
                 _repository.Save();
@@ -236,22 +236,22 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.Services
 
                 ICollection<OrderDetail> lstOrderDetail = new List<OrderDetail>();
 
-                foreach(var orderDetail in request.OrderDetails)
-                {
-                    OrderDetail data = new OrderDetail()
-                    {
-                        Discount = orderDetail.Discount,
-                        OrderDate = orderDetail.OrderDate,
-                        CourseId = courseId,
-                        FinalPrice = orderDetail.FinalPrice,
-                        UnitPrice = orderDetail.UnitPrice,
-                    };
+                //foreach(var orderDetail in request.OrderDetails)
+                //{
+                //    OrderDetail data = new OrderDetail()
+                //    {
+                //        Discount = orderDetail.Discount,
+                //        OrderDate = orderDetail.OrderDate,
+                //        CourseId = courseId,
+                //        FinalPrice = orderDetail.FinalPrice,
+                //        UnitPrice = orderDetail.UnitPrice,
+                //    };
 
-                    lstOrderDetail.Add(data);
-                }
+                //    lstOrderDetail.Add(data);
+                //}
 
-                existedOrder.OrderDetails = lstOrderDetail;
-
+                // existedOrder.OrderDetails = lstOrderDetail;
+                existedOrder.Status = "APPROVED";
                 _repository.UpdateById(existedOrder, id);
                 _repository.Save();
 

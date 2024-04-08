@@ -21,6 +21,7 @@ namespace EXE201_LEARNING_ENGLISH_BusinessLayer.RequestModels.Order
         public DateTime? ApproveDate { get; set; }
         public int? VouncherId { get; set; }
         public string? Status { get; set; }
+        public int? CourseId { get; set; }
         public ICollection<CreateOrderDetailOrderRequest>? OrderDetails { get; set; }
     }
 }

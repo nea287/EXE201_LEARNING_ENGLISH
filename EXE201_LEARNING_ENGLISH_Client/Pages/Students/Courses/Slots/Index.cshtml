@@ -11,21 +11,39 @@
             <h1>Our Popular Courses</h1>
         </div>
         <div class="row">
-            @foreach (var slot in Model.SlotViewModels)
-            {
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="rounded overflow-hidden mb-2">
-                        <img class="img-fluid" src="~/img/course-6.jpg" alt="">
-                        <div class="bg-secondary p-4">
-                            <a class="h5">@slot.StartTime</a>
-                            <br />
-                            <a class="h5">@slot.EndTime</a>
-                            <br />
-                            <a class="h5">@slot.IsAttend</a>
-                        </div>
-                    </div>
-                </div>
-            }
+            <table class="table">
+                <thead>
+                    <tr>
+                    <tr>
+                        <th>
+                            Start Date
+                        </th>
+                        <th>
+                            End Date
+                        </th>
+                        <th>
+                            Is Attended
+                        </th>
+                    </tr>
+                    </tr>
+                </thead>
+                <tbody>
+                        @foreach (var item in Model.SlotViewModels)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StartTime)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EndTime)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IsAttend)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

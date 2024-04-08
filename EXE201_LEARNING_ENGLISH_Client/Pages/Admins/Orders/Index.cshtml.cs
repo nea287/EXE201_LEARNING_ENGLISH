@@ -10,6 +10,7 @@ namespace EXE201_LEARNING_ENGLISH_Client.Pages.Admins.Orders
 {
     public class IndexModel : PageModel
     {
+        private readonly IStudentService _studentService;
         private readonly IOrderService _orderSerivce;
         private readonly ICourseService _courseService;
         [BindProperty]
@@ -36,7 +37,7 @@ namespace EXE201_LEARNING_ENGLISH_Client.Pages.Admins.Orders
                 Quantity = 1,
                 StudentId = order.StudentId,
                 TotalAmount = order.TotalAmount,
-                VouncherId = order.VouncherId
+                VouncherId = order.VouncherId,
             };
             _orderSerivce.UpdateOrder(request, id, Int32.Parse(order.CourseId));
             return RedirectToPage("/Admins/Orders/Index");

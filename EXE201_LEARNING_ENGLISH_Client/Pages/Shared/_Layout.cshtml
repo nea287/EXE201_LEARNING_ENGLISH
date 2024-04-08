@@ -102,10 +102,15 @@
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav py-0">
                             <a asp-page="/Index" class="nav-item nav-link active">Trang chủ</a>
-                            <a asp-page="/About" class="nav-item nav-link">Về chúng tôi</a>
                             <a asp-page="/Course" class="nav-item nav-link">Các khóa học</a>
-                            <a asp-page="/Staff" class="nav-item nav-link">Các thầy cô</a>
-                            <a asp-page="/Contact" class="nav-item nav-link">Liên hệ</a>
+                            @if (Context.Session.GetString("ROLE") != null)
+                            {
+                                if (Context.Session.GetInt32("ID") == 1)
+                                {
+                                    <a asp-page="/Students/Courses/Index" class="nav-item nav-link">Các khóa học của bạn</a>
+                                    <a asp-page="/Students/Courses/Index" class="nav-item nav-link">Các slot học của bạn</a>
+                                }
+                            }
                         </div>
                         @if(Context.Session.GetString("EMAIL") != null)
                         {

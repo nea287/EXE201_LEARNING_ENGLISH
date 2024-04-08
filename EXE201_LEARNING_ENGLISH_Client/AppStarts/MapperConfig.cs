@@ -116,6 +116,7 @@ namespace EXE201_LEARNING_ENGLISH_Client.AppStarts
             CreateMap<StudentCourse, UpdateStudentCourseRequest>().ReverseMap();
             CreateMap<StudentCourseReponse, UpdateStudentCourseRequest>().ReverseMap();
             CreateMap<StudentCourseReponse, CreateStudentCourseRequest>().ReverseMap();
+            CreateMap<StudentCourseReponse, StudentCourseFilter>().ReverseMap();
             #endregion
 
             #region Teacher
